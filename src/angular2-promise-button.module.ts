@@ -1,17 +1,16 @@
 import {NgModule} from '@angular/core';
 
-import {Angular2PromiseButtonComponent} from './angular2-promise-button.component';
+import {PromiseBtnDirective} from './promise-btn.directive';
 
 @NgModule({
   declarations: [
-    Angular2PromiseButtonComponent,
+    PromiseBtnDirective,
   ],
   imports: [],
   exports: [
-    Angular2PromiseButtonComponent,
+    PromiseBtnDirective,
   ],
-  providers: [],
-  bootstrap: [Angular2PromiseButtonComponent]
+  providers: []
 })
 export class Angular2PromiseButtonModule {
 }
