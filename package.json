@@ -1,6 +1,6 @@
 {
   "name": "angular2-promise-buttons",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "license": "MIT",
   "scripts": {
     "demo.serve": "ng serve",
@@ -17,7 +17,7 @@
     "pretest": "run-s lint build link",
     "test": "ng test -sr",
     "test-coverage": "ng test -sr -cc",
-    "version": "npm run flow.changelog && git add -A",
+    "version": "npm run release.changelog && git add -A",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
