@@ -5,7 +5,7 @@
   "scripts": {
     "demo.serve": "ng serve",
     "demo.gh-pages": "run-s demo.build && gh-pages -d demo/dist",
-    "demo.build": "ng build -prod",
+    "demo.build": "ng build -prod --aot",
     "demo.deploy": "run-s build demo.build demo.gh-pages",
     "release.changelog": "conventional-changelog -i CHANGELOG.md -s -p angular",
     "release.github-release": "conventional-github-releaser -p angular",
