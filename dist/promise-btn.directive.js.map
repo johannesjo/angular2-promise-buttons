@@ -1,0 +1,1 @@
+{"version":3,"file":"promise-btn.directive.js","sourceRoot":"","sources":["../src/promise-btn.directive.ts"],"names":[],"mappings":";;;;;;;;;;;AAAA,sCAAoD;AAKpD,IAAa,mBAAmB;IAE9B,6BAAY,EAAc;QACxB,EAAE,CAAC,aAAa,CAAC,SAAS,GAAG,aAAa,CAAC;IAC7C,CAAC;IAEH,0BAAC;AAAD,CAAC,AAND,IAMC;AANY,mBAAmB;IAH/B,gBAAS,CAAC;QACT,QAAQ,EAAE,cAAc;KACzB,CAAC;qCAGgB,iBAAU;GAFf,mBAAmB,CAM/B;AANY,kDAAmB"}
