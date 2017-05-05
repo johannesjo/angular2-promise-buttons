@@ -10,7 +10,7 @@ System.register(["@angular/core"], function (exports_1, context_1) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
     var __moduleName = context_1 && context_1.id;
-    var core_1, PromiseBtnDirective;
+    var core_1, Angular2PromiseButtonComponent;
     return {
         setters: [
             function (core_1_1) {
@@ -18,20 +18,23 @@ System.register(["@angular/core"], function (exports_1, context_1) {
             }
         ],
         execute: function () {
-            PromiseBtnDirective = (function () {
-                function PromiseBtnDirective(el) {
-                    el.nativeElement.innerHTML = 'xxxxxxxxxxx';
+            Angular2PromiseButtonComponent = (function () {
+                function Angular2PromiseButtonComponent() {
                 }
-                return PromiseBtnDirective;
+                Angular2PromiseButtonComponent.prototype.ngOnInit = function () {
+                };
+                return Angular2PromiseButtonComponent;
             }());
-            PromiseBtnDirective = __decorate([
-                core_1.Directive({
-                    selector: '[promiseBtn]'
+            Angular2PromiseButtonComponent = __decorate([
+                core_1.Component({
+                    selector: 'app-angular2-promise-button',
+                    templateUrl: './angular2-promise-button.component.html',
+                    styleUrls: ['./angular2-promise-button.component.css']
                 }),
-                __metadata("design:paramtypes", [core_1.ElementRef])
-            ], PromiseBtnDirective);
-            exports_1("PromiseBtnDirective", PromiseBtnDirective);
+                __metadata("design:paramtypes", [])
+            ], Angular2PromiseButtonComponent);
+            exports_1("Angular2PromiseButtonComponent", Angular2PromiseButtonComponent);
         }
     };
 });
-//# sourceMappingURL=promise-btn.directive.js.map
+//# sourceMappingURL=angular2-promise-button.component.js.map
