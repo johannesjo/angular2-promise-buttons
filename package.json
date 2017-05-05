@@ -22,6 +22,11 @@
   "main": "dist/index.js",
   "module": "dist/index.js",
   "typings": "dist/index.d.ts",
+  "files": [
+    "dist/**/*",
+    "LICENCE",
+    "*.md"
+  ],
   "peerDependencies": {
     "@angular/core": "^4.0.0"
   },
