@@ -6,7 +6,7 @@
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "sourceMap": false,
+    "sourceMap": true,
     "noEmitHelpers": false,
     "noImplicitAny": true,
     "declaration": true,
@@ -14,10 +14,11 @@
     "stripInternal": true,
     "noUnusedLocals": false,
     "noUnusedParameters": false,
-    "lib": ["dom", "es6"],
+    "lib": [
+      "dom",
+      "es6"
+    ],
     "types": [
-      "jasmine",
-      "webpack"
     ],
     "typeRoots": [
       "../node_modules/@types"
@@ -28,10 +29,9 @@
   ],
   "files": [
     "../scripts/typings.d.ts",
-    "./ng2-select.ts",
     "./index.ts"
   ],
   "angularCompilerOptions": {
-    "genDir": "../temp/factories"
+    "genDir": "../tmp/factories"
   }
 }

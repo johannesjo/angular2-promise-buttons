@@ -1,4 +1,4 @@
-import { Angular2PromiseButtonModule } from '../../../src/angular2-promise-button.module';
+import { Angular2PromiseButtonModule } from '../../../src/index';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
