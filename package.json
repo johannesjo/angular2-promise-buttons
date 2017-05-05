@@ -15,7 +15,7 @@
     "start": "run-s dev",
     "test": "ng test -sr",
     "test-coverage": "ng test -sr -cc",
-    "version": "run-s release.changelog && git add -A",
+    "version": "run-s build release.changelog && git add -A",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
