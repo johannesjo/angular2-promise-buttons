@@ -34,28 +34,13 @@
 
 
 <h3>Inside a form</h3>
-<form ng-submit="submit()">
+<form (submit)="submit()"
+      novalidate>
   <button class="btn btn-primary"
           type="submit"
           [promiseBtn]="submitPromise">Submit
   </button>
 </form>
 
-<h3>ngClick only</h3>
-<button class="btn btn-primary"
-        (click)="successDirectlyReturnedPromise()"
-        [promiseBtn]>Success after delay
-</button>
-<button class="btn btn-primary"
-        (click)="chain()"
-        [promiseBtn]>For promise chain
-</button>
 
-<h3>ngSubmit only inside form</h3>
-<form ng-submit="submitDirectlyReturnPromise()"
-      [promiseBtn]>
-  <button class="btn btn-primary"
-          type="submit">Submit promise
-  </button>
-  <button type="button">I'm just a button</button>
-</form>
+

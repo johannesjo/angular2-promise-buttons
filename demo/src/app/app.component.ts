@@ -43,17 +43,12 @@ export class AppComponent {
 
   constructor() {
     this.endlessInitial();
-    // this.promiseIndex = 0;
   }
 
   success($event: any): Promise<any> {
     console.log($event);
     this.successPromise = FAKE_FACT.success();
     return this.successPromise;
-  }
-
-  successDirectlyReturnedPromise(): Promise<any> {
-    return FAKE_FACT.success();
   }
 
   error() {
@@ -73,10 +68,6 @@ export class AppComponent {
 
   submit() {
     this.submitPromise = FAKE_FACT.success();
-  }
-
-  submitDirectlyReturnPromise(): Promise<any> {
-    return FAKE_FACT.success();
   }
 
   chain() {
