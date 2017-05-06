@@ -18,7 +18,11 @@ export class AppComponent {
 
   onClick() {
     this.onClickPromise = new Promise((fulfill, reject) => {
-      setTimeout(fulfill, 3000);
+      setTimeout(() => {
+        console.log('PROMISE DONE');
+        fulfill();
+      }, 3000);
     });
+    console.log('PROMISE', this.onClickPromise);
   }
 }

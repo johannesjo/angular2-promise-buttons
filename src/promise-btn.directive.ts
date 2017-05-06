@@ -1,4 +1,4 @@
-import {AfterContentInit, Directive, ElementRef, Input, OnChanges, OnDestroy} from '@angular/core';
+import {AfterContentInit, Directive, ElementRef, Input, OnDestroy} from '@angular/core';
 
 const DEFAULT_CFG = {
   spinnerTpl: '<span class="btn-spinner"></span>',
@@ -19,7 +19,7 @@ const DEFAULT_CFG = {
   selector: '[promiseBtn]'
 })
 
-export class PromiseBtnDirective implements OnChanges, OnDestroy, AfterContentInit {
+export class PromiseBtnDirective implements OnDestroy, AfterContentInit {
   cfg: any;
   // later initialized via initPromiseWatcher()
   promiseWatcher: any;
@@ -29,14 +29,16 @@ export class PromiseBtnDirective implements OnChanges, OnDestroy, AfterContentIn
   isMinDurationTimeoutDone: boolean;
   // boolean to determine if promise was resolved
   isPromiseDone: boolean;
+  // boolean to determine button was initialized
+  isInitialized: boolean;
   // the promise button directive element
   el: any;
   // the promise button button element
   btnEl: any;
-  // a pointer to the old value of promiseOrFnExpr
-  lastPromiseOrFnExpr: Promise<any>;
+  // a pointer to the old value of promise
+  lastPromise: Promise<any>;
   // the promise itself or a function expression
-  @Input('promiseBtn') promiseOrFnExpr: Promise<any>;
+  promise: Promise<any>;
 
   constructor(el: ElementRef) {
     // provide configuration
@@ -46,106 +48,86 @@ export class PromiseBtnDirective implements OnChanges, OnDestroy, AfterContentIn
     this.el = el.nativeElement;
   }
 
+  @Input()
+  set promiseBtn(promise: Promise<any>) {
+    this.promise = promise;
+    this.checkAndInitPromiseWatcher(this.el);
+  }
+
   ngAfterContentInit() {
     // check if there is any value given via attrs.promiseBtn
-    if (!this.promiseOrFnExpr) {
-      // handle ngClick function directly returning a promise
-      if (this.el.hasAttribute(this.cfg.CLICK_ATTR)) {
-        this.appendSpinnerTpl(this.el);
-        this.addHandlersForCurrentBtnOnly(this.el);
-        this.initHandlingOfViewFunctionsReturningAPromise(this.cfg.CLICK_EVENT, this.cfg.CLICK_ATTR, this.el);
-      } else if (this.el.hasAttribute(this.cfg.SUBMIT_ATTR)) {
-        // handle ngSubmit function directly returning a promise
-        // get child submits for form elements
-        const btnElements = this.getSubmitBtnChildrenForForm(this.el);
+    // if (!this.promise) {
+    //   // handle ngClick function directly returning a promise
+    //   if (this.el.hasAttribute(this.cfg.CLICK_ATTR)) {
+    //     this.appendSpinnerTpl(this.el);
+    //     this.addHandlersForCurrentBtnOnly(this.el);
+    //     this.initHandlingOfViewFunctionsReturningAPromise(this.cfg.CLICK_EVENT, this.cfg.CLICK_ATTR, this.el);
+    //   } else if (this.el.hasAttribute(this.cfg.SUBMIT_ATTR)) {
+    //     // handle ngSubmit function directly returning a promise
+    //     // get child submits for form elements
+    //     const btnElements = this.getSubmitBtnChildrenForForm(this.el);
+    //
+    //     this.appendSpinnerTpl(btnElements);
+    //     this.addHandlersForCurrentBtnOnly(btnElements);
+    //     this.initHandlingOfViewFunctionsReturningAPromise(this.cfg.SUBMIT_EVENT, this.cfg.SUBMIT_ATTR, btnElements);
+    //   }
+    // } else if (this.promise && this.promise.then) {
+    // handle promises passed via promiseBtn attribute
+    // this.appendSpinnerTpl(this.el);
+    // this.addHandlersForCurrentBtnOnly(this.el);
+    // handle promise passed directly via attribute as variable
+    // this.initPromiseWatcher(() => {
+    //   return this.promise;
+    // }, this.el);
 
-        this.appendSpinnerTpl(btnElements);
-        this.addHandlersForCurrentBtnOnly(btnElements);
-        this.initHandlingOfViewFunctionsReturningAPromise(this.cfg.SUBMIT_EVENT, this.cfg.SUBMIT_ATTR, btnElements);
-      }
-    } else if (this.promiseOrFnExpr && this.promiseOrFnExpr.then) {
-      // handle promises passed via promiseBtn attribute
-      this.btnEl = this.el;
-      this.appendSpinnerTpl(this.el);
-      this.addHandlersForCurrentBtnOnly(this.el);
-      // handle promise passed directly via attribute as variable
-      // this.initPromiseWatcher(() => {
-      //   return this.promiseOrFnExpr;
-      // }, this.el);
+    // needs an initial trigger
 
-      // needs an initial trigger
-    }
+    // }
 
-    console.log('ngAfterContentInit');
 
+    this.appendSpinnerTpl(this.el);
+    this.addHandlersForCurrentBtnOnly(this.el);
 
     // trigger changes once
-    this.ngOnChanges();
+    this.checkAndInitPromiseWatcher(this.el);
   }
 
 
   ngOnDestroy() {
-    // // cleanup
-    // scope.$on('$destroy', function() {
-    //   $timeout.cancel(minDurationTimeout);
-    // });
+    // cleanup
+    if (this.minDurationTimeout) {
+      clearTimeout(this.minDurationTimeout);
+    }
   }
 
-  ngOnChanges(changes?: any) {
-    console.log(changes && this.btnEl && this.promiseOrFnExpr);
-    console.log(changes, this.btnEl, this.promiseOrFnExpr);
-    console.log(this.btnEl);
+  prepareBtnEl(btnEl: any) {
+    // handle promises passed via promiseBtn attribute
+    this.appendSpinnerTpl(btnEl);
+    this.addHandlersForCurrentBtnOnly(btnEl);
+  }
 
-    console.log(this.lastPromiseOrFnExpr === this.promiseOrFnExpr);
-
-    const isSamePromise = (this.lastPromiseOrFnExpr === this.promiseOrFnExpr);
-    if (this.btnEl && this.promiseOrFnExpr && !isSamePromise) {
+  checkAndInitPromiseWatcher(btnEl: any) {
+    console.log('checkAndInitPromiseWatcher', btnEl, this.promise);
+    const isSamePromise = (this.lastPromise === this.promise);
+    if (btnEl && this.promise) {
       if (!this.promiseWatcher) {
-        this.initPromiseHandler(this.promiseOrFnExpr, this.btnEl);
+        this.initPromiseHandler(this.promise, btnEl);
       }
-      this.lastPromiseOrFnExpr = this.promiseOrFnExpr;
+      this.lastPromise = this.promise;
     }
-
-    //   this.isMinDurationTimeoutDone = false;
-    //   this.isPromiseDone = false;
-    //
-    //   // create timeout if option is set
-    //   if (this.cfg.minDuration) {
-    //     minDurationTimeout = $timeout(function () {
-    //       this.isMinDurationTimeoutDone = true;
-    //       handleLoadingFinished(btnEl);
-    //     }, this.cfg.minDuration);
-    //   }
-    //
-    //   // for regular promises
-    //   if (mVal && mVal.then) {
-    //     initLoadingState(btnEl);
-    //     mVal.finally(function () {
-    //       this.isPromiseDone = true;
-    //       handleLoadingFinished(btnEl);
-    //     });
-    //   }
-    //   // for $resource
-    //   else if (mVal && mVal.$promise) {
-    //     initLoadingState(btnEl);
-    //     mVal.$promise.finally(function () {
-    //       this.isPromiseDone = true;
-    //       handleLoadingFinished(btnEl);
-    //     });
-    //   }
-
   }
 
   addClass(el: any, classNameToAdd: string) {
     el.className += ' ' + classNameToAdd;
+    el.className = el.className.trim();
   }
 
   removeClass(el: any, classNameToRemove: string) {
-    let elClass = ' ' + el.className + ' ';
-    while (elClass.indexOf(' ' + classNameToRemove + ' ') !== -1) {
-      elClass = elClass.replace(' ' + classNameToRemove + ' ', '');
+    let newElClass = ' ' + el.className + ' ';
+    while (newElClass.indexOf(' ' + classNameToRemove + ' ') !== -1) {
+      newElClass = newElClass.replace(' ' + classNameToRemove + ' ', '');
     }
-    el.className = elClass;
+    el.className = newElClass.trim();
   }
 
   /**
@@ -166,7 +148,7 @@ export class PromiseBtnDirective implements OnChanges, OnDestroy, AfterContentIn
    * Handles everything to be triggered when loading is finished
    * @param {Object}btnEl
    */
-  handleLoadingFinished(btnEl: any) {
+  cancelLoadingState(btnEl: any) {
     if ((!this.cfg.minDuration || this.isMinDurationTimeoutDone) && this.isPromiseDone) {
       if (this.cfg.btnLoadingClass) {
         this.removeClass(btnEl, this.cfg.btnLoadingClass);
@@ -180,7 +162,7 @@ export class PromiseBtnDirective implements OnChanges, OnDestroy, AfterContentIn
   /**
    * Initializes a watcher for the promise. Also takes
    * this.cfg.minDuration into account if given.
-   * @param {Function}watchExpressionForPromise
+   * @param {Object}promise
    * @param {Object}btnEl
    */
 
@@ -193,7 +175,7 @@ export class PromiseBtnDirective implements OnChanges, OnDestroy, AfterContentIn
     if (this.cfg.minDuration) {
       this.minDurationTimeout = setTimeout(() => {
         this.isMinDurationTimeoutDone = true;
-        this.handleLoadingFinished(btnEl);
+        this.cancelLoadingState(btnEl);
       }, this.cfg.minDuration);
     }
 
@@ -201,8 +183,10 @@ export class PromiseBtnDirective implements OnChanges, OnDestroy, AfterContentIn
     if (promise && promise.then) {
       this.initLoadingState(btnEl);
       promise.then(() => {
+        console.log('PROMISE DONE');
+
         this.isPromiseDone = true;
-        this.handleLoadingFinished(btnEl);
+        this.cancelLoadingState(btnEl);
       });
     }
   }
