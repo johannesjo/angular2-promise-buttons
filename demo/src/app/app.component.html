@@ -1,16 +1,61 @@
-<button type="button"
-        class="btn"
-        [promiseBtn]="initialPromise">Initial promise
+<button class="btn btn-primary"
+        (click)="success($event)"
+        [promiseBtn]="successPromise">Success after delay
+</button>
+<button class="btn btn-primary"
+        (click)="error()"
+        [promiseBtn]="errorPromise">Error after delay
+</button>
+<br>
+<br>
+<button class="btn btn-primary"
+        (click)="endless()"
+        [promiseBtn]="endlessPromise">Never resolving promise
+</button>
+<button class="btn btn-primary"
+        [promiseBtn]="endlessInitialPromise">Loading initially and forever
 </button>
 
-<button type="button"
-        class="btn"
-        [promiseBtn]="onClickPromise"
-        (click)="onClick();">Start async on click
+<h3>Same promise buttons</h3>
+<button class="btn btn-primary"
+        (click)="success($event)"
+        [promiseBtn]="successPromise">We
+</button>
+<button class="btn btn-primary"
+        (click)="success($event)"
+        [promiseBtn]="successPromise">share
+</button>
+
+<h3>Chained promise buttons</h3>
+<button class="btn btn-primary"
+        (click)="chain()"
+        [promiseBtn]="chainedPromises">Load promise chain {{ promiseIndex }}
 </button>
 
 
-<button type="button"
-        class="btn"
-        [promiseBtn]>Function Expression
+<h3>Inside a form</h3>
+<form ng-submit="submit()">
+  <button class="btn btn-primary"
+          type="submit"
+          [promiseBtn]="submitPromise">Submit
+  </button>
+</form>
+
+<h3>ngClick only</h3>
+<button class="btn btn-primary"
+        (click)="successDirectlyReturnedPromise()"
+        [promiseBtn]>Success after delay
 </button>
+<button class="btn btn-primary"
+        (click)="chain()"
+        [promiseBtn]>For promise chain
+</button>
+
+<h3>ngSubmit only inside form</h3>
+<form ng-submit="submitDirectlyReturnPromise()"
+      [promiseBtn]>
+  <button class="btn btn-primary"
+          type="submit">Submit promise
+  </button>
+  <button type="button">I'm just a button</button>
+</form>
