@@ -1,1 +1,10 @@
-<button type="button" promiseBtn="testPromise">Some button</button>
+<button type="button"
+        class="btn"
+        [promiseBtn]="initialPromise">Initial promise
+</button>
+
+<button type="button"
+        class="btn"
+        [promiseBtn]="onClickPromise"
+        (click)="onClick();">Start async on click
+</button>
