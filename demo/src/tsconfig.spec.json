@@ -1,19 +1,17 @@
 {
-  "extends": "../tsconfig.json",
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "outDir": "../out-tsc/spec",
-    "module": "commonjs",
-    "target": "es5",
-    "baseUrl": "",
-    "types": [
-      "jasmine",
-      "node"
-    ]
+    "declaration": true,
+    "module": "es6",
+    "outDir": "../tmp/out-tsc/spec",
+    "sourceMap": false
   },
   "files": [
     "test.ts"
   ],
   "include": [
+    "../../src/**/*.spec.ts",
+    "../../scripts/typings.d.ts",
     "**/*.spec.ts",
     "**/*.d.ts"
   ]
