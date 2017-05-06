@@ -6,7 +6,9 @@ import {Directive, ElementRef} from '@angular/core';
 export class PromiseBtnDirective {
 
   constructor(el: ElementRef) {
-    el.nativeElement.innerHTML = 'xxxxxxxxxxx';
+    console.log(el);
+    if (el) {
+      el.nativeElement.innerHTML = 'xxxxxxxxxxx';
+    }
   }
-
 }
