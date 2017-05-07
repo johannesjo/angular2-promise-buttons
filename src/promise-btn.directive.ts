@@ -1,24 +1,18 @@
 import {AfterContentInit, Directive, ElementRef, Input, OnDestroy} from '@angular/core';
+import {DEFAULT_CFG} from './default-promise-btn-config';
+import {PromiseBtnConfig} from './promise-btn-config';
 
-const DEFAULT_CFG = {
-  spinnerTpl: '<span class="btn-spinner"></span>',
-  disableBtn: true,
-  btnLoadingClass: 'is-loading',
-  handleCurrentBtnOnly: false,
-  minDuration: false,
-  CLICK_EVENT: 'click',
-};
 
 @Directive({
   selector: '[promiseBtn]'
 })
 
 export class PromiseBtnDirective implements OnDestroy, AfterContentInit {
-  cfg: any;
+  cfg: PromiseBtnConfig;
   // later initialized via initPromiseWatcher()
   promiseWatcher: any;
   // the timeout used for min duration display
-  minDurationTimeout: any;
+  minDurationTimeout: number;
   // boolean to determine minDurationTimeout state
   isMinDurationTimeoutDone: boolean;
   // boolean to determine if promise was resolved
@@ -108,11 +102,13 @@ export class PromiseBtnDirective implements OnDestroy, AfterContentInit {
    * @param {Object}btnEl
    */
   initLoadingState(btnEl: HTMLElement) {
-    if (this.cfg.btnLoadingClass && !this.cfg.addClassToCurrentBtnOnly) {
-      this.addLoadingClass(btnEl);
-    }
-    if (this.cfg.disableBtn && !this.cfg.disableCurrentBtnOnly) {
-      this.disableBtn(btnEl);
+    if (!this.cfg.handleCurrentBtnOnly) {
+      if (this.cfg.btnLoadingClass) {
+        this.addLoadingClass(btnEl);
+      }
+      if (this.cfg.disableBtn) {
+        this.disableBtn(btnEl);
+      }
     }
   }
 
