@@ -1,7 +1,8 @@
 import {AfterContentInit, Directive, ElementRef, Input, OnDestroy} from '@angular/core';
+import {Inject} from '@angular/core';
 import {DEFAULT_CFG} from './default-promise-btn-config';
 import {PromiseBtnConfig} from './promise-btn-config';
-
+import {userCfg} from './user-cfg';
 
 @Directive({
   selector: '[promiseBtn]'
@@ -24,9 +25,9 @@ export class PromiseBtnDirective implements OnDestroy, AfterContentInit {
   // the promise itself or a function expression
   promise: Promise<any>;
 
-  constructor(el: ElementRef) {
+  constructor(el: ElementRef, @Inject(userCfg) userCfg: {}) {
     // provide configuration
-    this.cfg = DEFAULT_CFG;
+    this.cfg = Object.assign({}, DEFAULT_CFG, userCfg);
 
     // save element
     this.btnEl = el.nativeElement;

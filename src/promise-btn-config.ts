@@ -1,4 +1,4 @@
-export class PromiseBtnConfig {
+export interface PromiseBtnConfig {
   spinnerTpl: string;
   disableBtn: boolean;
   btnLoadingClass: string;
@@ -6,4 +6,3 @@ export class PromiseBtnConfig {
   minDuration: boolean | number;
   CLICK_EVENT: string;
 }
-

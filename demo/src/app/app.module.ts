@@ -1,9 +1,9 @@
-import { Angular2PromiseButtonModule } from './component-symlink/index';
-import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule }   from '@angular/forms';
-import { NgModule } from '@angular/core';
+import {Angular2PromiseButtonModule} from './component-symlink/index';
+import {BrowserModule} from '@angular/platform-browser';
+import {FormsModule} from '@angular/forms';
+import {NgModule} from '@angular/core';
 
-import { AppComponent } from './app.component';
+import {AppComponent} from './app.component';
 
 @NgModule({
   declarations: [
@@ -12,9 +12,13 @@ import { AppComponent } from './app.component';
   imports: [
     BrowserModule,
     FormsModule,
-    Angular2PromiseButtonModule,
+    Angular2PromiseButtonModule
+      .forRoot(
+        // {disableBtn: false}
+      ),
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

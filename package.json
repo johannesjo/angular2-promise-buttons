@@ -19,7 +19,8 @@
     "test-coverage": "ng test -sr -cc",
     "version": "run-s build release.changelog && git add -A",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "ng": "ng"
   },
   "main": "dist/index.js",
   "module": "dist/index.js",
