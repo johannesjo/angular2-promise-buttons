@@ -173,8 +173,7 @@ describe('PromiseBtnDirective', () => {
         let promise;
         let resolve: any;
         beforeEach((done) => {
-          promiseBtnDirective.cfg.disableBtn = false;
-          promiseBtnDirective.cfg.minDuration = 50;
+          promiseBtnDirective.cfg.minDuration = 300;
           promise = new Promise((res) => {
             resolve = res;
           });
@@ -183,6 +182,15 @@ describe('PromiseBtnDirective', () => {
           // test init before to be sure
           spyOn(promiseBtnDirective, 'initLoadingState').and.callThrough();
           fixture.detectChanges();
+          expect(promiseBtnDirective.initLoadingState).toHaveBeenCalled();
+
+          spyOn(promiseBtnDirective, 'cancelLoadingStateIfPromiseAndMinDurationDone').and.callThrough();
+          setTimeout(() => {
+            resolve();
+            setTimeout(() => {
+              done();
+            }, 10);
+          }, 10);
         });
 
         it('should try to cancel the loading state', () => {
