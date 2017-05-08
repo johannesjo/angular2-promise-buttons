@@ -16,10 +16,10 @@ import {userCfg} from './user-cfg';
 export class Angular2PromiseButtonModule {
   // add forRoot to make it configurable
   static forRoot(userCfgPassedByUser?: any): ModuleWithProviders {
-    const cfg = userCfgPassedByUser || {};
+    // NOTE: this is never allowed to contain any conditional logic
     return {
       ngModule: Angular2PromiseButtonModule,
-      providers: [{provide: userCfg, useValue: cfg}]
+      providers: [{provide: userCfg, useValue: userCfgPassedByUser}]
     };
   }
 }
