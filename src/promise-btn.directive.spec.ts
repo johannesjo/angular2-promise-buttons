@@ -163,5 +163,77 @@ describe('PromiseBtnDirective', () => {
       });
     });
   });
+
+  describe('cfg:minDuration', () => {
+    describe('once a passed promise is resolved but minDuration has not been exceeded', () => {
+      let promise;
+      let resolve: any;
+      beforeEach((done) => {
+        promiseBtnDirective.cfg.minDuration = 50;
+        promise = new Promise((res) => {
+          resolve = res;
+        });
+        fixture.componentInstance.testPromise = promise;
+
+        // test init before to be sure
+        spyOn(promiseBtnDirective, 'initLoadingState').and.callThrough();
+        fixture.detectChanges();
+        expect(promiseBtnDirective.initLoadingState).toHaveBeenCalled();
+
+        spyOn(promiseBtnDirective, 'cancelLoadingStateIfPromiseAndMinDurationDone').and.callThrough();
+        setTimeout(() => {
+          resolve();
+          setTimeout(() => {
+            done();
+          }, 10);
+        }, 10);
+      });
+
+      it('should try to cancel the loading state', () => {
+        expect(promiseBtnDirective.cancelLoadingStateIfPromiseAndMinDurationDone).toHaveBeenCalled();
+      });
+      it('should not yet remove the .is-loading class', () => {
+        expect(buttonElement.className).toBe('is-loading');
+      });
+      it('should not yet enable the button', () => {
+        expect(buttonElement.hasAttribute('disabled')).toBe(true);
+      });
+    });
+
+    describe('once a passed promise is resolved and the minDuration has been exceeded', () => {
+      let promise;
+      let resolve: any;
+      beforeEach((done) => {
+        promiseBtnDirective.cfg.minDuration = 30;
+        promise = new Promise((res) => {
+          resolve = res;
+        });
+        fixture.componentInstance.testPromise = promise;
+
+        // test init before to be sure
+        spyOn(promiseBtnDirective, 'initLoadingState').and.callThrough();
+        fixture.detectChanges();
+        expect(promiseBtnDirective.initLoadingState).toHaveBeenCalled();
+
+        spyOn(promiseBtnDirective, 'cancelLoadingStateIfPromiseAndMinDurationDone').and.callThrough();
+        setTimeout(() => {
+          resolve();
+          setTimeout(() => {
+            done();
+          }, (+promiseBtnDirective.cfg.minDuration + 5));
+        }, 10);
+      });
+
+      it('should try to cancel the loading state', () => {
+        expect(promiseBtnDirective.cancelLoadingStateIfPromiseAndMinDurationDone).toHaveBeenCalled();
+      });
+      it('should remove the .is-loading class', () => {
+        expect(buttonElement.className).toBe('');
+      });
+      it('should enable the button', () => {
+        expect(buttonElement.hasAttribute('disabled')).toBe(false);
+      });
+    });
+  });
 });
 
