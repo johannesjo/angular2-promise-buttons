@@ -1,5 +1,4 @@
-import {AfterContentInit, Directive, ElementRef, Input, OnDestroy} from '@angular/core';
-import {Inject} from '@angular/core';
+import {AfterContentInit, Directive, ElementRef, Inject, Input, OnDestroy, Renderer2} from '@angular/core';
 import {DEFAULT_CFG} from './default-promise-btn-config';
 import {PromiseBtnConfig} from './promise-btn-config';
 import {userCfg} from './user-cfg';
@@ -24,7 +23,7 @@ export class PromiseBtnDirective implements OnDestroy, AfterContentInit {
   // NOTE: we need the type any here as we might deal with custom promises like bluebird
   promise: any;
 
-  constructor(el: ElementRef, @Inject(userCfg) userCfg: {}) {
+  constructor(el: ElementRef, @Inject(userCfg) userCfg: {}, private renderer: Renderer2) {
     // provide configuration
     this.cfg = Object.assign({}, DEFAULT_CFG, userCfg);
 
@@ -78,8 +77,9 @@ export class PromiseBtnDirective implements OnDestroy, AfterContentInit {
    * @param {Object}el
    */
   addLoadingClass(el: any) {
-    el.className += ' ' + this.cfg.btnLoadingClass;
-    el.className = el.className.trim();
+    if (typeof this.cfg.btnLoadingClass === 'string') {
+      this.renderer.addClass(el, this.cfg.btnLoadingClass);
+    }
   }
 
   /**
@@ -87,12 +87,9 @@ export class PromiseBtnDirective implements OnDestroy, AfterContentInit {
    * @param {Object}el
    */
   removeLoadingClass(el: any) {
-    const classNameToRemove = this.cfg.btnLoadingClass;
-    let newElClass = ' ' + el.className + ' ';
-    while (newElClass.indexOf(' ' + classNameToRemove + ' ') !== -1) {
-      newElClass = newElClass.replace(' ' + classNameToRemove + ' ', '');
+    if (typeof this.cfg.btnLoadingClass === 'string') {
+      this.renderer.removeClass(el, this.cfg.btnLoadingClass);
     }
-    el.className = newElClass.trim();
   }
 
   /**
@@ -128,14 +125,14 @@ export class PromiseBtnDirective implements OnDestroy, AfterContentInit {
    * @param {Object}btnEl
    */
   disableBtn(btnEl: HTMLElement) {
-    btnEl.setAttribute('disabled', 'disabled');
+    this.renderer.setAttribute(btnEl, 'disabled', 'disabled');
   }
 
   /**
    * @param {Object}btnEl
    */
   enableBtn(btnEl: HTMLElement) {
-    btnEl.removeAttribute('disabled');
+    this.renderer.removeAttribute(btnEl, 'disabled');
   }
 
   /**
