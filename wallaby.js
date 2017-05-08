@@ -6,6 +6,8 @@ const path = require('path');
 const compilerOptions = Object.assign(
   require('./tsconfig.json').compilerOptions,
   require('./demo/src/tsconfig.spec.json').compilerOptions);
+
+// don't generate the declaration files (.d.ts)
 compilerOptions.declaration = false;
 
 module.exports = function (wallaby) {
