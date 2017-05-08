@@ -21,7 +21,8 @@ export class PromiseBtnDirective implements OnDestroy, AfterContentInit {
   // the promise button button element
   btnEl: HTMLElement;
   // the promise itself or a function expression
-  promise: Promise<any>;
+  // NOTE: we need the type any here as we might deal with custom promises like bluebird
+  promise: any;
 
   constructor(el: ElementRef, @Inject(userCfg) userCfg: {}) {
     // provide configuration
@@ -32,7 +33,7 @@ export class PromiseBtnDirective implements OnDestroy, AfterContentInit {
   }
 
   @Input()
-  set promiseBtn(promise: Promise<any>) {
+  set promiseBtn(promise: any) {
     this.promise = promise;
     this.checkAndInitPromiseHandler(this.btnEl);
   }
@@ -114,7 +115,7 @@ export class PromiseBtnDirective implements OnDestroy, AfterContentInit {
    * Handles everything to be triggered when loading is finished
    * @param {Object}btnEl
    */
-  cancelLoadingState(btnEl: HTMLElement) {
+  cancelLoadingStateIfPromiseAndMinDurationDone(btnEl: HTMLElement) {
     if ((!this.cfg.minDuration || this.isMinDurationTimeoutDone) && this.isPromiseDone) {
       if (this.cfg.btnLoadingClass) {
         this.removeLoadingClass(btnEl);
@@ -146,7 +147,7 @@ export class PromiseBtnDirective implements OnDestroy, AfterContentInit {
    * @param {Object}btnEl
    */
 
-  initPromiseHandler(promise: Promise<any>, btnEl: HTMLElement) {
+  initPromiseHandler(promise: any, btnEl: HTMLElement) {
     // watch promise to resolve or fail
     this.isMinDurationTimeoutDone = false;
     this.isPromiseDone = false;
@@ -155,17 +156,25 @@ export class PromiseBtnDirective implements OnDestroy, AfterContentInit {
     if (this.cfg.minDuration) {
       this.minDurationTimeout = setTimeout(() => {
         this.isMinDurationTimeoutDone = true;
-        this.cancelLoadingState(btnEl);
+        this.cancelLoadingStateIfPromiseAndMinDurationDone(btnEl);
       }, this.cfg.minDuration);
     }
+
+    const resolveLoadingState = () => {
+      this.isPromiseDone = true;
+      this.cancelLoadingStateIfPromiseAndMinDurationDone(btnEl);
+    };
 
     // for regular promises
     if (promise && promise.then) {
       this.initLoadingState(btnEl);
-      promise.then(() => {
-        this.isPromiseDone = true;
-        this.cancelLoadingState(btnEl);
-      });
+      if (promise.finally) {
+        promise.finally(resolveLoadingState);
+      } else {
+        promise
+          .then(resolveLoadingState)
+          .catch(resolveLoadingState);
+      }
     }
   }
 
