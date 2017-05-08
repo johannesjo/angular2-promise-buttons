@@ -6,14 +6,14 @@ const path = require('path');
 const compilerOptions = Object.assign(
   require('./tsconfig.json').compilerOptions,
   require('./demo/src/tsconfig.spec.json').compilerOptions);
+compilerOptions.declaration = false;
 
 module.exports = function (wallaby) {
 
   const webpackPostprocessor = wallabyWebpack({
     entryPatterns: [
       'scripts/wallabyTest.js',
-      'src/**/*spec.js',
-      'demo/src/**/*spec.js'
+      'src/**/*spec.js'
     ],
 
     module: {
@@ -39,14 +39,6 @@ module.exports = function (wallaby) {
 
   return {
     files: [
-      { pattern: 'node_modules/zone.js/dist/zone.js', instrument: false },
-      { pattern: 'node_modules/zone.js/dist/long-stack-trace-zone.js', instrument: false },
-      { pattern: 'node_modules/zone.js/dist/proxy.js', instrument: false },
-      { pattern: 'node_modules/zone.js/dist/sync-test.js', instrument: false },
-      { pattern: 'node_modules/zone.js/dist/jasmine-patch.js', instrument: false },
-      { pattern: 'node_modules/zone.js/dist/async-test.js', instrument: false },
-      { pattern: 'node_modules/zone.js/dist/fake-async-test.js', instrument: false },
-      { pattern: 'node_modules/reflect-metadata/Reflect.js', instrument: false },
       { pattern: 'src/**/*.ts', load: false },
       { pattern: 'src/**/*.d.ts', ignore: true },
       { pattern: 'src/**/*.css', load: false },
@@ -56,6 +48,7 @@ module.exports = function (wallaby) {
       { pattern: 'src/**/*.styl', load: false },
       { pattern: 'src/**/*.html', load: false },
       { pattern: 'src/**/*.json', load: false },
+      { pattern: 'scripts/*.ts', load: false },
       { pattern: 'src/**/*spec.ts', ignore: true },
       { pattern: 'demo/src/**/*.ts', load: false },
       { pattern: 'demo/src/**/*.d.ts', ignore: true },
