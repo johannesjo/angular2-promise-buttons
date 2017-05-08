@@ -1,0 +1,1 @@
+//# sourceMappingURL=/home/johannes/www/angular2-promise-buttons/promise-btn-config.js.map

@@ -2,15 +2,15 @@
   "compileOnSave": false,
   "compilerOptions": {
     "mapRoot": "./",
-    "outDir": "../dist",
     "target": "es5",
-    "module": "commonjs",
+    "module": "es2015",
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "sourceMap": true,
     "noEmitHelpers": false,
     "noImplicitAny": true,
+    "strictNullChecks": true,
     "declaration": true,
     "skipLibCheck": true,
     "stripInternal": true,
@@ -22,8 +22,6 @@
       "es6"
     ],
     "types": [
-      "jasmine",
-      "webpack"
     ],
     "typeRoots": [
       "../node_modules/@types"

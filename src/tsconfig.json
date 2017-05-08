@@ -1,7 +1,7 @@
 {
   "extends": "../tsconfig.json",
   "compilerOptions": {
-    "module": "commonjs"
+    "outDir": "../dist"
   },
   "exclude": [
     "node_modules"
@@ -11,6 +11,7 @@
     "./index.ts"
   ],
   "angularCompilerOptions": {
-    "genDir": "../tmp/factories"
+    "genDir": "../tmp/factories",
+    "strictMetadataEmit": true
   }
 }

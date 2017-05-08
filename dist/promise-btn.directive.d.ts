@@ -1,4 +1,72 @@
-import { ElementRef } from '@angular/core';
-export declare class PromiseBtnDirective {
-    constructor(el: ElementRef);
+import { AfterContentInit, ElementRef, OnDestroy } from '@angular/core';
+import { PromiseBtnConfig } from './promise-btn-config';
+export declare class PromiseBtnDirective implements OnDestroy, AfterContentInit {
+    cfg: PromiseBtnConfig;
+    promiseWatcher: any;
+    minDurationTimeout: number;
+    isMinDurationTimeoutDone: boolean;
+    isPromiseDone: boolean;
+    btnEl: HTMLElement;
+    promise: any;
+    constructor(el: ElementRef, userCfg: {});
+    promiseBtn: any;
+    ngAfterContentInit(): void;
+    ngOnDestroy(): void;
+    /**
+     * Initializes all html and event handlers
+     * @param {Object}btnEl
+     */
+    prepareBtnEl(btnEl: HTMLElement): void;
+    /**
+     * Checks if all required parameters are there and inits the promise handler
+     * @param {Object}btnEl
+     */
+    checkAndInitPromiseHandler(btnEl: HTMLElement): void;
+    /**
+     * Helper FN to add class
+     * @param {Object}el
+     */
+    addLoadingClass(el: any): void;
+    /**
+     * Helper FN to remove classes
+     * @param {Object}el
+     */
+    removeLoadingClass(el: any): void;
+    /**
+     * Handles everything to be triggered when the button is set
+     * to loading state.
+     * @param {Object}btnEl
+     */
+    initLoadingState(btnEl: HTMLElement): void;
+    /**
+     * Handles everything to be triggered when loading is finished
+     * @param {Object}btnEl
+     */
+    cancelLoadingStateIfPromiseAndMinDurationDone(btnEl: HTMLElement): void;
+    /**
+     * @param {Object}btnEl
+     */
+    disableBtn(btnEl: HTMLElement): void;
+    /**
+     * @param {Object}btnEl
+     */
+    enableBtn(btnEl: HTMLElement): void;
+    /**
+     * Initializes a watcher for the promise. Also takes
+     * this.cfg.minDuration into account if given.
+     * @param {Object}promise
+     * @param {Object}btnEl
+     */
+    initPromiseHandler(promise: any, btnEl: HTMLElement): void;
+    /**
+     * $compile and append the spinner template to the button.
+     * @param {Object}btnEl
+     */
+    appendSpinnerTpl(btnEl: HTMLElement): void;
+    /**
+     * Used to limit loading state to show only for the currently
+     * clicked button.
+     * @param {Object}btnEl
+     */
+    addHandlersForCurrentBtnOnlyIfSet(btnEl: HTMLElement): void;
 }

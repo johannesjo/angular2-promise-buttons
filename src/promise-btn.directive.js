@@ -1,23 +1,22 @@
+"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-import { Directive, ElementRef, Input } from '@angular/core';
-import { Inject } from '@angular/core';
-import { DEFAULT_CFG } from './default-promise-btn-config';
-import { userCfg } from './user-cfg';
+exports.__esModule = true;
+var core_1 = require("@angular/core");
+var core_2 = require("@angular/core");
+var default_promise_btn_config_1 = require("./default-promise-btn-config");
+var user_cfg_1 = require("./user-cfg");
 var PromiseBtnDirective = (function () {
     function PromiseBtnDirective(el, userCfg) {
         // provide configuration
-        this.cfg = Object.assign({}, DEFAULT_CFG, userCfg);
+        this.cfg = Object.assign({}, default_promise_btn_config_1.DEFAULT_CFG, userCfg);
         // save element
         this.btnEl = el.nativeElement;
     }
@@ -146,13 +145,12 @@ var PromiseBtnDirective = (function () {
         // for regular promises
         if (promise && promise.then) {
             this.initLoadingState(btnEl);
-            if (promise.finally) {
-                promise.finally(resolveLoadingState);
+            if (promise["finally"]) {
+                promise["finally"](resolveLoadingState);
             }
             else {
                 promise
-                    .then(resolveLoadingState)
-                    .catch(resolveLoadingState);
+                    .then(resolveLoadingState)["catch"](resolveLoadingState);
             }
         }
     };
@@ -188,16 +186,12 @@ var PromiseBtnDirective = (function () {
     return PromiseBtnDirective;
 }());
 __decorate([
-    Input(),
-    __metadata("design:type", Object),
-    __metadata("design:paramtypes", [Object])
-], PromiseBtnDirective.prototype, "promiseBtn", null);
+    core_1.Input()
+], PromiseBtnDirective.prototype, "promiseBtn");
 PromiseBtnDirective = __decorate([
-    Directive({
+    core_1.Directive({
         selector: '[promiseBtn]'
     }),
-    __param(1, Inject(userCfg)),
-    __metadata("design:paramtypes", [ElementRef, Object])
+    __param(1, core_2.Inject(user_cfg_1.userCfg))
 ], PromiseBtnDirective);
-export { PromiseBtnDirective };
-//# sourceMappingURL=/home/johannes/www/angular2-promise-buttons/promise-btn.directive.js.map
+exports.PromiseBtnDirective = PromiseBtnDirective;
