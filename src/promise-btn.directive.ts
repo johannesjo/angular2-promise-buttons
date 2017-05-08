@@ -20,8 +20,6 @@ export class PromiseBtnDirective implements OnDestroy, AfterContentInit {
   isPromiseDone: boolean;
   // the promise button button element
   btnEl: HTMLElement;
-  // a pointer to the old value of promise
-  lastPromise: Promise<any>;
   // the promise itself or a function expression
   promise: Promise<any>;
 
@@ -36,13 +34,13 @@ export class PromiseBtnDirective implements OnDestroy, AfterContentInit {
   @Input()
   set promiseBtn(promise: Promise<any>) {
     this.promise = promise;
-    this.checkAndInitPromiseWatcher(this.btnEl);
+    this.checkAndInitPromiseHandler(this.btnEl);
   }
 
   ngAfterContentInit() {
     this.prepareBtnEl(this.btnEl);
-    // trigger changes once
-    this.checkAndInitPromiseWatcher(this.btnEl);
+    // trigger changes once to handle initial promises
+    this.checkAndInitPromiseHandler(this.btnEl);
   }
 
   ngOnDestroy() {
@@ -66,12 +64,11 @@ export class PromiseBtnDirective implements OnDestroy, AfterContentInit {
    * Checks if all required parameters are there and inits the promise handler
    * @param {Object}btnEl
    */
-  checkAndInitPromiseWatcher(btnEl: HTMLElement) {
+  checkAndInitPromiseHandler(btnEl: HTMLElement) {
     if (btnEl && this.promise) {
       if (!this.promiseWatcher) {
         this.initPromiseHandler(this.promise, btnEl);
       }
-      this.lastPromise = this.promise;
     }
   }
 
