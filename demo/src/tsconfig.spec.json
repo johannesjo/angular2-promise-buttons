@@ -11,8 +11,6 @@
   ],
   "include": [
     "../../src/**/*.spec.ts",
-    "../../scripts/typings.d.ts",
-    "**/*.spec.ts",
-    "**/*.d.ts"
+    "../../scripts/typings.d.ts"
   ]
 }
