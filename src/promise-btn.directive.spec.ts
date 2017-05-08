@@ -173,6 +173,7 @@ describe('PromiseBtnDirective', () => {
         let promise;
         let resolve: any;
         beforeEach((done) => {
+          promiseBtnDirective.cfg.disableBtn = false;
           promiseBtnDirective.cfg.minDuration = 50;
           promise = new Promise((res) => {
             resolve = res;
@@ -182,15 +183,6 @@ describe('PromiseBtnDirective', () => {
           // test init before to be sure
           spyOn(promiseBtnDirective, 'initLoadingState').and.callThrough();
           fixture.detectChanges();
-          expect(promiseBtnDirective.initLoadingState).toHaveBeenCalled();
-
-          spyOn(promiseBtnDirective, 'cancelLoadingStateIfPromiseAndMinDurationDone').and.callThrough();
-          setTimeout(() => {
-            resolve();
-            setTimeout(() => {
-              done();
-            }, 10);
-          }, 10);
         });
 
         it('should try to cancel the loading state', () => {
@@ -238,6 +230,53 @@ describe('PromiseBtnDirective', () => {
           expect(buttonElement.hasAttribute('disabled')).toBe(false);
         });
       });
+    });
+
+    describe('cfg:disableBtn once a promise is passed', () => {
+      beforeEach(() => {
+        promiseBtnDirective.cfg.disableBtn = false;
+        fixture.componentInstance.testPromise = new Promise(() => {
+        });
+        spyOn(promiseBtnDirective, 'initLoadingState').and.callThrough();
+        fixture.detectChanges();
+      });
+
+      it('should init the loading state', () => {
+        expect(promiseBtnDirective.initLoadingState).toHaveBeenCalled();
+      });
+      it('should disable the button', async(() => {
+        fixture.whenStable().then(() => {
+          expect(buttonElement.hasAttribute('disabled')).toBe(false);
+        });
+      }));
+    });
+
+    describe('cfg:btnLoadingClass once a promise is passed', () => {
+      it('should add a custom loading class', async(() => {
+        spyOn(promiseBtnDirective, 'addLoadingClass').and.callThrough();
+        promiseBtnDirective.cfg.btnLoadingClass = 'TEST';
+
+        fixture.componentInstance.testPromise = new Promise(() => {
+        });
+        fixture.detectChanges();
+
+        fixture.whenStable().then(() => {
+          expect(promiseBtnDirective.addLoadingClass).toHaveBeenCalled();
+          expect(buttonElement.className).toBe('TEST');
+        });
+      }));
+      it('should not add a loading class if set to false', async(() => {
+        spyOn(promiseBtnDirective, 'addLoadingClass').and.callThrough();
+        promiseBtnDirective.cfg.btnLoadingClass = false;
+        fixture.componentInstance.testPromise = new Promise(() => {
+        });
+        fixture.detectChanges();
+
+        fixture.whenStable().then(() => {
+          expect(promiseBtnDirective.addLoadingClass).not.toHaveBeenCalled();
+          expect(buttonElement.className).toBe('');
+        });
+      }));
     });
   });
 
