@@ -101,13 +101,11 @@ export class PromiseBtnDirective implements OnDestroy, AfterContentInit {
    * @param {Object}btnEl
    */
   initLoadingState(btnEl: HTMLElement) {
-    if (!this.cfg.handleCurrentBtnOnly) {
-      if (this.cfg.btnLoadingClass) {
-        this.addLoadingClass(btnEl);
-      }
-      if (this.cfg.disableBtn) {
-        this.disableBtn(btnEl);
-      }
+    if (this.cfg.btnLoadingClass) {
+      this.addLoadingClass(btnEl);
+    }
+    if (this.cfg.disableBtn) {
+      this.disableBtn(btnEl);
     }
   }
 
@@ -167,7 +165,9 @@ export class PromiseBtnDirective implements OnDestroy, AfterContentInit {
 
     // for regular promises
     if (promise && promise.then) {
-      this.initLoadingState(btnEl);
+      if (!this.cfg.handleCurrentBtnOnly) {
+        this.initLoadingState(btnEl);
+      }
       if (promise.finally) {
         promise.finally(resolveLoadingState);
       } else {
@@ -196,16 +196,9 @@ export class PromiseBtnDirective implements OnDestroy, AfterContentInit {
   addHandlersForCurrentBtnOnlyIfSet(btnEl: HTMLElement) {
     // handle current button only options via click
     if (this.cfg.handleCurrentBtnOnly) {
-      if (this.cfg.btnLoadingClass) {
-        btnEl.addEventListener(this.cfg.CLICK_EVENT, () => {
-          this.addLoadingClass(btnEl);
-        });
-      }
-      if (this.cfg.disableBtn) {
-        btnEl.addEventListener(this.cfg.CLICK_EVENT, () => {
-          this.disableBtn(btnEl);
-        });
-      }
+      btnEl.addEventListener(this.cfg.CLICK_EVENT, () => {
+        this.initLoadingState(btnEl);
+      });
     }
   }
 }

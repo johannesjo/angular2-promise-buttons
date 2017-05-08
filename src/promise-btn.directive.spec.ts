@@ -288,6 +288,62 @@ describe('PromiseBtnDirective', () => {
     });
   });
 
+  describe('cfg:handleCurrentBtnOnly', () => {
+    let fixture: ComponentFixture<TestComponent>;
+    let buttonDebugElement: DebugElement;
+    let divDebugElement: DebugElement;
+    let buttonElement: HTMLButtonElement;
+    let divElement: HTMLDivElement;
+    let promiseBtnDirective1: PromiseBtnDirective;
+    let promiseBtnDirective2: PromiseBtnDirective;
+
+    beforeEach(() => {
+      testUserCfg.handleCurrentBtnOnly = true;
+
+      fixture = TestBed.overrideComponent(TestComponent, {
+        set: {
+          template: '<button [promiseBtn]="testPromise">1</button><div [promiseBtn]="testPromise">2</div>'
+        }
+      }).createComponent(TestComponent);
+      fixture.detectChanges();
+      buttonDebugElement = fixture.debugElement.query(By.css('button'));
+      divDebugElement = fixture.debugElement.query(By.css('div'));
+      buttonElement = <HTMLButtonElement> buttonDebugElement.nativeElement;
+      divElement = <HTMLDivElement> divDebugElement.nativeElement;
+      promiseBtnDirective1 = buttonDebugElement.injector.get<PromiseBtnDirective>(PromiseBtnDirective);
+      promiseBtnDirective2 = divDebugElement.injector.get<PromiseBtnDirective>(PromiseBtnDirective);
+      fixture.detectChanges();
+
+      promiseBtnDirective1.cfg.handleCurrentBtnOnly = true;
+      promiseBtnDirective2.cfg.handleCurrentBtnOnly = true;
+
+      fixture.componentInstance.testPromise = new Promise(() => {
+      });
+
+      spyOn(promiseBtnDirective1, 'initLoadingState').and.callThrough();
+      spyOn(promiseBtnDirective2, 'initLoadingState').and.callThrough();
+      fixture.detectChanges();
+    });
+
+    it('should set loading state for first button when clicked, but not for second', () => {
+      buttonElement.click();
+      fixture.detectChanges();
+      fixture.whenStable().then(() => {
+        expect(promiseBtnDirective1.initLoadingState).toHaveBeenCalled();
+        expect(promiseBtnDirective2.initLoadingState).not.toHaveBeenCalled();
+      });
+    });
+
+    it('should set loading state for second button when clicked, but not for first', () => {
+      divElement.click();
+      fixture.detectChanges();
+      fixture.whenStable().then(() => {
+        expect(promiseBtnDirective1.initLoadingState).not.toHaveBeenCalled();
+        expect(promiseBtnDirective2.initLoadingState).toHaveBeenCalled();
+      });
+    });
+  });
+
   describe('cfg before runtime', () => {
     let fixture: ComponentFixture<TestComponent>;
     let buttonDebugElement: DebugElement;
