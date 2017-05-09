@@ -5,7 +5,7 @@
   "scripts": {
     "demo.serve": "ng serve",
     "demo.gh-pages": "gh-pages -d demo/dist",
-    "demo.build": "ng build",
+    "demo.build": "ng build -prod --aot",
     "demo.copy-readme": "node scripts/copy-readme-to-demo.js",
     "demo.deploy": "run-s demo.build demo.copy-readme demo.gh-pages",
     "release.changelog": "conventional-changelog -i CHANGELOG.md -s -p angular",

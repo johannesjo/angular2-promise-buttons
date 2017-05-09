@@ -23,7 +23,9 @@ export class PromiseBtnDirective implements OnDestroy, AfterContentInit {
   // NOTE: we need the type any here as we might deal with custom promises like bluebird
   promise: any;
 
-  constructor(el: ElementRef, @Inject(userCfg) userCfg: {}, private renderer: Renderer2) {
+  constructor(el: ElementRef,
+              @Inject(userCfg) userCfg: any,
+              private renderer: Renderer2) {
     // provide configuration
     this.cfg = Object.assign({}, DEFAULT_CFG, userCfg);
 
