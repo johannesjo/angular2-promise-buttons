@@ -1,2 +1,2 @@
 import { InjectionToken } from '@angular/core';
-export declare const userCfg: InjectionToken<{}>;
+export declare let userCfg: InjectionToken<{}>;

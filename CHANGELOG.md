@@ -1,3 +1,22 @@
+<a name="1.0.0"></a>
+# [1.0.0](https://github.com/johannesjo/angular2-promise-buttons/compare/v0.1.5...v1.0.0) (2017-05-09)
+
+
+### Bug Fixes
+
+* add jasmine types again to tsconfig ([e59f8bb](https://github.com/johannesjo/angular2-promise-buttons/commit/e59f8bb))
+* aot and prod build not working ([5e3fd11](https://github.com/johannesjo/angular2-promise-buttons/commit/5e3fd11))
+* build tsconfig for building the module ([885b185](https://github.com/johannesjo/angular2-promise-buttons/commit/885b185))
+* forRoot containing conditional logic ([a6b52f6](https://github.com/johannesjo/angular2-promise-buttons/commit/a6b52f6))
+
+
+### Features
+
+* add readme ([52f84a7](https://github.com/johannesjo/angular2-promise-buttons/commit/52f84a7))
+* use Renderer2 for adding and removing classes ([e2c9555](https://github.com/johannesjo/angular2-promise-buttons/commit/e2c9555))
+
+
+
 <a name="0.1.5"></a>
 ## [0.1.5](https://github.com/johannesjo/angular2-promise-buttons/compare/v0.1.4...v0.1.5) (2017-05-05)
 
