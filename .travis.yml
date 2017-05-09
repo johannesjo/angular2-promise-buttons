@@ -7,7 +7,7 @@ before_install:
 
 script:
 - npm install
-- npm test
+- npm run test-coverage
 
 addons:
   apt:
