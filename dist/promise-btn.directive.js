@@ -10,12 +10,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-import { Directive, ElementRef, Input } from '@angular/core';
-import { Inject } from '@angular/core';
+import { Directive, ElementRef, Inject, Input, Renderer2 } from '@angular/core';
 import { DEFAULT_CFG } from './default-promise-btn-config';
 import { userCfg } from './user-cfg';
 var PromiseBtnDirective = (function () {
-    function PromiseBtnDirective(el, userCfg) {
+    function PromiseBtnDirective(el, userCfg, renderer) {
+        this.renderer = renderer;
         // provide configuration
         this.cfg = Object.assign({}, DEFAULT_CFG, userCfg);
         // save element
@@ -65,20 +65,18 @@ var PromiseBtnDirective = (function () {
      * @param {Object}el
      */
     PromiseBtnDirective.prototype.addLoadingClass = function (el) {
-        el.className += ' ' + this.cfg.btnLoadingClass;
-        el.className = el.className.trim();
+        if (typeof this.cfg.btnLoadingClass === 'string') {
+            this.renderer.addClass(el, this.cfg.btnLoadingClass);
+        }
     };
     /**
      * Helper FN to remove classes
      * @param {Object}el
      */
     PromiseBtnDirective.prototype.removeLoadingClass = function (el) {
-        var classNameToRemove = this.cfg.btnLoadingClass;
-        var newElClass = ' ' + el.className + ' ';
-        while (newElClass.indexOf(' ' + classNameToRemove + ' ') !== -1) {
-            newElClass = newElClass.replace(' ' + classNameToRemove + ' ', '');
+        if (typeof this.cfg.btnLoadingClass === 'string') {
+            this.renderer.removeClass(el, this.cfg.btnLoadingClass);
         }
-        el.className = newElClass.trim();
     };
     /**
      * Handles everything to be triggered when the button is set
@@ -86,13 +84,11 @@ var PromiseBtnDirective = (function () {
      * @param {Object}btnEl
      */
     PromiseBtnDirective.prototype.initLoadingState = function (btnEl) {
-        if (!this.cfg.handleCurrentBtnOnly) {
-            if (this.cfg.btnLoadingClass) {
-                this.addLoadingClass(btnEl);
-            }
-            if (this.cfg.disableBtn) {
-                this.disableBtn(btnEl);
-            }
+        if (this.cfg.btnLoadingClass) {
+            this.addLoadingClass(btnEl);
+        }
+        if (this.cfg.disableBtn) {
+            this.disableBtn(btnEl);
         }
     };
     /**
@@ -113,13 +109,13 @@ var PromiseBtnDirective = (function () {
      * @param {Object}btnEl
      */
     PromiseBtnDirective.prototype.disableBtn = function (btnEl) {
-        btnEl.setAttribute('disabled', 'disabled');
+        this.renderer.setAttribute(btnEl, 'disabled', 'disabled');
     };
     /**
      * @param {Object}btnEl
      */
     PromiseBtnDirective.prototype.enableBtn = function (btnEl) {
-        btnEl.removeAttribute('disabled');
+        this.renderer.removeAttribute(btnEl, 'disabled');
     };
     /**
      * Initializes a watcher for the promise. Also takes
@@ -145,7 +141,9 @@ var PromiseBtnDirective = (function () {
         };
         // for regular promises
         if (promise && promise.then) {
-            this.initLoadingState(btnEl);
+            if (!this.cfg.handleCurrentBtnOnly) {
+                this.initLoadingState(btnEl);
+            }
             if (promise.finally) {
                 promise.finally(resolveLoadingState);
             }
@@ -173,16 +171,9 @@ var PromiseBtnDirective = (function () {
         var _this = this;
         // handle current button only options via click
         if (this.cfg.handleCurrentBtnOnly) {
-            if (this.cfg.btnLoadingClass) {
-                btnEl.addEventListener(this.cfg.CLICK_EVENT, function () {
-                    _this.addLoadingClass(btnEl);
-                });
-            }
-            if (this.cfg.disableBtn) {
-                btnEl.addEventListener(this.cfg.CLICK_EVENT, function () {
-                    _this.disableBtn(btnEl);
-                });
-            }
+            btnEl.addEventListener(this.cfg.CLICK_EVENT, function () {
+                _this.initLoadingState(btnEl);
+            });
         }
     };
     return PromiseBtnDirective;
@@ -197,7 +188,7 @@ PromiseBtnDirective = __decorate([
         selector: '[promiseBtn]'
     }),
     __param(1, Inject(userCfg)),
-    __metadata("design:paramtypes", [ElementRef, Object])
+    __metadata("design:paramtypes", [ElementRef, Object, Renderer2])
 ], PromiseBtnDirective);
 export { PromiseBtnDirective };
 //# sourceMappingURL=/home/johannes/www/angular2-promise-buttons/promise-btn.directive.js.map

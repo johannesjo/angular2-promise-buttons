@@ -1,6 +1,7 @@
-import { AfterContentInit, ElementRef, OnDestroy } from '@angular/core';
+import { AfterContentInit, ElementRef, OnDestroy, Renderer2 } from '@angular/core';
 import { PromiseBtnConfig } from './promise-btn-config';
 export declare class PromiseBtnDirective implements OnDestroy, AfterContentInit {
+    private renderer;
     cfg: PromiseBtnConfig;
     promiseWatcher: any;
     minDurationTimeout: number;
@@ -8,7 +9,7 @@ export declare class PromiseBtnDirective implements OnDestroy, AfterContentInit 
     isPromiseDone: boolean;
     btnEl: HTMLElement;
     promise: any;
-    constructor(el: ElementRef, userCfg: {});
+    constructor(el: ElementRef, userCfg: {}, renderer: Renderer2);
     promiseBtn: any;
     ngAfterContentInit(): void;
     ngOnDestroy(): void;

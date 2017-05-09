@@ -1,4 +1,2 @@
-import { ModuleWithProviders } from '@angular/core';
-export declare class Angular2PromiseButtonModule {
-    static forRoot(userCfgPassedByUser?: any): ModuleWithProviders;
-}
+export { PromiseBtnDirective } from './promise-btn.directive';
+export { Angular2PromiseButtonModule } from './angular2-promise-buttons.module';
