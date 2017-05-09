@@ -23,6 +23,7 @@
     "start": "run-s dev",
     "test": "ng test -sr",
     "test-coverage": "ng test -cc -sr",
+    "link-mod":"cd demo/src/app && -s ../../../src component-symlink && cd ....",
     "coveralls": "YOURPACKAGE_COVERAGE=1 cat ./coverage/lcov.info | ./node_modules/.bin/coveralls",
     "version": "run-s build release.changelog && git add -A",
     "lint": "ng lint",
