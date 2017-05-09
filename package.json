@@ -23,7 +23,7 @@
     "start": "run-s dev",
     "test": "ng test -sr",
     "test-coverage": "ng test -cc -sr",
-    "coveralls": "cat ./coverage/lcov.info | ./node_modules/.bin/coveralls",
+    "coveralls": "YOURPACKAGE_COVERAGE=1 cat ./coverage/lcov.info | ./node_modules/.bin/coveralls",
     "version": "run-s build release.changelog && git add -A",
     "lint": "ng lint",
     "e2e": "ng e2e",
