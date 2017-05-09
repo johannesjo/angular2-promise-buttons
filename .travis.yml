@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-  - "6"
+  - "stable"
 
 before_install:
 - npm install -g npm@latest
@@ -16,3 +16,5 @@ addons:
     # required by node-gyp to build some packages
     packages:
     - g++-4.8
+
+after_success: 'npm run coveralls'
