@@ -114,3 +114,15 @@ button.is-loading .btn-spinner {
 body {
     padding-bottom: 50px;
 }
+
+.main-header {
+    background: #080b1f;
+    padding-bottom: 15px;
+    color: #eeeeee;
+}
+
+.fork-me-badge {
+    position: absolute;
+    left: 0;
+    top: 0;
+}
