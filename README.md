@@ -1,6 +1,6 @@
 [![npm version](https://badge.fury.io/js/angular2-promise-buttons.svg)](https://badge.fury.io/js/angular2-promise-buttons)
 [![Build Status](https://travis-ci.org/johannesjo/angular2-promise-buttons.svg)](https://travis-ci.org/johannesjo/angular2-promise-buttons?branch=master)
-[![Coverage Status](https://coveralls.io/repos/johannesjo/angular2-promise-buttons/badge.svg?branch=master)](https://coveralls.io/r/johannesjo/angular2-promise-buttons?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/johannesjo/angular2-promise-buttons/badge.svg?branch=master)](https://coveralls.io/github/johannesjo/angular2-promise-buttons?branch=master)
 
 angular2-promise-buttons
 ===========
