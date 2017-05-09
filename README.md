@@ -39,6 +39,17 @@ Using the buttons is easy. Just pass a promise to the directive:
 <button (click)="someAction()" 
    [promiseBtn]="promiseSetBySomeAction">Click me to spin!</button>
 ```
+```typescript
+export class SomeComponent {
+    // some example async action, but this works with any promise
+    someAction(){
+      this.promiseSetBySomeAction = new Promise((resolve, reject) => {
+        setTimeout(resolve, 2000);
+      });
+    }
+}
+
+```
 
 ## styling the button
 To give you maximum flexibility there are no base styles coming with the directive, but it is easy to fix that! There are lots of free css-spinners out there. Just find one of your liking and add the css to your global stylesheet.
