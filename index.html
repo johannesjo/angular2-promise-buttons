@@ -14,7 +14,67 @@
 </head>
 <body>
 <div class="container">
-  ___README_MD_NEEDLE___
+  <p><a href="https://badge.fury.io/js/angular2-promise-buttons"><img src="https://badge.fury.io/js/angular2-promise-buttons.svg" alt="npm version"></a>
+<a href="https://travis-ci.org/johannesjo/angular2-promise-buttons?branch=master"><img src="https://travis-ci.org/johannesjo/angular2-promise-buttons.svg" alt="Build Status"></a>
+<a href="https://coveralls.io/r/johannesjo/angular2-promise-buttons?branch=master"><img src="https://coveralls.io/repos/johannesjo/angular2-promise-buttons/badge.svg?branch=master" alt="Coverage Status"></a></p>
+<h1 id="angular2-promise-buttons">angular2-promise-buttons</h1>
+<p><em>Chilled Buttons for Angular2</em></p>
+<p>For angular 1.x version <a href="https://github.com/johannesjo/angular-promise-buttons">go here</a>.</p>
+<p><em>angular2-promise-buttons</em> is a simple module that let&#39;s you add a loading indicator to a button of your choice.  Check out the <a href="http://johannesjo.github.io/angular2-promise-buttons/#demo">demo</a>!</p>
+<p><a href="https://github.com/johannesjo/angular2-promise-buttons/issues">Bug-reports or feature request</a> as well as any other kind of <strong>feedback is highly welcome!</strong></p>
+<h2 id="getting-started">getting started</h2>
+<p>Install it via npm:</p>
+<pre><code>npm install angular2-promise-buttons -S
+</code></pre><p>And add it as a dependency to your main module</p>
+<pre><code>import {Angular2PromiseButtonModule} from &#39;angular2-promise-buttons/dist&#39;;
+
+@NgModule({
+  imports: [
+    Angular2PromiseButtonModule
+      .forRoot(
+        // your custom config goes here
+      ),
+  ],
+})
+export class MainAppModule {
+}
+</code></pre><p>Using the buttons is easy. Just pass a promise to the directive:</p>
+<pre><code class="lang-html">&lt;button (click)=&quot;someAction()&quot; 
+   [promiseBtn]=&quot;promiseSetBySomeAction&quot;&gt;Click me to spin!&lt;/button&gt;
+</code></pre>
+<h2 id="styling-the-button">styling the button</h2>
+<p>To give you maximum flexibility there are no base styles coming with the directive, but it is easy to fix that! There are lots of free css-spinners out there. Just find one of your liking and add the css to your global stylesheet.</p>
+<p><strong>Ressources:</strong></p>
+<ul>
+<li><a href="http://cssload.net/">http://cssload.net/</a></li>
+<li><a href="http://projects.lukehaas.me/css-loaders/">http://projects.lukehaas.me/css-loaders/</a></li>
+<li><a href="http://tobiasahlin.com/spinkit/">http://tobiasahlin.com/spinkit/</a></li>
+</ul>
+<p>There are selectors you can use to style. There is the <code>.is-loading</code> class on the button, which is set, when the promise is pending and there is the <code>&lt;span class=&quot;btn-spinner&quot;&gt;&lt;/span&gt;</code> element inside the button.</p>
+<h2 id="configuration">configuration</h2>
+<p>Configuration is done via the forRoot method of the promise button module:</p>
+<pre><code class="lang-typescript">import {Angular2PromiseButtonModule} from &#39;angular2-promise-buttons/dist&#39;;
+
+@NgModule({
+  imports: [
+    Angular2PromiseButtonModule
+      .forRoot(
+        // your custom config goes here
+        spinnerTpl: &#39;&lt;span class=&quot;btn-spinner&quot;&gt;&lt;/span&gt;&#39;,
+        // disable buttons when promise is pending
+        disableBtn: true,
+        // the class used to indicate a pending promise
+        btnLoadingClass: &#39;is-loading&#39;,
+        // only disable and show is-loading class for clicked button, 
+        // even when they share the same promise
+        handleCurrentBtnOnly: false,
+      ),
+  ],
+})
+export class MainAppModule {
+}
+</code></pre>
+
 
 
   <h2><a name="demo"
