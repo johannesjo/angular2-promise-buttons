@@ -110,3 +110,7 @@ button.is-loading .btn-spinner {
 .btn {
     text-align: left;
 }
+
+body {
+    padding-bottom: 50px;
+}
