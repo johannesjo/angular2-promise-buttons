@@ -1,6 +1,6 @@
 {
   "name": "angular2-promise-buttons",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -23,7 +23,7 @@
     "start": "run-s dev",
     "test": "ng test -sr",
     "test-coverage": "ng test -cc -sr",
-    "link-mod":"cd demo/src/app && -s ../../../src component-symlink && cd ....",
+    "link-mod": "cd demo/src/app && -s ../../../src component-symlink && cd ....",
     "coveralls": "YOURPACKAGE_COVERAGE=1 cat ./coverage/lcov.info | ./node_modules/.bin/coveralls",
     "version": "run-s build release.changelog && git add -A",
     "lint": "ng lint",
