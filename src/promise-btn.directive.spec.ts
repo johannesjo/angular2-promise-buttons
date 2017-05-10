@@ -19,7 +19,6 @@ class MockElementRef extends ElementRef {
   template: ''
 })
 class TestComponent {
-  asyncMethod: any;
   testPromise: Promise<any>;
 }
 
@@ -56,7 +55,7 @@ describe('PromiseBtnDirective', () => {
     beforeEach(() => {
       fixture = TestBed.overrideComponent(TestComponent, {
         set: {
-          template: '<button (click)="asyncMethod($event)" [promiseBtn]="testPromise">BUTTON_TEXT</button>'
+          template: '<button [promiseBtn]="testPromise">BUTTON_TEXT</button>'
         }
       }).createComponent(TestComponent);
       fixture.detectChanges();
@@ -356,7 +355,7 @@ describe('PromiseBtnDirective', () => {
 
         fixture = TestBed.overrideComponent(TestComponent, {
           set: {
-            template: '<button (click)="asyncMethod($event)" [promiseBtn]="testPromise">BUTTON_TEXT</button>'
+            template: '<button [promiseBtn]="testPromise">BUTTON_TEXT</button>'
           }
         }).createComponent(TestComponent);
         fixture.detectChanges();
