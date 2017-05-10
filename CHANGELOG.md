@@ -1,3 +1,13 @@
+<a name="1.0.5"></a>
+## [1.0.5](https://github.com/johannesjo/angular2-promise-buttons/compare/v1.0.4...v1.0.5) (2017-05-10)
+
+
+### Features
+
+* add proper aot support ([7e0186a](https://github.com/johannesjo/angular2-promise-buttons/commit/7e0186a))
+
+
+
 <a name="1.0.4"></a>
 ## [1.0.4](https://github.com/johannesjo/angular2-promise-buttons/compare/v1.0.3...v1.0.4) (2017-05-10)
 
