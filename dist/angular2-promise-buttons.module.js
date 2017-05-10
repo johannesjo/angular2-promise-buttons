@@ -1,18 +1,21 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const core_1 = require("@angular/core");
-const promise_btn_directive_1 = require("./promise-btn.directive");
-const user_cfg_1 = require("./user-cfg");
-class Angular2PromiseButtonModule {
+var core_1 = require("@angular/core");
+var promise_btn_directive_1 = require("./promise-btn.directive");
+var user_cfg_1 = require("./user-cfg");
+var Angular2PromiseButtonModule = (function () {
+    function Angular2PromiseButtonModule() {
+    }
     // add forRoot to make it configurable
-    static forRoot(userCfgPassedByUser) {
+    Angular2PromiseButtonModule.forRoot = function (userCfgPassedByUser) {
         // NOTE: this is never allowed to contain any conditional logic
         return {
             ngModule: Angular2PromiseButtonModule,
             providers: [{ provide: user_cfg_1.userCfg, useValue: userCfgPassedByUser }]
         };
-    }
-}
+    };
+    return Angular2PromiseButtonModule;
+}());
 Angular2PromiseButtonModule.decorators = [
     { type: core_1.NgModule, args: [{
                 declarations: [
@@ -26,6 +29,6 @@ Angular2PromiseButtonModule.decorators = [
             },] },
 ];
 /** @nocollapse */
-Angular2PromiseButtonModule.ctorParameters = () => [];
+Angular2PromiseButtonModule.ctorParameters = function () { return []; };
 exports.Angular2PromiseButtonModule = Angular2PromiseButtonModule;
 //# sourceMappingURL=angular2-promise-buttons.module.js.map

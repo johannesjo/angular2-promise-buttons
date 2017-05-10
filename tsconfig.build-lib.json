@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es2015",
+    "target": "es5",
     "module": "commonjs",
     "moduleResolution": "node",
     "sourceMap": true,
@@ -10,7 +10,11 @@
     "noImplicitAny": true,
     "declaration": true,
     "outDir": "./dist",
-    "stripInternal": true
+    "stripInternal": true,
+    "lib": [
+      "dom",
+      "es6"
+    ]
   },
   "include": [
     "src/**/*"
@@ -22,10 +26,6 @@
   "files": [
     "./scripts/typings.d.ts",
     "./src/index.ts"
-  ],
-  "lib": [
-    "dom",
-    "es6"
   ],
   "angularCompilerOptions": {
     "skipTemplateCodegen": true
