@@ -12,8 +12,12 @@
     "outDir": "./dist",
     "stripInternal": true
   },
+  "include": [
+    "src/**/*"
+  ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "**/*.spec.ts"
   ],
   "files": [
     "./scripts/typings.d.ts",
