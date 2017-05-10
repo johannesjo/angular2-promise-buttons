@@ -46,7 +46,7 @@
   <main>
     <p><a href="https://badge.fury.io/js/angular2-promise-buttons"><img src="https://badge.fury.io/js/angular2-promise-buttons.svg" alt="npm version"></a>
 <a href="https://travis-ci.org/johannesjo/angular2-promise-buttons?branch=master"><img src="https://travis-ci.org/johannesjo/angular2-promise-buttons.svg" alt="Build Status"></a>
-<a href="https://coveralls.io/r/johannesjo/angular2-promise-buttons?branch=master"><img src="https://coveralls.io/repos/johannesjo/angular2-promise-buttons/badge.svg?branch=master" alt="Coverage Status"></a></p>
+<a href="https://coveralls.io/github/johannesjo/angular2-promise-buttons?branch=master"><img src="https://coveralls.io/repos/github/johannesjo/angular2-promise-buttons/badge.svg?branch=master" alt="Coverage Status"></a></p>
 <h1 id="angular2-promise-buttons">angular2-promise-buttons</h1>
 <p><em>Chilled Buttons for Angular2</em></p>
 <p>For angular 1.x version <a href="https://github.com/johannesjo/angular-promise-buttons">go here</a>.</p>
@@ -56,7 +56,7 @@
 <p>Install it via npm:</p>
 <pre><code>npm install angular2-promise-buttons -S
 </code></pre><p>And add it as a dependency to your main module</p>
-<pre><code>import {Angular2PromiseButtonModule} from &#39;angular2-promise-buttons/dist&#39;;
+<pre><code class="lang-typescript">import {Angular2PromiseButtonModule} from &#39;angular2-promise-buttons/dist&#39;;
 
 @NgModule({
   imports: [
@@ -68,7 +68,8 @@
 })
 export class MainAppModule {
 }
-</code></pre><p>Using the buttons is easy. Just pass a promise to the directive:</p>
+</code></pre>
+<p>Using the buttons is easy. Just pass a promise to the directive:</p>
 <pre><code class="lang-html">&lt;button (click)=&quot;someAction()&quot; 
    [promiseBtn]=&quot;promiseSetBySomeAction&quot;&gt;Click me to spin!&lt;/button&gt;
 </code></pre>
