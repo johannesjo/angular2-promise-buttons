@@ -9,8 +9,6 @@ import {userCfg} from './user-cfg';
 
 export class PromiseBtnDirective implements OnDestroy, AfterContentInit {
   cfg: PromiseBtnConfig;
-  // later initialized via initPromiseWatcher()
-  promiseWatcher: any;
   // the timeout used for min duration display
   minDurationTimeout: number;
   // boolean to determine minDurationTimeout state
@@ -68,9 +66,7 @@ export class PromiseBtnDirective implements OnDestroy, AfterContentInit {
    */
   checkAndInitPromiseHandler(btnEl: HTMLElement) {
     if (btnEl && this.promise) {
-      if (!this.promiseWatcher) {
-        this.initPromiseHandler(this.promise, btnEl);
-      }
+      this.initPromiseHandler(this.promise, btnEl);
     }
   }
 
@@ -100,12 +96,8 @@ export class PromiseBtnDirective implements OnDestroy, AfterContentInit {
    * @param {Object}btnEl
    */
   initLoadingState(btnEl: HTMLElement) {
-    if (this.cfg.btnLoadingClass) {
-      this.addLoadingClass(btnEl);
-    }
-    if (this.cfg.disableBtn) {
-      this.disableBtn(btnEl);
-    }
+    this.addLoadingClass(btnEl);
+    this.disableBtn(btnEl);
   }
 
   /**
@@ -114,12 +106,8 @@ export class PromiseBtnDirective implements OnDestroy, AfterContentInit {
    */
   cancelLoadingStateIfPromiseAndMinDurationDone(btnEl: HTMLElement) {
     if ((!this.cfg.minDuration || this.isMinDurationTimeoutDone) && this.isPromiseDone) {
-      if (this.cfg.btnLoadingClass) {
-        this.removeLoadingClass(btnEl);
-      }
-      if (this.cfg.disableBtn) {
-        this.enableBtn(btnEl);
-      }
+      this.removeLoadingClass(btnEl);
+      this.enableBtn(btnEl);
     }
   }
 
@@ -127,14 +115,18 @@ export class PromiseBtnDirective implements OnDestroy, AfterContentInit {
    * @param {Object}btnEl
    */
   disableBtn(btnEl: HTMLElement) {
-    this.renderer.setAttribute(btnEl, 'disabled', 'disabled');
+    if (this.cfg.disableBtn) {
+      this.renderer.setAttribute(btnEl, 'disabled', 'disabled');
+    }
   }
 
   /**
    * @param {Object}btnEl
    */
   enableBtn(btnEl: HTMLElement) {
-    this.renderer.removeAttribute(btnEl, 'disabled');
+    if (this.cfg.disableBtn) {
+      this.renderer.removeAttribute(btnEl, 'disabled');
+    }
   }
 
   /**
@@ -145,6 +137,11 @@ export class PromiseBtnDirective implements OnDestroy, AfterContentInit {
    */
 
   initPromiseHandler(promise: any, btnEl: HTMLElement) {
+    // return if something else then a promise is passed
+    if (!promise || !promise.then) {
+      return;
+    }
+
     // watch promise to resolve or fail
     this.isMinDurationTimeoutDone = false;
     this.isPromiseDone = false;
@@ -162,19 +159,17 @@ export class PromiseBtnDirective implements OnDestroy, AfterContentInit {
       this.cancelLoadingStateIfPromiseAndMinDurationDone(btnEl);
     };
 
-    // for regular promises
-    if (promise && promise.then) {
-      if (!this.cfg.handleCurrentBtnOnly) {
-        this.initLoadingState(btnEl);
-      }
-      if (promise.finally) {
-        promise.finally(resolveLoadingState);
-      } else {
-        promise
-          .then(resolveLoadingState)
-          .catch(resolveLoadingState);
-      }
+    if (!this.cfg.handleCurrentBtnOnly) {
+      this.initLoadingState(btnEl);
     }
+    if (promise.finally) {
+      promise.finally(resolveLoadingState);
+    } else {
+      promise
+        .then(resolveLoadingState)
+        .catch(resolveLoadingState);
+    }
+
   }
 
 
