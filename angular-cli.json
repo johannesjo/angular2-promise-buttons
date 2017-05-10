@@ -48,6 +48,11 @@
   "test": {
     "karma": {
       "config": "./karma.conf.js"
+    },
+    "codeCoverage": {
+      "exclude": [
+        "scripts/**/*"
+      ]
     }
   },
   "defaults": {
