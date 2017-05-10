@@ -45,9 +45,7 @@ var PromiseBtnDirective = (function () {
      */
     PromiseBtnDirective.prototype.checkAndInitPromiseHandler = function (btnEl) {
         if (btnEl && this.promise) {
-            if (!this.promiseWatcher) {
-                this.initPromiseHandler(this.promise, btnEl);
-            }
+            this.initPromiseHandler(this.promise, btnEl);
         }
     };
     /**
@@ -74,12 +72,8 @@ var PromiseBtnDirective = (function () {
      * @param {Object}btnEl
      */
     PromiseBtnDirective.prototype.initLoadingState = function (btnEl) {
-        if (this.cfg.btnLoadingClass) {
-            this.addLoadingClass(btnEl);
-        }
-        if (this.cfg.disableBtn) {
-            this.disableBtn(btnEl);
-        }
+        this.addLoadingClass(btnEl);
+        this.disableBtn(btnEl);
     };
     /**
      * Handles everything to be triggered when loading is finished
@@ -87,25 +81,25 @@ var PromiseBtnDirective = (function () {
      */
     PromiseBtnDirective.prototype.cancelLoadingStateIfPromiseAndMinDurationDone = function (btnEl) {
         if ((!this.cfg.minDuration || this.isMinDurationTimeoutDone) && this.isPromiseDone) {
-            if (this.cfg.btnLoadingClass) {
-                this.removeLoadingClass(btnEl);
-            }
-            if (this.cfg.disableBtn) {
-                this.enableBtn(btnEl);
-            }
+            this.removeLoadingClass(btnEl);
+            this.enableBtn(btnEl);
         }
     };
     /**
      * @param {Object}btnEl
      */
     PromiseBtnDirective.prototype.disableBtn = function (btnEl) {
-        this.renderer.setAttribute(btnEl, 'disabled', 'disabled');
+        if (this.cfg.disableBtn) {
+            this.renderer.setAttribute(btnEl, 'disabled', 'disabled');
+        }
     };
     /**
      * @param {Object}btnEl
      */
     PromiseBtnDirective.prototype.enableBtn = function (btnEl) {
-        this.renderer.removeAttribute(btnEl, 'disabled');
+        if (this.cfg.disableBtn) {
+            this.renderer.removeAttribute(btnEl, 'disabled');
+        }
     };
     /**
      * Initializes a watcher for the promise. Also takes
@@ -115,6 +109,10 @@ var PromiseBtnDirective = (function () {
      */
     PromiseBtnDirective.prototype.initPromiseHandler = function (promise, btnEl) {
         var _this = this;
+        // return if something else then a promise is passed
+        if (!promise || !promise.then) {
+            return;
+        }
         // watch promise to resolve or fail
         this.isMinDurationTimeoutDone = false;
         this.isPromiseDone = false;
@@ -129,19 +127,16 @@ var PromiseBtnDirective = (function () {
             _this.isPromiseDone = true;
             _this.cancelLoadingStateIfPromiseAndMinDurationDone(btnEl);
         };
-        // for regular promises
-        if (promise && promise.then) {
-            if (!this.cfg.handleCurrentBtnOnly) {
-                this.initLoadingState(btnEl);
-            }
-            if (promise.finally) {
-                promise.finally(resolveLoadingState);
-            }
-            else {
-                promise
-                    .then(resolveLoadingState)
-                    .catch(resolveLoadingState);
-            }
+        if (!this.cfg.handleCurrentBtnOnly) {
+            this.initLoadingState(btnEl);
+        }
+        if (promise.finally) {
+            promise.finally(resolveLoadingState);
+        }
+        else {
+            promise
+                .then(resolveLoadingState)
+                .catch(resolveLoadingState);
         }
     };
     /**

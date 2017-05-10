@@ -3,7 +3,6 @@ import { PromiseBtnConfig } from './promise-btn-config';
 export declare class PromiseBtnDirective implements OnDestroy, AfterContentInit {
     private renderer;
     cfg: PromiseBtnConfig;
-    promiseWatcher: any;
     minDurationTimeout: number;
     isMinDurationTimeoutDone: boolean;
     isPromiseDone: boolean;
