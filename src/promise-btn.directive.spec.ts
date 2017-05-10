@@ -19,7 +19,7 @@ class MockElementRef extends ElementRef {
   template: ''
 })
 class TestComponent {
-  testPromise: Promise<any>;
+  testPromise: any;
 }
 
 
@@ -165,6 +165,28 @@ describe('PromiseBtnDirective', () => {
           expect(buttonElement.hasAttribute('disabled')).toBe(false);
         });
       });
+
+      describe('should do nothing when anything else then a promise is passed', () => {
+        let promise;
+        beforeEach(async(() => {
+          promise = 'some string';
+          fixture.componentInstance.testPromise = promise;
+
+          // test init before to be sure
+          spyOn(promiseBtnDirective, 'initLoadingState').and.callThrough();
+          fixture.detectChanges();
+        }));
+
+        it('should cancel the loading state', () => {
+          expect(promiseBtnDirective.initLoadingState).not.toHaveBeenCalled();
+        });
+        it('should remove the .is-loading class', () => {
+          expect(buttonElement.className).toBe('');
+        });
+        it('should enable the button', () => {
+          expect(buttonElement.hasAttribute('disabled')).toBe(false);
+        });
+      });
     });
 
     describe('cfg:minDuration', () => {
@@ -239,7 +261,7 @@ describe('PromiseBtnDirective', () => {
       });
     });
 
-    describe('cfg:disableBtn once a promise is passed', () => {
+    describe('cfg:disableBtn:false once a promise is passed', () => {
       beforeEach(() => {
         promiseBtnDirective.cfg.disableBtn = false;
         fixture.componentInstance.testPromise = new Promise(() => {
@@ -280,7 +302,6 @@ describe('PromiseBtnDirective', () => {
         fixture.detectChanges();
 
         fixture.whenStable().then(() => {
-          expect(promiseBtnDirective.addLoadingClass).not.toHaveBeenCalled();
           expect(buttonElement.className).toBe('');
         });
       }));
