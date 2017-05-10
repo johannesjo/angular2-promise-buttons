@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "target": "es2015",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "removeComments": false,
+    "noImplicitAny": true,
+    "declaration": true,
+    "outDir": "./dist",
+    "stripInternal": true
+  },
+  "exclude": [
+    "node_modules"
+  ],
+  "files": [
+    "./scripts/typings.d.ts",
+    "./src/index.ts"
+  ],
+  "lib": [
+    "dom",
+    "es6"
+  ],
+  "angularCompilerOptions": {
+    "skipTemplateCodegen": true
+  }
+}

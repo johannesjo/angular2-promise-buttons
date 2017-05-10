@@ -1,4 +1,6 @@
-export var DEFAULT_CFG = {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.DEFAULT_CFG = {
     spinnerTpl: '<span class="btn-spinner"></span>',
     disableBtn: true,
     btnLoadingClass: 'is-loading',
@@ -6,4 +8,4 @@ export var DEFAULT_CFG = {
     minDuration: false,
     CLICK_EVENT: 'click',
 };
-//# sourceMappingURL=/home/johannes/www/angular2-promise-buttons/default-promise-btn-config.js.map
+//# sourceMappingURL=default-promise-btn-config.js.map

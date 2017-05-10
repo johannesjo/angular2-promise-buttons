@@ -1,1 +1,3 @@
-//# sourceMappingURL=/home/johannes/www/angular2-promise-buttons/promise-btn-config.js.map
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+//# sourceMappingURL=promise-btn-config.js.map
