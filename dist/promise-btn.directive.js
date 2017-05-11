@@ -4,8 +4,7 @@ var core_1 = require("@angular/core");
 var default_promise_btn_config_1 = require("./default-promise-btn-config");
 var user_cfg_1 = require("./user-cfg");
 var PromiseBtnDirective = (function () {
-    function PromiseBtnDirective(el, userCfg, renderer) {
-        this.renderer = renderer;
+    function PromiseBtnDirective(el, userCfg) {
         // provide configuration
         this.cfg = Object.assign({}, default_promise_btn_config_1.DEFAULT_CFG, userCfg);
         // save element
@@ -54,7 +53,7 @@ var PromiseBtnDirective = (function () {
      */
     PromiseBtnDirective.prototype.addLoadingClass = function (el) {
         if (typeof this.cfg.btnLoadingClass === 'string') {
-            this.renderer.addClass(el, this.cfg.btnLoadingClass);
+            el.classList.add(this.cfg.btnLoadingClass);
         }
     };
     /**
@@ -63,7 +62,7 @@ var PromiseBtnDirective = (function () {
      */
     PromiseBtnDirective.prototype.removeLoadingClass = function (el) {
         if (typeof this.cfg.btnLoadingClass === 'string') {
-            this.renderer.removeClass(el, this.cfg.btnLoadingClass);
+            el.classList.remove(this.cfg.btnLoadingClass);
         }
     };
     /**
@@ -90,7 +89,7 @@ var PromiseBtnDirective = (function () {
      */
     PromiseBtnDirective.prototype.disableBtn = function (btnEl) {
         if (this.cfg.disableBtn) {
-            this.renderer.setAttribute(btnEl, 'disabled', 'disabled');
+            btnEl.setAttribute('disabled', 'disabled');
         }
     };
     /**
@@ -98,7 +97,7 @@ var PromiseBtnDirective = (function () {
      */
     PromiseBtnDirective.prototype.enableBtn = function (btnEl) {
         if (this.cfg.disableBtn) {
-            this.renderer.removeAttribute(btnEl, 'disabled');
+            btnEl.removeAttribute('disabled');
         }
     };
     /**
@@ -172,7 +171,6 @@ PromiseBtnDirective.decorators = [
 PromiseBtnDirective.ctorParameters = function () { return [
     { type: core_1.ElementRef, },
     { type: undefined, decorators: [{ type: core_1.Inject, args: [user_cfg_1.userCfg,] },] },
-    { type: core_1.Renderer2, },
 ]; };
 PromiseBtnDirective.propDecorators = {
     'promiseBtn': [{ type: core_1.Input },],

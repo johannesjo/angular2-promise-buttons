@@ -1,2 +1,2 @@
-import { InjectionToken } from '@angular/core';
-export declare let userCfg: InjectionToken<{}>;
+import { OpaqueToken } from '@angular/core';
+export declare let userCfg: OpaqueToken;

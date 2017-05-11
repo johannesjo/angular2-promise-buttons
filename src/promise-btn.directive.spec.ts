@@ -273,10 +273,8 @@ describe('PromiseBtnDirective', () => {
       it('should init the loading state', () => {
         expect(promiseBtnDirective.initLoadingState).toHaveBeenCalled();
       });
-      it('should disable the button', async(() => {
-        fixture.whenStable().then(() => {
-          expect(buttonElement.hasAttribute('disabled')).toBe(false);
-        });
+      it('should NOT disable the button', async(() => {
+        expect(buttonElement.hasAttribute('disabled')).toBe(false);
       }));
     });
 

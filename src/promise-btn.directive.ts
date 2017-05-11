@@ -1,4 +1,4 @@
-import {AfterContentInit, Directive, ElementRef, Inject, Input, OnDestroy, Renderer2} from '@angular/core';
+import {AfterContentInit, Directive, ElementRef, Inject, Input, OnDestroy} from '@angular/core';
 import {DEFAULT_CFG} from './default-promise-btn-config';
 import {PromiseBtnConfig} from './promise-btn-config';
 import {userCfg} from './user-cfg';
@@ -22,8 +22,7 @@ export class PromiseBtnDirective implements OnDestroy, AfterContentInit {
   promise: any;
 
   constructor(el: ElementRef,
-              @Inject(userCfg) userCfg: any,
-              private renderer: Renderer2) {
+              @Inject(userCfg) userCfg: any) {
     // provide configuration
     this.cfg = Object.assign({}, DEFAULT_CFG, userCfg);
 
@@ -76,7 +75,7 @@ export class PromiseBtnDirective implements OnDestroy, AfterContentInit {
    */
   addLoadingClass(el: any) {
     if (typeof this.cfg.btnLoadingClass === 'string') {
-      this.renderer.addClass(el, this.cfg.btnLoadingClass);
+      el.classList.add(this.cfg.btnLoadingClass);
     }
   }
 
@@ -86,7 +85,7 @@ export class PromiseBtnDirective implements OnDestroy, AfterContentInit {
    */
   removeLoadingClass(el: any) {
     if (typeof this.cfg.btnLoadingClass === 'string') {
-      this.renderer.removeClass(el, this.cfg.btnLoadingClass);
+      el.classList.remove(this.cfg.btnLoadingClass);
     }
   }
 
@@ -116,7 +115,7 @@ export class PromiseBtnDirective implements OnDestroy, AfterContentInit {
    */
   disableBtn(btnEl: HTMLElement) {
     if (this.cfg.disableBtn) {
-      this.renderer.setAttribute(btnEl, 'disabled', 'disabled');
+      btnEl.setAttribute('disabled', 'disabled');
     }
   }
 
@@ -125,7 +124,7 @@ export class PromiseBtnDirective implements OnDestroy, AfterContentInit {
    */
   enableBtn(btnEl: HTMLElement) {
     if (this.cfg.disableBtn) {
-      this.renderer.removeAttribute(btnEl, 'disabled');
+      btnEl.removeAttribute('disabled');
     }
   }
 
