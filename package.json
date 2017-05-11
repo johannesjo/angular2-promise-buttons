@@ -7,7 +7,7 @@
     "url": "git+ssh://git@github.com/johannesjo/angular2-promise-buttons.git"
   },
   "scripts": {
-    "total-patch-publish": "run-s test demo.deploy version && git commit -am'update dist files' && npm version patch && npm publish && git push --tags && git push",
+    "total-patch-publish": "run-s test demo.deploy version && npm version patch && npm publish && git push --tags && git push",
     "demo.serve": "ng serve",
     "demo.gh-pages": "gh-pages -d demo/dist",
     "demo.build": "ng build -prod --aot",
