@@ -1,3 +1,13 @@
+<a name="1.0.7"></a>
+## [1.0.7](https://github.com/johannesjo/angular2-promise-buttons/compare/v1.0.6...v1.0.7) (2017-05-11)
+
+
+### Features
+
+* add angular2 compatibility [#3](https://github.com/johannesjo/angular2-promise-buttons/issues/3) ([52a98e9](https://github.com/johannesjo/angular2-promise-buttons/commit/52a98e9))
+
+
+
 <a name="1.0.6"></a>
 ## [1.0.6](https://github.com/johannesjo/angular2-promise-buttons/compare/v1.0.5...v1.0.6) (2017-05-10)
 
