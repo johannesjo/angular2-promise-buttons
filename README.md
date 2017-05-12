@@ -25,8 +25,7 @@ import {Angular2PromiseButtonModule} from 'angular2-promise-buttons/dist';
 
 @NgModule({
   imports: [
-    Angular2PromiseButtonModule
-      .forRoot(),
+    Angular2PromiseButtonModule.forRoot(),
   ],
 })
 export class MainAppModule {
