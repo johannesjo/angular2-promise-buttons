@@ -26,9 +26,7 @@ import {Angular2PromiseButtonModule} from 'angular2-promise-buttons/dist';
 @NgModule({
   imports: [
     Angular2PromiseButtonModule
-      .forRoot(
-        // your custom config goes here
-      ),
+      .forRoot(),
   ],
 })
 export class MainAppModule {
@@ -65,12 +63,12 @@ There are selectors you can use to style. There is the `.is-loading` class on th
 ## configuration
 Configuration is done via the forRoot method of the promise button module:
 ```typescript
-import {Angular2PromiseButtonModule} from 'angular2-promise-buttons/dist';
+import {Angular2PromiseButtonModule} from 'angular2-promise-buttons';
 
 @NgModule({
   imports: [
     Angular2PromiseButtonModule
-      .forRoot(
+      .forRoot({
         // your custom config goes here
         spinnerTpl: '<span class="btn-spinner"></span>',
         // disable buttons when promise is pending
@@ -80,7 +78,7 @@ import {Angular2PromiseButtonModule} from 'angular2-promise-buttons/dist';
         // only disable and show is-loading class for clicked button, 
         // even when they share the same promise
         handleCurrentBtnOnly: false,
-      ),
+      }),
   ],
 })
 export class MainAppModule {
