@@ -13,7 +13,7 @@ For angular 1.x version [go here](https://github.com/johannesjo/angular-promise-
 
 [Bug-reports or feature request](https://github.com/johannesjo/angular2-promise-buttons/issues) as well as any other kind of **feedback is highly welcome!**
 
-## getting started
+## Getting started
 Install it via npm:
 ```
 npm install angular2-promise-buttons -S
@@ -48,7 +48,7 @@ export class SomeComponent {
 
 ```
 
-## styling the button
+## Styling the button
 To give you maximum flexibility there are no base styles coming with the directive, but it is easy to fix that! There are lots of free css-spinners out there. Just find one of your liking and add the css to your global stylesheet.
 
 **Ressources:**
@@ -59,7 +59,7 @@ To give you maximum flexibility there are no base styles coming with the directi
 There are selectors you can use to style. There is the `.is-loading` class on the button, which is set, when the promise is pending and there is the `<span class="btn-spinner"></span>` element inside the button.
 
 
-## configuration
+## Configuration
 Configuration is done via the forRoot method of the promise button module:
 ```typescript
 import {Angular2PromiseButtonModule} from 'angular2-promise-buttons';

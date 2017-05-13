@@ -1,33 +1,33 @@
-<button class="btn btn-primary"
+<button class="btn btn-raised"
         (click)="success($event)"
         [promiseBtn]="successPromise">Success after delay
 </button>
-<button class="btn btn-primary"
+<button class="btn btn-raised"
         (click)="error()"
         [promiseBtn]="errorPromise">Error after delay
 </button>
 <br>
 <br>
-<button class="btn btn-primary"
+<button class="btn btn-raised"
         (click)="endless()"
         [promiseBtn]="endlessPromise">Never resolving promise
 </button>
-<button class="btn btn-primary"
+<button class="btn btn-raised"
         [promiseBtn]="endlessInitialPromise">Loading initially and forever
 </button>
 
 <h3>Same promise buttons</h3>
-<button class="btn btn-primary"
+<button class="btn btn-raised"
         (click)="success($event)"
         [promiseBtn]="successPromise">We
 </button>
-<button class="btn btn-primary"
+<button class="btn btn-raised"
         (click)="success($event)"
         [promiseBtn]="successPromise">share
 </button>
 
 <h3>Chained promise buttons</h3>
-<button class="btn btn-primary"
+<button class="btn btn-raised"
         (click)="chain()"
         [promiseBtn]="chainedPromises">Load promise chain {{ promiseIndex }}
 </button>
@@ -36,7 +36,7 @@
 <h3>Inside a form</h3>
 <form (submit)="submit()"
       novalidate>
-  <button class="btn btn-primary"
+  <button class="btn btn-raised"
           type="submit"
           [promiseBtn]="submitPromise">Submit
   </button>
