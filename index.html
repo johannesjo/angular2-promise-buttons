@@ -11,114 +11,55 @@
         href="favicon.ico">
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
         rel="stylesheet">
-<link href="styles.43c751a6d16b4d2d0113.bundle.css" rel="stylesheet"/></head>
+<link href="styles.20f001ae7a2c421273b2.bundle.css" rel="stylesheet"/></head>
 <body>
 
 <header class="main-header">
-  <a class="fork-me-badge"
-     href="https://github.com/johannesjo/angular2-promise-buttons">
-    <img src="assets/fork-me.png">
+  <a href="https://github.com/johannesjo/angular2-promise-buttons"
+     class="fork-me-badge">
+    <img src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png">
   </a>
 
   <div class="container">
-
     <h1 class="header">angular2-promise-buttons</h1>
     <p class="header motto"><i>Chilled Buttons for Angular</i></p>
 
-    <a href="https://github.com/johannesjo/angular2-promise-buttons"
-       class="github-button"
+    <!-- Place this tag where you want the button to render. -->
+    <!-- Place this tag where you want the button to render. -->
+    <a class="github-button"
+       href="https://github.com/johannesjo/angular2-promise-buttons"
        data-icon="octicon-star"
-       data-count-href="/johannesjo/angular2-promise-buttons/stargazers"
-       data-count-api="/repos/johannesjo/angular2-promise-buttons#stargazers_count">Star</a>
-    <a href="https://github.com/johannesjo/angular2-promise-buttons"
-       class="github-button"
-       data-icon="octicon-git-branch"
-       data-count-href="/johannesjo/angular2-promise-buttons/network"
-       data-count-api="/repos/johannesjo/angular2-promise-buttons#forks_count">Fork</a>
-    <a href="https://github.com/johannesjo/angular2-promise-buttons/issues"
-       class="github-button"
+       data-size="large"
+       data-show-count="true"
+       aria-label="Star johannesjo/angular2-promise-buttons on GitHub">Star</a>
+
+    <!-- Place this tag where you want the button to render. -->
+    <a class="github-button"
+       href="https://github.com/johannesjo/angular2-promise-buttons/fork"
+       data-icon="octicon-repo-forked"
+       data-size="large"
+       data-show-count="true"
+       aria-label="Fork johannesjo/angular2-promise-buttons on GitHub">Fork</a>
+
+    <!-- Place this tag where you want the button to render. -->
+    <a class="github-button"
+       href="https://github.com/johannesjo/angular2-promise-buttons/issues"
        data-icon="octicon-issue-opened"
-       data-count-api="/repos/johannesjo/angular2-promise-buttons#open_issues_count">Issue</a>
+       data-size="large"
+       data-show-count="true"
+       aria-label="Issue johannesjo/angular2-promise-buttons on GitHub">Issue</a>
   </div>
 </header>
 
 <div class="container">
   <main>
-    <p><a href="https://badge.fury.io/js/angular2-promise-buttons"><img src="https://badge.fury.io/js/angular2-promise-buttons.svg" alt="npm version"></a>
-<a href="https://travis-ci.org/johannesjo/angular2-promise-buttons?branch=master"><img src="https://travis-ci.org/johannesjo/angular2-promise-buttons.svg" alt="Build Status"></a>
-<a href="https://coveralls.io/github/johannesjo/angular2-promise-buttons?branch=master"><img src="https://coveralls.io/repos/github/johannesjo/angular2-promise-buttons/badge.svg?branch=master" alt="Coverage Status"></a></p>
-<h1 id="angular2-promise-buttons">angular2-promise-buttons</h1>
-<p><em>Chilled Buttons for Angular2</em></p>
-<p>For angular 1.x version <a href="https://github.com/johannesjo/angular-promise-buttons">go here</a>.</p>
-<p><em>angular2-promise-buttons</em> is a simple module that let&#39;s you add a loading indicator to a button of your choice.  Check out the <a href="http://johannesjo.github.io/angular2-promise-buttons/#demo">demo</a>!</p>
-<p><a href="https://github.com/johannesjo/angular2-promise-buttons/issues">Bug-reports or feature request</a> as well as any other kind of <strong>feedback is highly welcome!</strong></p>
-<h2 id="getting-started">getting started</h2>
-<p>Install it via npm:</p>
-<pre><code>npm install angular2-promise-buttons -S
-</code></pre><p>And add it as a dependency to your main module</p>
-<pre><code class="lang-typescript">import {Angular2PromiseButtonModule} from &#39;angular2-promise-buttons/dist&#39;;
-
-@NgModule({
-  imports: [
-    Angular2PromiseButtonModule
-      .forRoot(
-        // your custom config goes here
-      ),
-  ],
-})
-export class MainAppModule {
-}
-</code></pre>
-<p>Using the buttons is easy. Just pass a promise to the directive:</p>
-<pre><code class="lang-html">&lt;button (click)=&quot;someAction()&quot; 
-   [promiseBtn]=&quot;promiseSetBySomeAction&quot;&gt;Click me to spin!&lt;/button&gt;
-</code></pre>
-<pre><code class="lang-typescript">export class SomeComponent {
-    // some example async action, but this works with any promise
-    someAction(){
-      this.promiseSetBySomeAction = new Promise((resolve, reject) =&gt; {
-        setTimeout(resolve, 2000);
-      });
-    }
-}
-</code></pre>
-<h2 id="styling-the-button">styling the button</h2>
-<p>To give you maximum flexibility there are no base styles coming with the directive, but it is easy to fix that! There are lots of free css-spinners out there. Just find one of your liking and add the css to your global stylesheet.</p>
-<p><strong>Ressources:</strong></p>
-<ul>
-<li><a href="http://cssload.net/">http://cssload.net/</a></li>
-<li><a href="http://projects.lukehaas.me/css-loaders/">http://projects.lukehaas.me/css-loaders/</a></li>
-<li><a href="http://tobiasahlin.com/spinkit/">http://tobiasahlin.com/spinkit/</a></li>
-</ul>
-<p>There are selectors you can use to style. There is the <code>.is-loading</code> class on the button, which is set, when the promise is pending and there is the <code>&lt;span class=&quot;btn-spinner&quot;&gt;&lt;/span&gt;</code> element inside the button.</p>
-<h2 id="configuration">configuration</h2>
-<p>Configuration is done via the forRoot method of the promise button module:</p>
-<pre><code class="lang-typescript">import {Angular2PromiseButtonModule} from &#39;angular2-promise-buttons/dist&#39;;
-
-@NgModule({
-  imports: [
-    Angular2PromiseButtonModule
-      .forRoot(
-        // your custom config goes here
-        spinnerTpl: &#39;&lt;span class=&quot;btn-spinner&quot;&gt;&lt;/span&gt;&#39;,
-        // disable buttons when promise is pending
-        disableBtn: true,
-        // the class used to indicate a pending promise
-        btnLoadingClass: &#39;is-loading&#39;,
-        // only disable and show is-loading class for clicked button, 
-        // even when they share the same promise
-        handleCurrentBtnOnly: false,
-      ),
-  ],
-})
-export class MainAppModule {
-}
-</code></pre>
-
+    ___README_MD_NEEDLE___
 
 
     <h2><a name="demo"
-           id="demo"></a>demo</h2>
+           id="demo"></a>Demo</h2>
     <app-root>Loading...</app-root>
   </main>
 </div>
@@ -127,5 +68,5 @@ export class MainAppModule {
         defer
         id="github-bjs"
         src="https://buttons.github.io/buttons.js"></script>
-<script type="text/javascript" src="inline.b1cbb6e2d2512bbda994.bundle.js"></script><script type="text/javascript" src="vendor.484e98c91de6b92bbf6b.bundle.js"></script><script type="text/javascript" src="main.bff5d8b770d0006d9c51.bundle.js"></script></body>
+<script type="text/javascript" src="inline.0b062f002d47a087c159.bundle.js"></script><script type="text/javascript" src="vendor.484e98c91de6b92bbf6b.bundle.js"></script><script type="text/javascript" src="main.3bd5f4718966e8ca4db8.bundle.js"></script></body>
 </html>
