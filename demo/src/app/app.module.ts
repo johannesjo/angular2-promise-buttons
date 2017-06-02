@@ -14,7 +14,7 @@ import {AppComponent} from './app.component';
     FormsModule,
     Angular2PromiseButtonModule
       .forRoot(
-        // {disableBtn: false}
+        // {handleCurrentBtnOnly: true}
       ),
   ],
   providers: [],

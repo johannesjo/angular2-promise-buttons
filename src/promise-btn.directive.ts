@@ -190,7 +190,12 @@ export class PromiseBtnDirective implements OnDestroy, AfterContentInit {
     // handle current button only options via click
     if (this.cfg.handleCurrentBtnOnly) {
       btnEl.addEventListener(this.cfg.CLICK_EVENT, () => {
-        this.initLoadingState(btnEl);
+        // due to some really weird reasons, we need a timeout
+        // to let the model still update when a button
+        // inside a form is disabled
+        setTimeout(() => {
+          this.initLoadingState(btnEl);
+        }, 1);
       });
     }
   }
