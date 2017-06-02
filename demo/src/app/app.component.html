@@ -43,4 +43,8 @@
 </form>
 
 
-
+<h3>With an observable</h3>
+<button class="btn btn-raised"
+        (click)="initObservable()"
+        [promiseBtn]="observableItem">Observable {{ obsVal }}
+</button>

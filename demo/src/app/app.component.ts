@@ -1,4 +1,5 @@
 import {Component} from '@angular/core';
+import {Observable} from 'rxjs/Observable';
 
 const STANDARD_DELAY = 1000;
 const FAKE_FACT = {
@@ -24,7 +25,26 @@ const FAKE_FACT = {
     return new Promise((fulfill) => {
       setTimeout(fulfill, 99999999);
     });
-  }
+  },
+  initObservable: () => {
+    return new Observable(observer => {
+      setTimeout(() => {
+        observer.next(1);
+      }, 1000);
+
+      setTimeout(() => {
+        observer.next(2);
+      }, 2000);
+
+      setTimeout(() => {
+        observer.next(3);
+      }, 3000);
+
+      setTimeout(() => {
+        observer.complete();
+      }, 4000);
+    });
+  },
 };
 
 @Component({
@@ -38,8 +58,11 @@ export class AppComponent {
   endlessInitialPromise: Promise<any>;
   endlessPromise: Promise<any>;
   submitPromise: Promise<any>;
+  // observableItem: Observable<any>;
+  observableItem: any;
   chainedPromises: any;
   promiseIndex: number;
+  obsVal: any;
 
   constructor() {
     this.endlessInitial();
@@ -64,6 +87,18 @@ export class AppComponent {
 
   endlessInitial() {
     this.endlessInitialPromise = FAKE_FACT.endless();
+  }
+
+  initObservable() {
+    const obs = FAKE_FACT.initObservable();
+    this.obsVal = 'INITIALIZED';
+    this.observableItem = obs
+      .forEach((val) => {
+        this.obsVal = val;
+      })
+      .then(() => {
+        this.obsVal = 'COMPLETE';
+      });
   }
 
   submit() {
