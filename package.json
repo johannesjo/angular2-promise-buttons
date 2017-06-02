@@ -7,7 +7,7 @@
     "url": "git+ssh://git@github.com/johannesjo/angular2-promise-buttons.git"
   },
   "scripts": {
-    "total-patch-publish": "run-s test demo.deploy version && npm version patch && npm publish && git push --tags && git push",
+    "total-patch-publish": "run-s test demo.deploy version && npm version patch && npm publish",
     "demo.serve": "ng serve",
     "demo.gh-pages": "gh-pages -d demo/dist",
     "demo.build": "ng build -prod --aot",
@@ -25,7 +25,8 @@
     "test-coverage": "ng test -cc -sr",
     "link-mod": "cd demo/src/app && -s ../../../src component-symlink && cd ....",
     "coveralls": "YOURPACKAGE_COVERAGE=1 cat ./coverage/lcov.info | ./node_modules/.bin/coveralls",
-    "version": "run-s release.changelog build && git add -A",
+    "version": "run-s release.changelog build && git add -A dist",
+    "postversion": "git push && git push --tags",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "ng": "ng"
