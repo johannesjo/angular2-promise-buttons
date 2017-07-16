@@ -8,6 +8,8 @@ import {PromiseBtnDirective} from './promise-btn.directive';
 import {userCfg} from './user-cfg';
 import {By} from '@angular/platform-browser';
 import {Observable} from 'rxjs/Observable';
+import * as BlueBird from 'bluebird';
+const jQuery = require('jquery');
 
 class MockElementRef extends ElementRef {
   constructor() {
@@ -79,8 +81,33 @@ describe('PromiseBtnDirective', () => {
           const spinnerEl = buttonElement.querySelector('span');
           expect(spinnerEl && spinnerEl.outerHTML).toBe('<span class="btn-spinner"></span>');
         });
+        describe('should accept all promise-alike values', () => {
+          const possibleValues = {
+            'native Promise': () => new Promise((resolve) => { resolve(); }),
+            'jQuery Deferred': () => jQuery.Deferred((defer: any) => { defer.resolve(); }),
+            'jQuery Deferred Promise': () => jQuery.Deferred((defer: any) => { defer.resolve(); }).promise(),
+            'bluebird Promise': () => new BlueBird((resolve) => { resolve(); }),
+            'RxJs Observable': () => new Observable((subscriber) => { subscriber.complete(); }),
+          };
+
+          // Iterate over possible values
+          for (const [description, getPromise] of (<any>Object).entries(possibleValues)) {
+            describe(`testing ${description}`, () => {
+              beforeEach(() => {
+                fixture.componentInstance.testPromise = getPromise();
+                // test init before to be sure
+                spyOn(promiseBtnDirective, 'initLoadingState').and.callThrough();
+                fixture.detectChanges();
+              });
+
+              it('should init the loading state', () => {
+                expect(promiseBtnDirective.initLoadingState).toHaveBeenCalled();
+              });
+            });
+          }
+        });
         it('should convert RxJs Observable to Promise', () => {
-          fixture.componentInstance.testPromise = new Observable();
+          fixture.componentInstance.testPromise = new Observable((subscriber) => { subscriber.complete(); });
           fixture.detectChanges();
           expect(promiseBtnDirective.promise instanceof Promise).toBe(true);
         });
