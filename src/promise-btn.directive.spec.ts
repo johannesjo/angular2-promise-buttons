@@ -6,6 +6,7 @@ import {ComponentFixture} from '@angular/core/testing';
 import {PromiseBtnDirective} from './promise-btn.directive';
 import {userCfg} from './user-cfg';
 import {By} from '@angular/platform-browser';
+import {Observable} from 'rxjs/Observable';
 
 class MockElementRef extends ElementRef {
   constructor() {
@@ -76,6 +77,11 @@ describe('PromiseBtnDirective', () => {
         it('should append the spinner el to the button', () => {
           const spinnerEl = buttonElement.querySelector('span');
           expect(spinnerEl && spinnerEl.outerHTML).toBe('<span class="btn-spinner"></span>');
+        });
+        it('should convert RxJs Observable to Promise', () => {
+          fixture.componentInstance.testPromise = new Observable();
+          fixture.detectChanges();
+          expect(promiseBtnDirective.promise instanceof Promise).toBe(true);
         });
       });
 

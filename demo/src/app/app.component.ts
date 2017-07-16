@@ -26,7 +26,7 @@ const FAKE_FACT = {
       setTimeout(fulfill, 99999999);
     });
   },
-  initObservable: () => {
+  initObservable: (): Observable<number> => {
     return new Observable(observer => {
       setTimeout(() => {
         observer.next(1);
@@ -58,8 +58,7 @@ export class AppComponent {
   endlessInitialPromise: Promise<any>;
   endlessPromise: Promise<any>;
   submitPromise: Promise<any>;
-  // observableItem: Observable<any>;
-  observableItem: any;
+  observableItem: Observable<any>;
   chainedPromises: any;
   promiseIndex: number;
   obsVal: any;
@@ -90,15 +89,17 @@ export class AppComponent {
   }
 
   initObservable() {
-    const obs = FAKE_FACT.initObservable();
     this.obsVal = 'INITIALIZED';
-    this.observableItem = obs
-      .forEach((val) => {
-        this.obsVal = val;
-      })
-      .then(() => {
-        this.obsVal = 'COMPLETE';
-      });
+    this.observableItem = FAKE_FACT.initObservable();
+    this.observableItem.subscribe(
+      (value: number) => {
+        this.obsVal = value;
+      },
+      () => {},
+      () => {
+        this.obsVal = 'COMPLETED';
+      }
+    );
   }
 
   submit() {
