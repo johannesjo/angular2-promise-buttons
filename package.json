@@ -52,6 +52,7 @@
     "@angular/platform-browser": "^4.0.0",
     "@angular/platform-browser-dynamic": "^4.0.0",
     "@angular/router": "^4.0.0",
+    "@types/bluebird": "^3.5.8",
     "@types/core-js": "^0.9.41",
     "@types/jasmine": "2.5.38",
     "@types/node": "~6.0.60",

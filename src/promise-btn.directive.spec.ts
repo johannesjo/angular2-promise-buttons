@@ -1,3 +1,4 @@
+import 'core-js/fn/object/entries';
 import {ElementRef} from '@angular/core';
 import {Component} from '@angular/core';
 import {DebugElement} from '@angular/core';
@@ -172,26 +173,40 @@ describe('PromiseBtnDirective', () => {
         });
       });
 
-      describe('should do nothing when anything else then a promise is passed', () => {
-        let promise;
-        beforeEach(async(() => {
-          promise = 'some string';
-          fixture.componentInstance.testPromise = promise;
+      describe('should do nothing when anything else than a promise is passed', () => {
+        const possibleValues = {
+          'undefined': undefined,
+          'null': null,
+          'boolean': false,
+          'number': 1,
+          'NaN': NaN,
+          'array': [],
+          'object': {},
+          'object, "then" is not a function': { then: true },
+          'object, "then" is invalid function': { then: () => {} },
+        };
 
-          // test init before to be sure
-          spyOn(promiseBtnDirective, 'initLoadingState').and.callThrough();
-          fixture.detectChanges();
-        }));
+        // Iterate over possible values
+        for (const [description, promise] of (<any>Object).entries(possibleValues)) {
+          describe(`testing ${description}`, () => {
+            beforeEach(() => {
+              fixture.componentInstance.testPromise = promise;
+              // test init before to be sure
+              spyOn(promiseBtnDirective, 'initLoadingState').and.callThrough();
+              fixture.detectChanges();
+            });
 
-        it('should cancel the loading state', () => {
-          expect(promiseBtnDirective.initLoadingState).not.toHaveBeenCalled();
-        });
-        it('should remove the .is-loading class', () => {
-          expect(buttonElement.className).toBe('');
-        });
-        it('should enable the button', () => {
-          expect(buttonElement.hasAttribute('disabled')).toBe(false);
-        });
+            it('should cancel the loading state', () => {
+              expect(promiseBtnDirective.initLoadingState).not.toHaveBeenCalled();
+            });
+            it('should remove the .is-loading class', () => {
+              expect(buttonElement.className).toBe('');
+            });
+            it('should enable the button', () => {
+              expect(buttonElement.hasAttribute('disabled')).toBe(false);
+            });
+          });
+        }
       });
     });
 
