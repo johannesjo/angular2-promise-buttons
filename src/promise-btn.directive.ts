@@ -1,4 +1,6 @@
 import {AfterContentInit, Directive, ElementRef, Inject, Input, OnDestroy} from '@angular/core';
+import {Observable} from 'rxjs/Observable';
+import 'rxjs/add/operator/toPromise';
 import {DEFAULT_CFG} from './default-promise-btn-config';
 import {PromiseBtnConfig} from './promise-btn-config';
 import {userCfg} from './user-cfg';
@@ -32,7 +34,11 @@ export class PromiseBtnDirective implements OnDestroy, AfterContentInit {
 
   @Input()
   set promiseBtn(promise: any) {
-    this.promise = promise;
+    if (promise instanceof Observable) {
+      this.promise = promise.toPromise();
+    } else {
+      this.promise = promise;
+    }
     this.checkAndInitPromiseHandler(this.btnEl);
   }
 
