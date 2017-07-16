@@ -366,6 +366,20 @@ describe('PromiseBtnDirective', () => {
         expect(promiseBtnDirective2.initLoadingState).toHaveBeenCalled();
       });
     });
+
+    it('should cancel the loading state on click when anything else than a promise is passed', () => {
+      fixture.componentInstance.testPromise = 'some string';
+      fixture.detectChanges();
+
+      buttonElement.click();
+      divElement.click();
+      fixture.detectChanges();
+
+      fixture.whenStable().then(() => {
+        expect(promiseBtnDirective1.initLoadingState).not.toHaveBeenCalled();
+        expect(promiseBtnDirective2.initLoadingState).not.toHaveBeenCalled();
+      });
+    });
   });
 
   describe('cfg before runtime', () => {
