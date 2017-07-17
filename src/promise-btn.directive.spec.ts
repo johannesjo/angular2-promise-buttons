@@ -293,7 +293,7 @@ describe('PromiseBtnDirective', () => {
             resolve();
             setTimeout(() => {
               done();
-            }, (+promiseBtnDirective.cfg.minDuration + 5));
+            }, (<number>promiseBtnDirective.cfg.minDuration + 5));
           }, 10);
         });
 

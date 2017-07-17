@@ -24,7 +24,7 @@ export class PromiseBtnDirective implements OnDestroy, AfterContentInit {
   promise: (Promise<any> & BlueBird<any>);
 
   constructor(el: ElementRef,
-              @Inject(userCfg) userCfg: any) {
+              @Inject(userCfg) userCfg: PromiseBtnConfig) {
     // provide configuration
     this.cfg = Object.assign({}, DEFAULT_CFG, userCfg);
 
@@ -190,7 +190,7 @@ export class PromiseBtnDirective implements OnDestroy, AfterContentInit {
    */
   appendSpinnerTpl(btnEl: HTMLElement) {
     // TODO add some kind of compilation later on
-    btnEl.insertAdjacentHTML('beforeend', this.cfg.spinnerTpl);
+    btnEl.insertAdjacentHTML('beforeend', <string>this.cfg.spinnerTpl);
   }
 
   /**
