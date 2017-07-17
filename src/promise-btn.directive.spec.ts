@@ -409,6 +409,30 @@ describe('PromiseBtnDirective', () => {
       });
     });
 
+    it('should set loading state when promise is set after click', () => {
+      const setPromise = () => {
+        fixture.componentInstance.testPromise = new Promise(() => {});
+      };
+
+      // remove initial promise
+      fixture.componentInstance.testPromise = null;
+      fixture.detectChanges();
+
+      // add promise on click
+      buttonElement.addEventListener('click', setPromise);
+      fixture.detectChanges();
+
+      buttonElement.click();
+      fixture.detectChanges();
+
+      fixture.whenStable().then(() => {
+        expect(promiseBtnDirective1.initLoadingState).toHaveBeenCalled();
+
+        // cleanup
+        buttonElement.removeEventListener('click', setPromise);
+      });
+    });
+
     it('should cancel the loading state on click when anything else than a promise is passed', () => {
       fixture.componentInstance.testPromise = 'some string';
       fixture.detectChanges();
