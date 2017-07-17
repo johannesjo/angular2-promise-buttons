@@ -13,9 +13,9 @@ import {AppComponent} from './app.component';
     BrowserModule,
     FormsModule,
     Angular2PromiseButtonModule
-      .forRoot(
-        // {handleCurrentBtnOnly: true}
-      ),
+      .forRoot({
+        // handleCurrentBtnOnly: true,
+      }),
   ],
   providers: [],
   bootstrap: [AppComponent]
