@@ -388,7 +388,19 @@ describe('PromiseBtnDirective', () => {
 
       spyOn(promiseBtnDirective1, 'initLoadingState').and.callThrough();
       spyOn(promiseBtnDirective2, 'initLoadingState').and.callThrough();
+      spyOn(promiseBtnDirective1, 'handleCurrentBtnOnly').and.callThrough();
       fixture.detectChanges();
+    });
+
+    it('should cancel the click handler when handleCurrentBtnOnly is false', () => {
+      promiseBtnDirective1.cfg.handleCurrentBtnOnly = false;
+      buttonElement.click();
+      fixture.detectChanges();
+
+      fixture.whenStable().then(() => {
+        expect(promiseBtnDirective1.handleCurrentBtnOnly()).toBe(false);
+        expect(promiseBtnDirective1.initLoadingState).not.toHaveBeenCalled();
+      });
     });
 
     it('should set loading state for first button when clicked, but not for second', () => {
@@ -406,6 +418,30 @@ describe('PromiseBtnDirective', () => {
       fixture.whenStable().then(() => {
         expect(promiseBtnDirective1.initLoadingState).not.toHaveBeenCalled();
         expect(promiseBtnDirective2.initLoadingState).toHaveBeenCalled();
+      });
+    });
+
+    it('should set loading state when promise is set after click', () => {
+      const setPromise = () => {
+        fixture.componentInstance.testPromise = new Promise(() => {});
+      };
+
+      // remove initial promise
+      fixture.componentInstance.testPromise = null;
+      fixture.detectChanges();
+
+      // add promise on click
+      buttonElement.addEventListener('click', setPromise);
+      fixture.detectChanges();
+
+      buttonElement.click();
+      fixture.detectChanges();
+
+      fixture.whenStable().then(() => {
+        expect(promiseBtnDirective1.initLoadingState).toHaveBeenCalled();
+
+        // cleanup
+        buttonElement.removeEventListener('click', setPromise);
       });
     });
 
