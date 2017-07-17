@@ -1,4 +1,4 @@
-import {AfterContentInit, Directive, ElementRef, Inject, Input, OnDestroy} from '@angular/core';
+import {AfterContentInit, Directive, ElementRef, HostListener, Inject, Input, OnDestroy} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/toPromise';
 import * as BlueBird from 'bluebird';
@@ -71,7 +71,6 @@ export class PromiseBtnDirective implements OnDestroy, AfterContentInit {
   prepareBtnEl(btnEl: HTMLElement) {
     // handle promises passed via promiseBtn attribute
     this.appendSpinnerTpl(btnEl);
-    this.addHandlersForCurrentBtnOnlyIfSet(btnEl);
   }
 
   /**
@@ -195,26 +194,24 @@ export class PromiseBtnDirective implements OnDestroy, AfterContentInit {
   }
 
   /**
-   * Used to limit loading state to show only for the currently
-   * clicked button.
-   * @param {Object}btnEl
+   * Limit loading state to show only for the currently clicked button.
+   * Executed only if this.cfg.handleCurrentBtnOnly is set
    */
-  addHandlersForCurrentBtnOnlyIfSet(btnEl: HTMLElement) {
-    // handle current button only options via click
-    if (this.cfg.handleCurrentBtnOnly) {
-      btnEl.addEventListener(this.cfg.CLICK_EVENT, () => {
-        // return if something else than a promise is passed
-        if (!this.promise) {
-          return;
-        }
-
-        // due to some really weird reasons, we need a timeout
-        // to let the model still update when a button
-        // inside a form is disabled
-        setTimeout(() => {
-          this.initLoadingState(btnEl);
-        }, 1);
-      });
+  @HostListener('click')
+  handleCurrentBtnOnly() {
+    if (!this.cfg.handleCurrentBtnOnly) {
+      return;
     }
+
+    // Click triggers @Input update
+    // We need to use timeout to wait for @Input to update
+    setTimeout(() => {
+      // return if something else than a promise is passed
+      if (!this.promise) {
+        return;
+      }
+
+      this.initLoadingState(this.btnEl);
+    }, 0);
   }
 }

@@ -4,5 +4,4 @@ export interface PromiseBtnConfig {
   btnLoadingClass: boolean | string;
   handleCurrentBtnOnly: boolean;
   minDuration: boolean | number;
-  CLICK_EVENT: string;
 }
