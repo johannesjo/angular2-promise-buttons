@@ -388,7 +388,19 @@ describe('PromiseBtnDirective', () => {
 
       spyOn(promiseBtnDirective1, 'initLoadingState').and.callThrough();
       spyOn(promiseBtnDirective2, 'initLoadingState').and.callThrough();
+      spyOn(promiseBtnDirective1, 'handleCurrentBtnOnly').and.callThrough();
       fixture.detectChanges();
+    });
+
+    it('should cancel the click handler when handleCurrentBtnOnly is false', () => {
+      promiseBtnDirective1.cfg.handleCurrentBtnOnly = false;
+      buttonElement.click();
+      fixture.detectChanges();
+
+      fixture.whenStable().then(() => {
+        expect(promiseBtnDirective1.handleCurrentBtnOnly()).toBe(false);
+        expect(promiseBtnDirective1.initLoadingState).not.toHaveBeenCalled();
+      });
     });
 
     it('should set loading state for first button when clicked, but not for second', () => {
