@@ -1,3 +1,4 @@
+import 'core-js/fn/object/entries';
 import {ElementRef} from '@angular/core';
 import {Component} from '@angular/core';
 import {DebugElement} from '@angular/core';
@@ -7,6 +8,8 @@ import {PromiseBtnDirective} from './promise-btn.directive';
 import {userCfg} from './user-cfg';
 import {By} from '@angular/platform-browser';
 import {Observable} from 'rxjs/Observable';
+import * as BlueBird from 'bluebird';
+const jQuery = require('jquery');
 
 class MockElementRef extends ElementRef {
   constructor() {
@@ -78,8 +81,33 @@ describe('PromiseBtnDirective', () => {
           const spinnerEl = buttonElement.querySelector('span');
           expect(spinnerEl && spinnerEl.outerHTML).toBe('<span class="btn-spinner"></span>');
         });
+        describe('should accept all promise-alike values', () => {
+          const possibleValues = {
+            'native Promise': () => new Promise((resolve) => { resolve(); }),
+            'jQuery Deferred': () => jQuery.Deferred((defer: any) => { defer.resolve(); }),
+            'jQuery Deferred Promise': () => jQuery.Deferred((defer: any) => { defer.resolve(); }).promise(),
+            'bluebird Promise': () => new BlueBird((resolve) => { resolve(); }),
+            'RxJs Observable': () => new Observable((subscriber) => { subscriber.complete(); }),
+          };
+
+          // Iterate over possible values
+          for (const [description, getPromise] of (<any>Object).entries(possibleValues)) {
+            describe(`testing ${description}`, () => {
+              beforeEach(() => {
+                fixture.componentInstance.testPromise = getPromise();
+                // test init before to be sure
+                spyOn(promiseBtnDirective, 'initLoadingState').and.callThrough();
+                fixture.detectChanges();
+              });
+
+              it('should init the loading state', () => {
+                expect(promiseBtnDirective.initLoadingState).toHaveBeenCalled();
+              });
+            });
+          }
+        });
         it('should convert RxJs Observable to Promise', () => {
-          fixture.componentInstance.testPromise = new Observable();
+          fixture.componentInstance.testPromise = new Observable((subscriber) => { subscriber.complete(); });
           fixture.detectChanges();
           expect(promiseBtnDirective.promise instanceof Promise).toBe(true);
         });
@@ -172,26 +200,40 @@ describe('PromiseBtnDirective', () => {
         });
       });
 
-      describe('should do nothing when anything else then a promise is passed', () => {
-        let promise;
-        beforeEach(async(() => {
-          promise = 'some string';
-          fixture.componentInstance.testPromise = promise;
+      describe('should do nothing when anything else than a promise is passed', () => {
+        const possibleValues = {
+          'undefined': undefined,
+          'null': null,
+          'boolean': false,
+          'number': 1,
+          'NaN': NaN,
+          'array': [],
+          'object': {},
+          'object, "then" is not a function': { then: true },
+          'object, "then" is invalid function': { then: () => {} },
+        };
 
-          // test init before to be sure
-          spyOn(promiseBtnDirective, 'initLoadingState').and.callThrough();
-          fixture.detectChanges();
-        }));
+        // Iterate over possible values
+        for (const [description, promise] of (<any>Object).entries(possibleValues)) {
+          describe(`testing ${description}`, () => {
+            beforeEach(() => {
+              fixture.componentInstance.testPromise = promise;
+              // test init before to be sure
+              spyOn(promiseBtnDirective, 'initLoadingState').and.callThrough();
+              fixture.detectChanges();
+            });
 
-        it('should cancel the loading state', () => {
-          expect(promiseBtnDirective.initLoadingState).not.toHaveBeenCalled();
-        });
-        it('should remove the .is-loading class', () => {
-          expect(buttonElement.className).toBe('');
-        });
-        it('should enable the button', () => {
-          expect(buttonElement.hasAttribute('disabled')).toBe(false);
-        });
+            it('should cancel the loading state', () => {
+              expect(promiseBtnDirective.initLoadingState).not.toHaveBeenCalled();
+            });
+            it('should remove the .is-loading class', () => {
+              expect(buttonElement.className).toBe('');
+            });
+            it('should enable the button', () => {
+              expect(buttonElement.hasAttribute('disabled')).toBe(false);
+            });
+          });
+        }
       });
     });
 

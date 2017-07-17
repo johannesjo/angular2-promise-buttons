@@ -1,6 +1,7 @@
 import {AfterContentInit, Directive, ElementRef, Inject, Input, OnDestroy} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/toPromise';
+import * as BlueBird from 'bluebird';
 import {DEFAULT_CFG} from './default-promise-btn-config';
 import {PromiseBtnConfig} from './promise-btn-config';
 import {userCfg} from './user-cfg';
@@ -20,8 +21,7 @@ export class PromiseBtnDirective implements OnDestroy, AfterContentInit {
   // the promise button button element
   btnEl: HTMLElement;
   // the promise itself or a function expression
-  // NOTE: we need the type any here as we might deal with custom promises like bluebird
-  promise: any;
+  promise: (Promise<any> & BlueBird<any>);
 
   constructor(el: ElementRef,
               @Inject(userCfg) userCfg: any) {
@@ -33,12 +33,21 @@ export class PromiseBtnDirective implements OnDestroy, AfterContentInit {
   }
 
   @Input()
-  set promiseBtn(promise: any) {
-    if (promise instanceof Observable) {
-      this.promise = promise.toPromise();
-    } else {
-      this.promise = promise;
+  set promiseBtn(request: any) {
+    const isObservable: boolean = request instanceof Observable;
+    const isPromise: boolean = request instanceof Promise || (
+      request !== null &&
+      typeof request === 'object' &&
+      typeof request.then === 'function' &&
+      typeof request.catch === 'function'
+    );
+
+    if (isObservable) {
+      this.promise = request.toPromise();
+    } else if (isPromise) {
+      this.promise = request;
     }
+
     this.checkAndInitPromiseHandler(this.btnEl);
   }
 
@@ -70,8 +79,9 @@ export class PromiseBtnDirective implements OnDestroy, AfterContentInit {
    * @param {Object}btnEl
    */
   checkAndInitPromiseHandler(btnEl: HTMLElement) {
+    // check if element and promise is set
     if (btnEl && this.promise) {
-      this.initPromiseHandler(this.promise, btnEl);
+      this.initPromiseHandler(btnEl);
     }
   }
 
@@ -137,15 +147,11 @@ export class PromiseBtnDirective implements OnDestroy, AfterContentInit {
   /**
    * Initializes a watcher for the promise. Also takes
    * this.cfg.minDuration into account if given.
-   * @param {Object}promise
    * @param {Object}btnEl
    */
 
-  initPromiseHandler(promise: any, btnEl: HTMLElement) {
-    // return if something else then a promise is passed
-    if (!promise || !promise.then) {
-      return;
-    }
+  initPromiseHandler(btnEl: HTMLElement) {
+    const promise = this.promise;
 
     // watch promise to resolve or fail
     this.isMinDurationTimeoutDone = false;
@@ -167,6 +173,7 @@ export class PromiseBtnDirective implements OnDestroy, AfterContentInit {
     if (!this.cfg.handleCurrentBtnOnly) {
       this.initLoadingState(btnEl);
     }
+    // native Promise doesn't have finally
     if (promise.finally) {
       promise.finally(resolveLoadingState);
     } else {
@@ -197,7 +204,7 @@ export class PromiseBtnDirective implements OnDestroy, AfterContentInit {
     if (this.cfg.handleCurrentBtnOnly) {
       btnEl.addEventListener(this.cfg.CLICK_EVENT, () => {
         // return if something else than a promise is passed
-        if (!this.promise || !this.promise.then) {
+        if (!this.promise) {
           return;
         }
 
