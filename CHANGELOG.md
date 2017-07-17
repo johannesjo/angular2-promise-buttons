@@ -1,3 +1,21 @@
+<a name="1.0.9"></a>
+## [1.0.9](https://github.com/johannesjo/angular2-promise-buttons/compare/v1.0.7...v1.0.9) (2017-07-17)
+
+
+### Bug Fixes
+
+* add missing changelog ([0408a91](https://github.com/johannesjo/angular2-promise-buttons/commit/0408a91))
+* weird issue making promiseBtn break inside form if handleCurrentBtnOnly is true by adding a timeout [#7](https://github.com/johannesjo/angular2-promise-buttons/issues/7) ([67b9870](https://github.com/johannesjo/angular2-promise-buttons/commit/67b9870))
+
+
+### Features
+
+* add example for an observable ([54965a0](https://github.com/johannesjo/angular2-promise-buttons/commit/54965a0))
+* beautify demo page ([1205fee](https://github.com/johannesjo/angular2-promise-buttons/commit/1205fee))
+* beautify demo page some more ([27e87f0](https://github.com/johannesjo/angular2-promise-buttons/commit/27e87f0))
+
+
+
 <a name="1.0.8"></a>
 ## [1.0.8](https://github.com/johannesjo/angular2-promise-buttons/compare/v1.0.7...v1.0.8) (2017-07-17)
 
