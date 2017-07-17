@@ -48,7 +48,6 @@ var PromiseBtnDirective = (function () {
     PromiseBtnDirective.prototype.prepareBtnEl = function (btnEl) {
         // handle promises passed via promiseBtn attribute
         this.appendSpinnerTpl(btnEl);
-        this.addHandlersForCurrentBtnOnlyIfSet(btnEl);
     };
     /**
      * Checks if all required parameters are there and inits the promise handler
@@ -157,27 +156,23 @@ var PromiseBtnDirective = (function () {
         btnEl.insertAdjacentHTML('beforeend', this.cfg.spinnerTpl);
     };
     /**
-     * Used to limit loading state to show only for the currently
-     * clicked button.
-     * @param {Object}btnEl
+     * Limit loading state to show only for the currently clicked button.
+     * Executed only if this.cfg.handleCurrentBtnOnly is set
      */
-    PromiseBtnDirective.prototype.addHandlersForCurrentBtnOnlyIfSet = function (btnEl) {
+    PromiseBtnDirective.prototype.handleCurrentBtnOnly = function () {
         var _this = this;
-        // handle current button only options via click
-        if (this.cfg.handleCurrentBtnOnly) {
-            btnEl.addEventListener(this.cfg.CLICK_EVENT, function () {
-                // return if something else than a promise is passed
-                if (!_this.promise) {
-                    return;
-                }
-                // due to some really weird reasons, we need a timeout
-                // to let the model still update when a button
-                // inside a form is disabled
-                setTimeout(function () {
-                    _this.initLoadingState(btnEl);
-                }, 1);
-            });
+        if (!this.cfg.handleCurrentBtnOnly) {
+            return false; // return false for testing
         }
+        // Click triggers @Input update
+        // We need to use timeout to wait for @Input to update
+        setTimeout(function () {
+            // return if something else than a promise is passed
+            if (!_this.promise) {
+                return;
+            }
+            _this.initLoadingState(_this.btnEl);
+        }, 0);
     };
     return PromiseBtnDirective;
 }());
@@ -193,6 +188,7 @@ PromiseBtnDirective.ctorParameters = function () { return [
 ]; };
 PromiseBtnDirective.propDecorators = {
     'promiseBtn': [{ type: core_1.Input },],
+    'handleCurrentBtnOnly': [{ type: core_1.HostListener, args: ['click',] },],
 };
 exports.PromiseBtnDirective = PromiseBtnDirective;
 //# sourceMappingURL=promise-btn.directive.js.map

@@ -65,9 +65,8 @@ export declare class PromiseBtnDirective implements OnDestroy, AfterContentInit 
      */
     appendSpinnerTpl(btnEl: HTMLElement): void;
     /**
-     * Used to limit loading state to show only for the currently
-     * clicked button.
-     * @param {Object}btnEl
+     * Limit loading state to show only for the currently clicked button.
+     * Executed only if this.cfg.handleCurrentBtnOnly is set
      */
-    addHandlersForCurrentBtnOnlyIfSet(btnEl: HTMLElement): void;
+    handleCurrentBtnOnly(): boolean;
 }

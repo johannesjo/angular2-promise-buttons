@@ -6,6 +6,5 @@ exports.DEFAULT_CFG = {
     btnLoadingClass: 'is-loading',
     handleCurrentBtnOnly: false,
     minDuration: false,
-    CLICK_EVENT: 'click',
 };
 //# sourceMappingURL=default-promise-btn-config.js.map
