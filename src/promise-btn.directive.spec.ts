@@ -24,6 +24,7 @@ class MockElementRef extends ElementRef {
 })
 class TestComponent {
   testPromise: any;
+  setPromise: any;
 }
 
 
@@ -59,7 +60,7 @@ describe('PromiseBtnDirective', () => {
     beforeEach(() => {
       fixture = TestBed.overrideComponent(TestComponent, {
         set: {
-          template: '<button [promiseBtn]="testPromise">BUTTON_TEXT</button>'
+          template: '<button (click)="setPromise && setPromise();" [promiseBtn]="testPromise">BUTTON_TEXT</button>'
         }
       }).createComponent(TestComponent);
       fixture.detectChanges();
@@ -114,25 +115,21 @@ describe('PromiseBtnDirective', () => {
       });
 
       describe('when promise is passed after click', () => {
-        const setPromise = () => {
-          fixture.componentInstance.testPromise = new Promise(() => {});
-          fixture.detectChanges();
-        };
-
         beforeEach(() => {
-          // test init before to be sure
-          spyOn(promiseBtnDirective, 'initLoadingState').and.callThrough();
+          fixture.componentInstance.setPromise = () => {
+            fixture.componentInstance.testPromise = new Promise(() => {});
+          };
           fixture.detectChanges();
 
           // remove initial promise
           fixture.componentInstance.testPromise = null;
           fixture.detectChanges();
 
-          // add promise on click
-          buttonElement.addEventListener('click', setPromise);
+          // test init before to be sure
+          spyOn(promiseBtnDirective, 'initLoadingState').and.callThrough();
           fixture.detectChanges();
 
-          buttonElement.click();
+          buttonDebugElement.triggerEventHandler('click', null);
           fixture.detectChanges();
         });
 
@@ -149,11 +146,6 @@ describe('PromiseBtnDirective', () => {
             expect(buttonElement.getAttribute('disabled')).toBe('disabled');
           });
         }));
-
-        afterEach(() => {
-          // cleanup
-          buttonElement.removeEventListener('click', setPromise);
-        });
       });
 
       describe('once a promise is passed', () => {
