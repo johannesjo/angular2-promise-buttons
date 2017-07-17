@@ -113,6 +113,49 @@ describe('PromiseBtnDirective', () => {
         });
       });
 
+      describe('when promise is passed after click', () => {
+        const setPromise = () => {
+          fixture.componentInstance.testPromise = new Promise(() => {});
+          fixture.detectChanges();
+        };
+
+        beforeEach(() => {
+          // test init before to be sure
+          spyOn(promiseBtnDirective, 'initLoadingState').and.callThrough();
+          fixture.detectChanges();
+
+          // remove initial promise
+          fixture.componentInstance.testPromise = null;
+          fixture.detectChanges();
+
+          // add promise on click
+          buttonElement.addEventListener('click', setPromise);
+          fixture.detectChanges();
+
+          buttonElement.click();
+          fixture.detectChanges();
+        });
+
+        it('should init the loading state', () => {
+          expect(promiseBtnDirective.initLoadingState).toHaveBeenCalled();
+        });
+        it('should add .is-loading class', async(() => {
+          fixture.whenStable().then(() => {
+            expect(buttonElement.className).toBe('is-loading');
+          });
+        }));
+        it('should disable the button', async(() => {
+          fixture.whenStable().then(() => {
+            expect(buttonElement.getAttribute('disabled')).toBe('disabled');
+          });
+        }));
+
+        afterEach(() => {
+          // cleanup
+          buttonElement.removeEventListener('click', setPromise);
+        });
+      });
+
       describe('once a promise is passed', () => {
         beforeEach(() => {
           fixture.componentInstance.testPromise = new Promise(() => {
@@ -398,7 +441,7 @@ describe('PromiseBtnDirective', () => {
       fixture.detectChanges();
 
       fixture.whenStable().then(() => {
-        expect(promiseBtnDirective1.handleCurrentBtnOnly()).toBe(false);
+        expect(promiseBtnDirective1.handleCurrentBtnOnly()).toBe(true);
         expect(promiseBtnDirective1.initLoadingState).not.toHaveBeenCalled();
       });
     });
