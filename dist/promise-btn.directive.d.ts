@@ -1,4 +1,7 @@
+/// <reference types="bluebird" />
 import { AfterContentInit, ElementRef, OnDestroy } from '@angular/core';
+import 'rxjs/add/operator/toPromise';
+import * as BlueBird from 'bluebird';
 import { PromiseBtnConfig } from './promise-btn-config';
 export declare class PromiseBtnDirective implements OnDestroy, AfterContentInit {
     cfg: PromiseBtnConfig;
@@ -6,7 +9,7 @@ export declare class PromiseBtnDirective implements OnDestroy, AfterContentInit 
     isMinDurationTimeoutDone: boolean;
     isPromiseDone: boolean;
     btnEl: HTMLElement;
-    promise: any;
+    promise: (Promise<any> & BlueBird<any>);
     constructor(el: ElementRef, userCfg: any);
     promiseBtn: any;
     ngAfterContentInit(): void;
@@ -53,10 +56,9 @@ export declare class PromiseBtnDirective implements OnDestroy, AfterContentInit 
     /**
      * Initializes a watcher for the promise. Also takes
      * this.cfg.minDuration into account if given.
-     * @param {Object}promise
      * @param {Object}btnEl
      */
-    initPromiseHandler(promise: any, btnEl: HTMLElement): void;
+    initPromiseHandler(btnEl: HTMLElement): void;
     /**
      * $compile and append the spinner template to the button.
      * @param {Object}btnEl

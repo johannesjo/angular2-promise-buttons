@@ -1,6 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
+var Observable_1 = require("rxjs/Observable");
+require("rxjs/add/operator/toPromise");
 var default_promise_btn_config_1 = require("./default-promise-btn-config");
 var user_cfg_1 = require("./user-cfg");
 var PromiseBtnDirective = (function () {
@@ -11,8 +13,18 @@ var PromiseBtnDirective = (function () {
         this.btnEl = el.nativeElement;
     }
     Object.defineProperty(PromiseBtnDirective.prototype, "promiseBtn", {
-        set: function (promise) {
-            this.promise = promise;
+        set: function (request) {
+            var isObservable = request instanceof Observable_1.Observable;
+            var isPromise = request instanceof Promise || (request !== null &&
+                typeof request === 'object' &&
+                typeof request.then === 'function' &&
+                typeof request.catch === 'function');
+            if (isObservable) {
+                this.promise = request.toPromise();
+            }
+            else if (isPromise) {
+                this.promise = request;
+            }
             this.checkAndInitPromiseHandler(this.btnEl);
         },
         enumerable: true,
@@ -43,8 +55,9 @@ var PromiseBtnDirective = (function () {
      * @param {Object}btnEl
      */
     PromiseBtnDirective.prototype.checkAndInitPromiseHandler = function (btnEl) {
+        // check if element and promise is set
         if (btnEl && this.promise) {
-            this.initPromiseHandler(this.promise, btnEl);
+            this.initPromiseHandler(btnEl);
         }
     };
     /**
@@ -103,15 +116,11 @@ var PromiseBtnDirective = (function () {
     /**
      * Initializes a watcher for the promise. Also takes
      * this.cfg.minDuration into account if given.
-     * @param {Object}promise
      * @param {Object}btnEl
      */
-    PromiseBtnDirective.prototype.initPromiseHandler = function (promise, btnEl) {
+    PromiseBtnDirective.prototype.initPromiseHandler = function (btnEl) {
         var _this = this;
-        // return if something else then a promise is passed
-        if (!promise || !promise.then) {
-            return;
-        }
+        var promise = this.promise;
         // watch promise to resolve or fail
         this.isMinDurationTimeoutDone = false;
         this.isPromiseDone = false;
@@ -129,6 +138,7 @@ var PromiseBtnDirective = (function () {
         if (!this.cfg.handleCurrentBtnOnly) {
             this.initLoadingState(btnEl);
         }
+        // native Promise doesn't have finally
         if (promise.finally) {
             promise.finally(resolveLoadingState);
         }
@@ -156,6 +166,10 @@ var PromiseBtnDirective = (function () {
         // handle current button only options via click
         if (this.cfg.handleCurrentBtnOnly) {
             btnEl.addEventListener(this.cfg.CLICK_EVENT, function () {
+                // return if something else than a promise is passed
+                if (!_this.promise) {
+                    return;
+                }
                 // due to some really weird reasons, we need a timeout
                 // to let the model still update when a button
                 // inside a form is disabled
