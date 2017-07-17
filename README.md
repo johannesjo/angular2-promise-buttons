@@ -83,3 +83,5 @@ import {Angular2PromiseButtonModule} from 'angular2-promise-buttons';
 export class MainAppModule {
 }
 ```
+## Contributing
+Contribution guidelines: [CONTRIBUTING.md](https://github.com/johannesjo/angular2-promise-buttons/blob/master/CONTRIBUTING.md)
