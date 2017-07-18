@@ -200,7 +200,7 @@ export class PromiseBtnDirective implements OnDestroy, AfterContentInit {
   @HostListener('click')
   handleCurrentBtnOnly() {
     if (!this.cfg.handleCurrentBtnOnly) {
-      return false; // return false for testing
+      return true; // return true for testing
     }
 
     // Click triggers @Input update

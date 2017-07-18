@@ -24,6 +24,7 @@ class MockElementRef extends ElementRef {
 })
 class TestComponent {
   testPromise: any;
+  setPromise: any;
 }
 
 
@@ -59,7 +60,7 @@ describe('PromiseBtnDirective', () => {
     beforeEach(() => {
       fixture = TestBed.overrideComponent(TestComponent, {
         set: {
-          template: '<button [promiseBtn]="testPromise">BUTTON_TEXT</button>'
+          template: '<button (click)="setPromise && setPromise();" [promiseBtn]="testPromise">BUTTON_TEXT</button>'
         }
       }).createComponent(TestComponent);
       fixture.detectChanges();
@@ -111,6 +112,40 @@ describe('PromiseBtnDirective', () => {
           fixture.detectChanges();
           expect(promiseBtnDirective.promise instanceof Promise).toBe(true);
         });
+      });
+
+      describe('when promise is passed after click', () => {
+        beforeEach(() => {
+          fixture.componentInstance.setPromise = () => {
+            fixture.componentInstance.testPromise = new Promise(() => {});
+          };
+          fixture.detectChanges();
+
+          // remove initial promise
+          fixture.componentInstance.testPromise = null;
+          fixture.detectChanges();
+
+          // test init before to be sure
+          spyOn(promiseBtnDirective, 'initLoadingState').and.callThrough();
+          fixture.detectChanges();
+
+          buttonDebugElement.triggerEventHandler('click', null);
+          fixture.detectChanges();
+        });
+
+        it('should init the loading state', () => {
+          expect(promiseBtnDirective.initLoadingState).toHaveBeenCalled();
+        });
+        it('should add .is-loading class', async(() => {
+          fixture.whenStable().then(() => {
+            expect(buttonElement.className).toBe('is-loading');
+          });
+        }));
+        it('should disable the button', async(() => {
+          fixture.whenStable().then(() => {
+            expect(buttonElement.getAttribute('disabled')).toBe('disabled');
+          });
+        }));
       });
 
       describe('once a promise is passed', () => {
@@ -398,7 +433,7 @@ describe('PromiseBtnDirective', () => {
       fixture.detectChanges();
 
       fixture.whenStable().then(() => {
-        expect(promiseBtnDirective1.handleCurrentBtnOnly()).toBe(false);
+        expect(promiseBtnDirective1.handleCurrentBtnOnly()).toBe(true);
         expect(promiseBtnDirective1.initLoadingState).not.toHaveBeenCalled();
       });
     });
