@@ -7,11 +7,11 @@ var Angular2PromiseButtonModule = (function () {
     function Angular2PromiseButtonModule() {
     }
     // add forRoot to make it configurable
-    Angular2PromiseButtonModule.forRoot = function (userCfgPassedByUser) {
+    Angular2PromiseButtonModule.forRoot = function (config) {
         // NOTE: this is never allowed to contain any conditional logic
         return {
             ngModule: Angular2PromiseButtonModule,
-            providers: [{ provide: user_cfg_1.userCfg, useValue: userCfgPassedByUser }]
+            providers: [{ provide: user_cfg_1.userCfg, useValue: config }]
         };
     };
     return Angular2PromiseButtonModule;

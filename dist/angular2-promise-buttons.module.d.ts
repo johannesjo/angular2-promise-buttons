@@ -1,4 +1,5 @@
 import { ModuleWithProviders } from '@angular/core';
+import { PromiseBtnConfig } from './promise-btn-config';
 export declare class Angular2PromiseButtonModule {
-    static forRoot(userCfgPassedByUser?: any): ModuleWithProviders;
+    static forRoot(config?: PromiseBtnConfig): ModuleWithProviders;
 }

@@ -162,7 +162,7 @@ var PromiseBtnDirective = (function () {
     PromiseBtnDirective.prototype.handleCurrentBtnOnly = function () {
         var _this = this;
         if (!this.cfg.handleCurrentBtnOnly) {
-            return false; // return false for testing
+            return true; // return true for testing
         }
         // Click triggers @Input update
         // We need to use timeout to wait for @Input to update
