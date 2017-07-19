@@ -1,7 +1,6 @@
 import {AfterContentInit, Directive, ElementRef, HostListener, Inject, Input, OnDestroy} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/toPromise';
-import * as BlueBird from 'bluebird';
 import {DEFAULT_CFG} from './default-promise-btn-config';
 import {PromiseBtnConfig} from './promise-btn-config';
 import {userCfg} from './user-cfg';
@@ -21,7 +20,8 @@ export class PromiseBtnDirective implements OnDestroy, AfterContentInit {
   // the promise button button element
   btnEl: HTMLElement;
   // the promise itself or a function expression
-  promise: (Promise<any> & BlueBird<any>);
+  // NOTE: we need the type any here as we might deal with custom promises like bluebird
+  promise: any;
 
   constructor(el: ElementRef,
               @Inject(userCfg) userCfg: PromiseBtnConfig) {
@@ -33,19 +33,19 @@ export class PromiseBtnDirective implements OnDestroy, AfterContentInit {
   }
 
   @Input()
-  set promiseBtn(request: any) {
-    const isObservable: boolean = request instanceof Observable;
-    const isPromise: boolean = request instanceof Promise || (
-      request !== null &&
-      typeof request === 'object' &&
-      typeof request.then === 'function' &&
-      typeof request.catch === 'function'
+  set promiseBtn(passedValue: any) {
+    const isObservable: boolean = passedValue instanceof Observable;
+    const isPromise: boolean = passedValue instanceof Promise || (
+      passedValue !== null &&
+      typeof passedValue === 'object' &&
+      typeof passedValue.then === 'function' &&
+      typeof passedValue.catch === 'function'
     );
 
     if (isObservable) {
-      this.promise = request.toPromise();
+      this.promise = passedValue.toPromise();
     } else if (isPromise) {
-      this.promise = request;
+      this.promise = passedValue;
     }
 
     this.checkAndInitPromiseHandler(this.btnEl);
