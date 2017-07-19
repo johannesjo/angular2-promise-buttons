@@ -9,6 +9,7 @@ import {userCfg} from './user-cfg';
 import {By} from '@angular/platform-browser';
 import {Observable} from 'rxjs/Observable';
 import * as BlueBird from 'bluebird';
+
 const jQuery = require('jquery');
 
 class MockElementRef extends ElementRef {
@@ -84,11 +85,21 @@ describe('PromiseBtnDirective', () => {
         });
         describe('should accept all promise-alike values', () => {
           const possibleValues = {
-            'native Promise': () => new Promise((resolve) => { resolve(); }),
-            'jQuery Deferred': () => jQuery.Deferred((defer: any) => { defer.resolve(); }),
-            'jQuery Deferred Promise': () => jQuery.Deferred((defer: any) => { defer.resolve(); }).promise(),
-            'bluebird Promise': () => new BlueBird((resolve) => { resolve(); }),
-            'RxJs Observable': () => new Observable((subscriber) => { subscriber.complete(); }),
+            'native Promise': () => new Promise((resolve) => {
+              resolve();
+            }),
+            'jQuery Deferred': () => jQuery.Deferred((defer: any) => {
+              defer.resolve();
+            }),
+            'jQuery Deferred Promise': () => jQuery.Deferred((defer: any) => {
+              defer.resolve();
+            }).promise(),
+            'bluebird Promise': () => new BlueBird((resolve) => {
+              resolve();
+            }),
+            'RxJs Observable': () => new Observable((subscriber) => {
+              subscriber.complete();
+            }),
           };
 
           // Iterate over possible values
@@ -108,7 +119,9 @@ describe('PromiseBtnDirective', () => {
           }
         });
         it('should convert RxJs Observable to Promise', () => {
-          fixture.componentInstance.testPromise = new Observable((subscriber) => { subscriber.complete(); });
+          fixture.componentInstance.testPromise = new Observable((subscriber) => {
+            subscriber.complete();
+          });
           fixture.detectChanges();
           expect(promiseBtnDirective.promise instanceof Promise).toBe(true);
         });
@@ -117,7 +130,8 @@ describe('PromiseBtnDirective', () => {
       describe('when promise is passed after click', () => {
         beforeEach(() => {
           fixture.componentInstance.setPromise = () => {
-            fixture.componentInstance.testPromise = new Promise(() => {});
+            fixture.componentInstance.testPromise = new Promise(() => {
+            });
           };
           fixture.detectChanges();
 
@@ -244,8 +258,11 @@ describe('PromiseBtnDirective', () => {
           'NaN': NaN,
           'array': [],
           'object': {},
-          'object, "then" is not a function': { then: true },
-          'object, "then" is invalid function': { then: () => {} },
+          'object, "then" is not a function': {then: true},
+          'object, "then" is invalid function': {
+            then: () => {
+            }
+          },
         };
 
         // Iterate over possible values
@@ -458,7 +475,8 @@ describe('PromiseBtnDirective', () => {
 
     it('should set loading state when promise is set after click', () => {
       const setPromise = () => {
-        fixture.componentInstance.testPromise = new Promise(() => {});
+        fixture.componentInstance.testPromise = new Promise(() => {
+        });
       };
 
       // remove initial promise
@@ -477,20 +495,6 @@ describe('PromiseBtnDirective', () => {
 
         // cleanup
         buttonElement.removeEventListener('click', setPromise);
-      });
-    });
-
-    it('should cancel the loading state on click when anything else than a promise is passed', () => {
-      fixture.componentInstance.testPromise = 'some string';
-      fixture.detectChanges();
-
-      buttonElement.click();
-      divElement.click();
-      fixture.detectChanges();
-
-      fixture.whenStable().then(() => {
-        expect(promiseBtnDirective1.initLoadingState).not.toHaveBeenCalled();
-        expect(promiseBtnDirective2.initLoadingState).not.toHaveBeenCalled();
       });
     });
   });

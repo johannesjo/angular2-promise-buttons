@@ -1,7 +1,5 @@
-/// <reference types="bluebird" />
 import { AfterContentInit, ElementRef, OnDestroy } from '@angular/core';
 import 'rxjs/add/operator/toPromise';
-import * as BlueBird from 'bluebird';
 import { PromiseBtnConfig } from './promise-btn-config';
 export declare class PromiseBtnDirective implements OnDestroy, AfterContentInit {
     cfg: PromiseBtnConfig;
@@ -9,7 +7,7 @@ export declare class PromiseBtnDirective implements OnDestroy, AfterContentInit 
     isMinDurationTimeoutDone: boolean;
     isPromiseDone: boolean;
     btnEl: HTMLElement;
-    promise: (Promise<any> & BlueBird<any>);
+    promise: any;
     constructor(el: ElementRef, userCfg: PromiseBtnConfig);
     promiseBtn: any;
     ngAfterContentInit(): void;

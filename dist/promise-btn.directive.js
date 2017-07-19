@@ -13,17 +13,17 @@ var PromiseBtnDirective = (function () {
         this.btnEl = el.nativeElement;
     }
     Object.defineProperty(PromiseBtnDirective.prototype, "promiseBtn", {
-        set: function (request) {
-            var isObservable = request instanceof Observable_1.Observable;
-            var isPromise = request instanceof Promise || (request !== null &&
-                typeof request === 'object' &&
-                typeof request.then === 'function' &&
-                typeof request.catch === 'function');
+        set: function (passedValue) {
+            var isObservable = passedValue instanceof Observable_1.Observable;
+            var isPromise = passedValue instanceof Promise || (passedValue !== null &&
+                typeof passedValue === 'object' &&
+                typeof passedValue.then === 'function' &&
+                typeof passedValue.catch === 'function');
             if (isObservable) {
-                this.promise = request.toPromise();
+                this.promise = passedValue.toPromise();
             }
             else if (isPromise) {
-                this.promise = request;
+                this.promise = passedValue;
             }
             this.checkAndInitPromiseHandler(this.btnEl);
         },
