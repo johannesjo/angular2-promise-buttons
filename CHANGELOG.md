@@ -1,3 +1,13 @@
+<a name="1.0.12"></a>
+## [1.0.12](https://github.com/johannesjo/angular2-promise-buttons/compare/v1.0.11...v1.0.12) (2017-07-19)
+
+
+### Features
+
+* remove bluebird dependency ([9798bd0](https://github.com/johannesjo/angular2-promise-buttons/commit/9798bd0))
+
+
+
 <a name="1.0.11"></a>
 ## [1.0.11](https://github.com/johannesjo/angular2-promise-buttons/compare/v1.0.10...v1.0.11) (2017-07-18)
 
