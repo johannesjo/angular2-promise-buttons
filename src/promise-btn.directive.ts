@@ -1,6 +1,6 @@
 import {AfterContentInit, Directive, ElementRef, HostListener, Inject, Input, OnDestroy} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
-import 'rxjs/add/operator/toPromise';
+import {Subscription} from 'rxjs/Subscription';
 import {DEFAULT_CFG} from './default-promise-btn-config';
 import {PromiseBtnConfig} from './promise-btn-config';
 import {userCfg} from './user-cfg';
@@ -35,6 +35,7 @@ export class PromiseBtnDirective implements OnDestroy, AfterContentInit {
   @Input()
   set promiseBtn(passedValue: any) {
     const isObservable: boolean = passedValue instanceof Observable;
+    const isSubscription: boolean = passedValue instanceof Subscription;
     const isPromise: boolean = passedValue instanceof Promise || (
       passedValue !== null &&
       typeof passedValue === 'object' &&
@@ -43,7 +44,11 @@ export class PromiseBtnDirective implements OnDestroy, AfterContentInit {
     );
 
     if (isObservable) {
-      this.promise = passedValue.toPromise();
+      throw new TypeError('promiseBtn must be an instance of Subscription, instance of Observable given');
+    } else if (isSubscription) {
+      this.promise = new Promise((resolve) => {
+        (passedValue as Subscription).add(resolve);
+      });
     } else if (isPromise) {
       this.promise = passedValue;
     }

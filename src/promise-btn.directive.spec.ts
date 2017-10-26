@@ -97,9 +97,17 @@ describe('PromiseBtnDirective', () => {
             'bluebird Promise': () => new BlueBird((resolve) => {
               resolve();
             }),
-            'RxJs Observable': () => new Observable((subscriber) => {
-              subscriber.complete();
-            }),
+            'RxJs Observable': () => {
+              const observable = new Observable((subscriber) => {
+                subscriber.complete();
+              });
+
+              return observable.subscribe(
+                () => {},
+                () => {},
+                () => {},
+              );
+            },
           };
 
           // Iterate over possible values
@@ -118,10 +126,15 @@ describe('PromiseBtnDirective', () => {
             });
           }
         });
-        it('should convert RxJs Observable to Promise', () => {
-          fixture.componentInstance.testPromise = new Observable((subscriber) => {
+        it('should convert RxJs Observable Subscription to Promise', () => {
+          const observable = new Observable((subscriber) => {
             subscriber.complete();
           });
+          fixture.componentInstance.testPromise = observable.subscribe(
+            () => {},
+            () => {},
+            () => {},
+          );
           fixture.detectChanges();
           expect(promiseBtnDirective.promise instanceof Promise).toBe(true);
         });
