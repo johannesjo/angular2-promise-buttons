@@ -83,5 +83,31 @@ import {Angular2PromiseButtonModule} from 'angular2-promise-buttons';
 export class MainAppModule {
 }
 ```
+
+## Using observables
+When you're using the module with observables make sure to pass a subscription ro the directive rather than an observable directly.
+```typescript
+const FAKE_FACTORY = {
+  initObservable: (): Observable<number> => {
+    return new Observable(observer => {
+      setTimeout(() => {
+        observer.complete();
+      }, 4000);
+    });
+  } 
+};
+
+// DO:
+const observable = FAKE_FACTORY.initObservable();
+this.passedToDirective = observable.subscribe(
+// ...
+);
+  
+// DON'T DO:
+const observable = FAKE_FACTORY.initObservable();
+this.passedToDirective = observable;
+
+```
+
 ## Contributing
 Contribution guidelines: [CONTRIBUTING.md](https://github.com/johannesjo/angular2-promise-buttons/blob/master/CONTRIBUTING.md)
