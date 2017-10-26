@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
+import {Subscription} from 'rxjs/Subscription';
 
 const STANDARD_DELAY = 1000;
 const FAKE_FACT = {
@@ -26,7 +27,24 @@ const FAKE_FACT = {
       setTimeout(fulfill, 99999999);
     });
   },
-  initObservable: (): Observable<number> => {
+  endlessObservable: (): Observable<any> => {
+    return new Observable(() => {});
+  },
+  initSuccessObservable: (): Observable<any> => {
+    return new Observable(observer => {
+      setTimeout(() => {
+        observer.complete();
+      }, STANDARD_DELAY);
+    });
+  },
+  initErrorObservable: (): Observable<any> => {
+    return new Observable(observer => {
+      setTimeout(() => {
+        observer.error('ERROR');
+      }, STANDARD_DELAY);
+    });
+  },
+  initChainedObservable: (): Observable<number> => {
     return new Observable(observer => {
       setTimeout(() => {
         observer.next(1);
@@ -58,13 +76,19 @@ export class AppComponent {
   endlessInitialPromise: Promise<any>;
   endlessPromise: Promise<any>;
   submitPromise: Promise<any>;
-  observableItem: Observable<any>;
   chainedPromises: any;
   promiseIndex: number;
-  obsVal: any;
+
+  successObservable: Subscription;
+  errorObservable: Subscription;
+  endlessInitialObservable: Subscription;
+  endlessObservable: Subscription;
+  chainedObservableValue: any;
+  chainedObservable: Subscription;
 
   constructor() {
     this.endlessInitial();
+    this.initEndlessInitialObservable();
   }
 
   success($event: any): Promise<any> {
@@ -88,17 +112,55 @@ export class AppComponent {
     this.endlessInitialPromise = FAKE_FACT.endless();
   }
 
-  initObservable() {
-    this.obsVal = 'INITIALIZED';
-    this.observableItem = FAKE_FACT.initObservable();
-    this.observableItem.subscribe(
+  initSuccessObservable() {
+    const observable = FAKE_FACT.initSuccessObservable();
+    this.successObservable = observable.subscribe(
+      () => {},
+      () => {},
+      () => {}
+    );
+  }
+
+  initErrorObservable() {
+    const observable = FAKE_FACT.initErrorObservable();
+    this.errorObservable = observable.subscribe(
+      () => {},
+      (msg) => {
+        console.log(msg);
+      },
+      () => {},
+    );
+  }
+
+  initChainedObservable() {
+    const observable = FAKE_FACT.initChainedObservable();
+    this.chainedObservableValue = 'INITIALIZED';
+    this.chainedObservable = observable.subscribe(
       (value: number) => {
-        this.obsVal = value;
+        this.chainedObservableValue = value;
       },
       () => {},
       () => {
-        this.obsVal = 'COMPLETED';
+        this.chainedObservableValue = 'COMPLETED';
       }
+    );
+  }
+
+  initEndlessObservable() {
+    const observable = FAKE_FACT.endlessObservable();
+    this.endlessObservable = observable.subscribe(
+      () => {},
+      () => {},
+      () => {},
+    );
+  }
+
+  initEndlessInitialObservable() {
+    const observable = FAKE_FACT.endlessObservable();
+    this.endlessInitialObservable = observable.subscribe(
+      () => {},
+      () => {},
+      () => {},
     );
   }
 

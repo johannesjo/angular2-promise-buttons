@@ -42,9 +42,40 @@
   </button>
 </form>
 
+<div>
+  <h2>Observable</h2>
 
-<h3>With an observable</h3>
-<button class="btn btn-raised"
-        (click)="initObservable()"
-        [promiseBtn]="observableItem">Observable {{ obsVal }}
-</button>
+  <button class="btn btn-raised"
+          (click)="initSuccessObservable()"
+          [promiseBtn]="successObservable">Success after delay
+  </button>
+  <button class="btn btn-raised"
+          (click)="initErrorObservable()"
+          [promiseBtn]="errorObservable">Error after delay
+  </button>
+  <br>
+  <br>
+  <button class="btn btn-raised"
+          (click)="initEndlessObservable()"
+          [promiseBtn]="endlessObservable">Never resolving Observable
+  </button>
+  <button class="btn btn-raised"
+          [promiseBtn]="endlessInitialObservable">Loading initially and forever
+  </button>
+
+  <h3>Same observable buttons</h3>
+  <button class="btn btn-raised"
+          (click)="initSuccessObservable($event)"
+          [promiseBtn]="successObservable">We
+  </button>
+  <button class="btn btn-raised"
+          (click)="initSuccessObservable($event)"
+          [promiseBtn]="successObservable">share
+  </button>
+
+  <h3>Chained observable button</h3>
+  <button class="btn btn-raised"
+          (click)="initChainedObservable()"
+          [promiseBtn]="chainedObservable">Observable chain {{ chainedObservableValue }}
+  </button>
+</div>
