@@ -103,9 +103,12 @@ describe('PromiseBtnDirective', () => {
               });
 
               return observable.subscribe(
-                () => {},
-                () => {},
-                () => {},
+                () => {
+                },
+                () => {
+                },
+                () => {
+                },
               );
             },
           };
@@ -131,12 +134,25 @@ describe('PromiseBtnDirective', () => {
             subscriber.complete();
           });
           fixture.componentInstance.testPromise = observable.subscribe(
-            () => {},
-            () => {},
-            () => {},
+            () => {
+            },
+            () => {
+            },
+            () => {
+            },
           );
           fixture.detectChanges();
           expect(promiseBtnDirective.promise instanceof Promise).toBe(true);
+        });
+        it('should throw an error if an observable is passed directly', () => {
+          const observable = new Observable((subscriber) => {
+            subscriber.complete();
+          });
+          fixture.componentInstance.testPromise = observable;
+
+          expect(() => {
+            fixture.detectChanges();
+          }).toThrowError('promiseBtn must be an instance of Subscription, instance of Observable given');
         });
       });
 
