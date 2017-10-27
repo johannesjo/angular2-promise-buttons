@@ -1,5 +1,4 @@
 import { AfterContentInit, ElementRef, OnDestroy } from '@angular/core';
-import 'rxjs/add/operator/toPromise';
 import { PromiseBtnConfig } from './promise-btn-config';
 export declare class PromiseBtnDirective implements OnDestroy, AfterContentInit {
     cfg: PromiseBtnConfig;
