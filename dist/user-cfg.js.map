@@ -1,1 +1,1 @@
-{"version":3,"sources":["../src/user-cfg.ts"],"names":[],"mappings":";;AAAA,sCAA0C;AAC7B,QAAA,OAAO,GAAG,IAAI,kBAAW,CAAC,KAAK,CAAC,CAAC","file":"user-cfg.js","sourceRoot":""}
+{"version":3,"file":"user-cfg.js","sourceRoot":"","sources":["../src/user-cfg.ts"],"names":[],"mappings":";;AAAA,sCAA6C;AAChC,QAAA,OAAO,GAAG,IAAI,qBAAc,CAAC,KAAK,CAAC"}

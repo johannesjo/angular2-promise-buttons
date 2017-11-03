@@ -6,6 +6,17 @@
     "sourceMap": true
   },
   "exclude": [
-    "**/*.spec.ts"
+    "**/*.spec.ts",
+    "../../src/**/*.spec.ts",
+    "../../scripts/test.ts"
+  ],
+  "include": [
+    "../../src/**/*.*",
+    "./**/*.*"
+  ],
+  "files": [
+    "../../scripts/typings.d.ts",
+    "../../src/index.ts",
+    "./main.ts"
   ]
 }

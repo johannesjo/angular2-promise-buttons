@@ -1,0 +1,22 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../out-tsc/spec",
+    "baseUrl": "./",
+    "module": "es6",
+    "target": "es5",
+    "types": [
+      "jasmine",
+      "node"
+    ]
+  },
+  "files": [
+    "../../scripts/test.ts"
+  ],
+  "include": [
+    "../../src/**/*.spec.ts",
+    "../../src/scripts/typings.d.ts",
+    "./polyfills.ts",
+    "**/*.d.ts"
+  ]
+}

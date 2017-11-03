@@ -51,7 +51,15 @@ var PromiseBtnDirective = (function () {
      * Initializes all html and event handlers
      * @param {Object}btnEl
      */
-    PromiseBtnDirective.prototype.prepareBtnEl = function (btnEl) {
+    /**
+       * Initializes all html and event handlers
+       * @param {Object}btnEl
+       */
+    PromiseBtnDirective.prototype.prepareBtnEl = /**
+       * Initializes all html and event handlers
+       * @param {Object}btnEl
+       */
+    function (btnEl) {
         // handle promises passed via promiseBtn attribute
         this.appendSpinnerTpl(btnEl);
     };
@@ -59,7 +67,15 @@ var PromiseBtnDirective = (function () {
      * Checks if all required parameters are there and inits the promise handler
      * @param {Object}btnEl
      */
-    PromiseBtnDirective.prototype.checkAndInitPromiseHandler = function (btnEl) {
+    /**
+       * Checks if all required parameters are there and inits the promise handler
+       * @param {Object}btnEl
+       */
+    PromiseBtnDirective.prototype.checkAndInitPromiseHandler = /**
+       * Checks if all required parameters are there and inits the promise handler
+       * @param {Object}btnEl
+       */
+    function (btnEl) {
         // check if element and promise is set
         if (btnEl && this.promise) {
             this.initPromiseHandler(btnEl);
@@ -69,7 +85,15 @@ var PromiseBtnDirective = (function () {
      * Helper FN to add class
      * @param {Object}el
      */
-    PromiseBtnDirective.prototype.addLoadingClass = function (el) {
+    /**
+       * Helper FN to add class
+       * @param {Object}el
+       */
+    PromiseBtnDirective.prototype.addLoadingClass = /**
+       * Helper FN to add class
+       * @param {Object}el
+       */
+    function (el) {
         if (typeof this.cfg.btnLoadingClass === 'string') {
             el.classList.add(this.cfg.btnLoadingClass);
         }
@@ -78,7 +102,15 @@ var PromiseBtnDirective = (function () {
      * Helper FN to remove classes
      * @param {Object}el
      */
-    PromiseBtnDirective.prototype.removeLoadingClass = function (el) {
+    /**
+       * Helper FN to remove classes
+       * @param {Object}el
+       */
+    PromiseBtnDirective.prototype.removeLoadingClass = /**
+       * Helper FN to remove classes
+       * @param {Object}el
+       */
+    function (el) {
         if (typeof this.cfg.btnLoadingClass === 'string') {
             el.classList.remove(this.cfg.btnLoadingClass);
         }
@@ -88,7 +120,17 @@ var PromiseBtnDirective = (function () {
      * to loading state.
      * @param {Object}btnEl
      */
-    PromiseBtnDirective.prototype.initLoadingState = function (btnEl) {
+    /**
+       * Handles everything to be triggered when the button is set
+       * to loading state.
+       * @param {Object}btnEl
+       */
+    PromiseBtnDirective.prototype.initLoadingState = /**
+       * Handles everything to be triggered when the button is set
+       * to loading state.
+       * @param {Object}btnEl
+       */
+    function (btnEl) {
         this.addLoadingClass(btnEl);
         this.disableBtn(btnEl);
     };
@@ -96,7 +138,15 @@ var PromiseBtnDirective = (function () {
      * Handles everything to be triggered when loading is finished
      * @param {Object}btnEl
      */
-    PromiseBtnDirective.prototype.cancelLoadingStateIfPromiseAndMinDurationDone = function (btnEl) {
+    /**
+       * Handles everything to be triggered when loading is finished
+       * @param {Object}btnEl
+       */
+    PromiseBtnDirective.prototype.cancelLoadingStateIfPromiseAndMinDurationDone = /**
+       * Handles everything to be triggered when loading is finished
+       * @param {Object}btnEl
+       */
+    function (btnEl) {
         if ((!this.cfg.minDuration || this.isMinDurationTimeoutDone) && this.isPromiseDone) {
             this.removeLoadingClass(btnEl);
             this.enableBtn(btnEl);
@@ -105,7 +155,13 @@ var PromiseBtnDirective = (function () {
     /**
      * @param {Object}btnEl
      */
-    PromiseBtnDirective.prototype.disableBtn = function (btnEl) {
+    /**
+       * @param {Object}btnEl
+       */
+    PromiseBtnDirective.prototype.disableBtn = /**
+       * @param {Object}btnEl
+       */
+    function (btnEl) {
         if (this.cfg.disableBtn) {
             btnEl.setAttribute('disabled', 'disabled');
         }
@@ -113,7 +169,13 @@ var PromiseBtnDirective = (function () {
     /**
      * @param {Object}btnEl
      */
-    PromiseBtnDirective.prototype.enableBtn = function (btnEl) {
+    /**
+       * @param {Object}btnEl
+       */
+    PromiseBtnDirective.prototype.enableBtn = /**
+       * @param {Object}btnEl
+       */
+    function (btnEl) {
         if (this.cfg.disableBtn) {
             btnEl.removeAttribute('disabled');
         }
@@ -123,7 +185,17 @@ var PromiseBtnDirective = (function () {
      * this.cfg.minDuration into account if given.
      * @param {Object}btnEl
      */
-    PromiseBtnDirective.prototype.initPromiseHandler = function (btnEl) {
+    /**
+       * Initializes a watcher for the promise. Also takes
+       * this.cfg.minDuration into account if given.
+       * @param {Object}btnEl
+       */
+    PromiseBtnDirective.prototype.initPromiseHandler = /**
+       * Initializes a watcher for the promise. Also takes
+       * this.cfg.minDuration into account if given.
+       * @param {Object}btnEl
+       */
+    function (btnEl) {
         var _this = this;
         var promise = this.promise;
         // watch promise to resolve or fail
@@ -157,15 +229,27 @@ var PromiseBtnDirective = (function () {
      * $compile and append the spinner template to the button.
      * @param {Object}btnEl
      */
-    PromiseBtnDirective.prototype.appendSpinnerTpl = function (btnEl) {
+    /**
+       * $compile and append the spinner template to the button.
+       * @param {Object}btnEl
+       */
+    PromiseBtnDirective.prototype.appendSpinnerTpl = /**
+       * $compile and append the spinner template to the button.
+       * @param {Object}btnEl
+       */
+    function (btnEl) {
         // TODO add some kind of compilation later on
         btnEl.insertAdjacentHTML('beforeend', this.cfg.spinnerTpl);
     };
     /**
-     * Limit loading state to show only for the currently clicked button.
-     * Executed only if this.cfg.handleCurrentBtnOnly is set
-     */
-    PromiseBtnDirective.prototype.handleCurrentBtnOnly = function () {
+       * Limit loading state to show only for the currently clicked button.
+       * Executed only if this.cfg.handleCurrentBtnOnly is set
+       */
+    PromiseBtnDirective.prototype.handleCurrentBtnOnly = /**
+       * Limit loading state to show only for the currently clicked button.
+       * Executed only if this.cfg.handleCurrentBtnOnly is set
+       */
+    function () {
         var _this = this;
         if (!this.cfg.handleCurrentBtnOnly) {
             return true; // return true for testing
@@ -180,21 +264,21 @@ var PromiseBtnDirective = (function () {
             _this.initLoadingState(_this.btnEl);
         }, 0);
     };
+    PromiseBtnDirective.decorators = [
+        { type: core_1.Directive, args: [{
+                    selector: '[promiseBtn]'
+                },] },
+    ];
+    /** @nocollapse */
+    PromiseBtnDirective.ctorParameters = function () { return [
+        { type: core_1.ElementRef, },
+        { type: undefined, decorators: [{ type: core_1.Inject, args: [user_cfg_1.userCfg,] },] },
+    ]; };
+    PromiseBtnDirective.propDecorators = {
+        "promiseBtn": [{ type: core_1.Input },],
+        "handleCurrentBtnOnly": [{ type: core_1.HostListener, args: ['click',] },],
+    };
     return PromiseBtnDirective;
 }());
-PromiseBtnDirective.decorators = [
-    { type: core_1.Directive, args: [{
-                selector: '[promiseBtn]'
-            },] },
-];
-/** @nocollapse */
-PromiseBtnDirective.ctorParameters = function () { return [
-    { type: core_1.ElementRef, },
-    { type: undefined, decorators: [{ type: core_1.Inject, args: [user_cfg_1.userCfg,] },] },
-]; };
-PromiseBtnDirective.propDecorators = {
-    'promiseBtn': [{ type: core_1.Input },],
-    'handleCurrentBtnOnly': [{ type: core_1.HostListener, args: ['click',] },],
-};
 exports.PromiseBtnDirective = PromiseBtnDirective;
 //# sourceMappingURL=promise-btn.directive.js.map

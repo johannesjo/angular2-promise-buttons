@@ -9,8 +9,7 @@ import {userCfg} from './user-cfg';
 import {By} from '@angular/platform-browser';
 import {Observable} from 'rxjs/Observable';
 import * as BlueBird from 'bluebird';
-
-const jQuery = require('jquery');
+import * as jQuery from 'jquery';
 
 class MockElementRef extends ElementRef {
   constructor() {

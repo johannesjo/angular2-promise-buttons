@@ -7,8 +7,8 @@ beforeEach(() => {
     toHaveCssClass(/*util, customEqualityTests*/) {
       return {compare: buildError(false), negativeCompare: buildError(true)};
 
-      function buildError(isNot) {
-        return function (actual, className) {
+      function buildError(isNot: any) {
+        return function (actual: any, className: any) {
           const orNot = isNot ? 'not ' : '';
           return {
             pass: actual.classList.contains(className) === !isNot,

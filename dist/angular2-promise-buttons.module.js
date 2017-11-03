@@ -7,28 +7,31 @@ var Angular2PromiseButtonModule = (function () {
     function Angular2PromiseButtonModule() {
     }
     // add forRoot to make it configurable
-    Angular2PromiseButtonModule.forRoot = function (config) {
+    // add forRoot to make it configurable
+    Angular2PromiseButtonModule.forRoot = 
+    // add forRoot to make it configurable
+    function (config) {
         // NOTE: this is never allowed to contain any conditional logic
         return {
             ngModule: Angular2PromiseButtonModule,
             providers: [{ provide: user_cfg_1.userCfg, useValue: config }]
         };
     };
+    Angular2PromiseButtonModule.decorators = [
+        { type: core_1.NgModule, args: [{
+                    declarations: [
+                        promise_btn_directive_1.PromiseBtnDirective,
+                    ],
+                    imports: [],
+                    exports: [
+                        promise_btn_directive_1.PromiseBtnDirective,
+                    ],
+                    providers: []
+                },] },
+    ];
+    /** @nocollapse */
+    Angular2PromiseButtonModule.ctorParameters = function () { return []; };
     return Angular2PromiseButtonModule;
 }());
-Angular2PromiseButtonModule.decorators = [
-    { type: core_1.NgModule, args: [{
-                declarations: [
-                    promise_btn_directive_1.PromiseBtnDirective,
-                ],
-                imports: [],
-                exports: [
-                    promise_btn_directive_1.PromiseBtnDirective,
-                ],
-                providers: []
-            },] },
-];
-/** @nocollapse */
-Angular2PromiseButtonModule.ctorParameters = function () { return []; };
 exports.Angular2PromiseButtonModule = Angular2PromiseButtonModule;
 //# sourceMappingURL=angular2-promise-buttons.module.js.map

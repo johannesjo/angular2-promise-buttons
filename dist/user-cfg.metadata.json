@@ -1,1 +1,1 @@
-[{"__symbolic":"module","version":3,"metadata":{"userCfg":{"__symbolic":"new","expression":{"__symbolic":"reference","module":"@angular/core","name":"OpaqueToken"},"arguments":["cfg"]}}},{"__symbolic":"module","version":1,"metadata":{"userCfg":{"__symbolic":"new","expression":{"__symbolic":"reference","module":"@angular/core","name":"OpaqueToken"},"arguments":["cfg"]}}}]
+[{"__symbolic":"module","version":4,"metadata":{"userCfg":{"__symbolic":"new","expression":{"__symbolic":"reference","module":"@angular/core","name":"InjectionToken"},"arguments":["cfg"]}}}]
