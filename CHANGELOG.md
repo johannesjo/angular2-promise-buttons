@@ -1,3 +1,8 @@
+<a name="2.0.1"></a>
+## [2.0.1](https://github.com/johannesjo/angular2-promise-buttons/compare/v2.0.0...v2.0.1) (2017-11-15)
+
+
+
 <a name="2.0.0"></a>
 # [2.0.0](https://github.com/johannesjo/angular2-promise-buttons/compare/v1.1.0...v2.0.0) (2017-11-03)
 
