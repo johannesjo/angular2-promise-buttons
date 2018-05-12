@@ -7,7 +7,7 @@ import {ComponentFixture} from '@angular/core/testing';
 import {PromiseBtnDirective} from './promise-btn.directive';
 import {userCfg} from './user-cfg';
 import {By} from '@angular/platform-browser';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 import * as BlueBird from 'bluebird';
 import * as jQuery from 'jquery';
 

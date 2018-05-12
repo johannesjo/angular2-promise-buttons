@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
-import {Subscription} from 'rxjs/Subscription';
+import {Observable} from 'rxjs';
+import {Subscription} from 'rxjs';
 
 const STANDARD_DELAY = 1000;
 const FAKE_FACT = {
