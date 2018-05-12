@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var promise_btn_directive_1 = require("./promise-btn.directive");
 var user_cfg_1 = require("./user-cfg");
-var Angular2PromiseButtonModule = (function () {
+var Angular2PromiseButtonModule = /** @class */ (function () {
     function Angular2PromiseButtonModule() {
     }
     // add forRoot to make it configurable
@@ -29,8 +29,6 @@ var Angular2PromiseButtonModule = (function () {
                     providers: []
                 },] },
     ];
-    /** @nocollapse */
-    Angular2PromiseButtonModule.ctorParameters = function () { return []; };
     return Angular2PromiseButtonModule;
 }());
 exports.Angular2PromiseButtonModule = Angular2PromiseButtonModule;

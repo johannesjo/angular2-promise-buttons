@@ -1,11 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var Observable_1 = require("rxjs/Observable");
-var Subscription_1 = require("rxjs/Subscription");
+var rxjs_1 = require("rxjs");
+var rxjs_2 = require("rxjs");
 var default_promise_btn_config_1 = require("./default-promise-btn-config");
 var user_cfg_1 = require("./user-cfg");
-var PromiseBtnDirective = (function () {
+var PromiseBtnDirective = /** @class */ (function () {
     function PromiseBtnDirective(el, userCfg) {
         // provide configuration
         this.cfg = Object.assign({}, default_promise_btn_config_1.DEFAULT_CFG, userCfg);
@@ -14,8 +14,8 @@ var PromiseBtnDirective = (function () {
     }
     Object.defineProperty(PromiseBtnDirective.prototype, "promiseBtn", {
         set: function (passedValue) {
-            var isObservable = passedValue instanceof Observable_1.Observable;
-            var isSubscription = passedValue instanceof Subscription_1.Subscription;
+            var isObservable = passedValue instanceof rxjs_1.Observable;
+            var isSubscription = passedValue instanceof rxjs_2.Subscription;
             var isPromise = passedValue instanceof Promise || (passedValue !== null &&
                 typeof passedValue === 'object' &&
                 typeof passedValue.then === 'function' &&
