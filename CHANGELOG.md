@@ -1,3 +1,14 @@
+<a name="2.1.0"></a>
+# [2.1.0](https://github.com/johannesjo/angular2-promise-buttons/compare/v2.0.1...v2.1.0) (2018-05-12)
+
+
+### Features
+
+* update dist files [#22](https://github.com/johannesjo/angular2-promise-buttons/issues/22) ([46d7e1c](https://github.com/johannesjo/angular2-promise-buttons/commit/46d7e1c))
+* update to angular 6 [#22](https://github.com/johannesjo/angular2-promise-buttons/issues/22) ([94f25e2](https://github.com/johannesjo/angular2-promise-buttons/commit/94f25e2))
+
+
+
 <a name="2.0.1"></a>
 ## [2.0.1](https://github.com/johannesjo/angular2-promise-buttons/compare/v2.0.0...v2.0.1) (2017-11-15)
 
