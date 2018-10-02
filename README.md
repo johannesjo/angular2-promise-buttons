@@ -85,7 +85,7 @@ export class MainAppModule {
 ```
 
 ## Using observables
-When you're using the module with observables make sure to pass a subscription ro the directive rather than an observable directly.
+When you're using the module with observables make sure to pass a subscription to the directive rather than an observable directly.
 ```typescript
 const FAKE_FACTORY = {
   initObservable: (): Observable<number> => {
