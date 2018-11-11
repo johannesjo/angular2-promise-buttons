@@ -41,7 +41,7 @@
     "*.md"
   ],
   "peerDependencies": {
-    "@angular/core": "^6.0.0"
+    "@angular/core": "^7.0.0"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^0.6.3",
