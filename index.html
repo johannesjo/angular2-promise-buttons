@@ -124,7 +124,7 @@ export class MainAppModule {
 }
 </code></pre>
 <h2 id="using-observables">Using observables</h2>
-<p>When you&#39;re using the module with observables make sure to pass a subscription ro the directive rather than an observable directly.</p>
+<p>When you&#39;re using the module with observables make sure to pass a subscription to the directive rather than an observable directly.</p>
 <pre><code class="lang-typescript">const FAKE_FACTORY = {
   initObservable: (): Observable&lt;number&gt; =&gt; {
     return new Observable(observer =&gt; {
