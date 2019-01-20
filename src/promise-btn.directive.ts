@@ -1,9 +1,8 @@
-import {AfterContentInit, Directive, ElementRef, HostListener, Inject, Input, OnDestroy} from '@angular/core';
-import {Observable} from 'rxjs';
-import {Subscription} from 'rxjs';
-import {DEFAULT_CFG} from './default-promise-btn-config';
-import {PromiseBtnConfig} from './promise-btn-config';
-import {userCfg} from './user-cfg';
+import { AfterContentInit, Directive, ElementRef, HostListener, Inject, Input, OnDestroy } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
+import { DEFAULT_CFG } from './default-promise-btn-config';
+import { PromiseBtnConfig } from './promise-btn-config';
+import { userCfg } from './user-cfg';
 
 @Directive({
   selector: '[promiseBtn]'
@@ -23,6 +22,8 @@ export class PromiseBtnDirective implements OnDestroy, AfterContentInit {
   // NOTE: we need the type any here as we might deal with custom promises like bluebird
   promise: any;
 
+  private _fakePromiseResolve: () => void;
+
   constructor(el: ElementRef,
               @Inject(userCfg) userCfg: PromiseBtnConfig) {
     // provide configuration
@@ -36,6 +37,7 @@ export class PromiseBtnDirective implements OnDestroy, AfterContentInit {
   set promiseBtn(passedValue: any) {
     const isObservable: boolean = passedValue instanceof Observable;
     const isSubscription: boolean = passedValue instanceof Subscription;
+    const isBoolean: boolean = typeof passedValue === 'boolean';
     const isPromise: boolean = passedValue instanceof Promise || (
       passedValue !== null &&
       typeof passedValue === 'object' &&
@@ -51,6 +53,8 @@ export class PromiseBtnDirective implements OnDestroy, AfterContentInit {
       });
     } else if (isPromise) {
       this.promise = passedValue;
+    } else if (isBoolean) {
+      this.promise = this.createPromiseFromBoolean(passedValue);
     }
 
     this.checkAndInitPromiseHandler(this.btnEl);
@@ -66,6 +70,19 @@ export class PromiseBtnDirective implements OnDestroy, AfterContentInit {
     // cleanup
     if (this.minDurationTimeout) {
       clearTimeout(this.minDurationTimeout);
+    }
+  }
+
+  createPromiseFromBoolean(val: boolean): Promise<any> {
+    if (val) {
+      return new Promise((resolve) => {
+        this._fakePromiseResolve = resolve;
+      });
+    } else {
+      if (this._fakePromiseResolve) {
+        this._fakePromiseResolve();
+      }
+      return this.promise;
     }
   }
 
