@@ -7,10 +7,12 @@ export declare class PromiseBtnDirective implements OnDestroy, AfterContentInit 
     isPromiseDone: boolean;
     btnEl: HTMLElement;
     promise: any;
+    private _fakePromiseResolve;
     constructor(el: ElementRef, userCfg: PromiseBtnConfig);
     promiseBtn: any;
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
+    createPromiseFromBoolean(val: boolean): Promise<any>;
     /**
      * Initializes all html and event handlers
      * @param {Object}btnEl

@@ -2,7 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var rxjs_1 = require("rxjs");
-var rxjs_2 = require("rxjs");
 var default_promise_btn_config_1 = require("./default-promise-btn-config");
 var user_cfg_1 = require("./user-cfg");
 var PromiseBtnDirective = /** @class */ (function () {
@@ -15,7 +14,8 @@ var PromiseBtnDirective = /** @class */ (function () {
     Object.defineProperty(PromiseBtnDirective.prototype, "promiseBtn", {
         set: function (passedValue) {
             var isObservable = passedValue instanceof rxjs_1.Observable;
-            var isSubscription = passedValue instanceof rxjs_2.Subscription;
+            var isSubscription = passedValue instanceof rxjs_1.Subscription;
+            var isBoolean = typeof passedValue === 'boolean';
             var isPromise = passedValue instanceof Promise || (passedValue !== null &&
                 typeof passedValue === 'object' &&
                 typeof passedValue.then === 'function' &&
@@ -31,6 +31,9 @@ var PromiseBtnDirective = /** @class */ (function () {
             else if (isPromise) {
                 this.promise = passedValue;
             }
+            else if (isBoolean) {
+                this.promise = this.createPromiseFromBoolean(passedValue);
+            }
             this.checkAndInitPromiseHandler(this.btnEl);
         },
         enumerable: true,
@@ -45,6 +48,20 @@ var PromiseBtnDirective = /** @class */ (function () {
         // cleanup
         if (this.minDurationTimeout) {
             clearTimeout(this.minDurationTimeout);
+        }
+    };
+    PromiseBtnDirective.prototype.createPromiseFromBoolean = function (val) {
+        var _this = this;
+        if (val) {
+            return new Promise(function (resolve) {
+                _this._fakePromiseResolve = resolve;
+            });
+        }
+        else {
+            if (this._fakePromiseResolve) {
+                this._fakePromiseResolve();
+            }
+            return this.promise;
         }
     };
     /**

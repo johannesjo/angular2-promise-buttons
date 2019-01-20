@@ -1,3 +1,13 @@
+<a name="3.0.1"></a>
+## [3.0.1](https://github.com/johannesjo/angular2-promise-buttons/compare/v3.0.0...v3.0.1) (2019-01-20)
+
+
+### Features
+
+* support regular booleans ([be350c1](https://github.com/johannesjo/angular2-promise-buttons/commit/be350c1))
+
+
+
 <a name="3.0.0"></a>
 # [3.0.0](https://github.com/johannesjo/angular2-promise-buttons/compare/v2.1.1...v3.0.0) (2018-11-11)
 
