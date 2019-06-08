@@ -4,6 +4,6 @@ export const DEFAULT_CFG: PromiseBtnConfig = {
   disableBtn: true,
   btnLoadingClass: 'is-loading',
   handleCurrentBtnOnly: false,
-  minDuration: false,
+  minDuration: null,
 };
 
