@@ -163,7 +163,7 @@ export class PromiseBtnDirective implements OnDestroy, AfterContentInit {
 
     // create timeout if option is set
     if (this.cfg.minDuration) {
-      this.minDurationTimeout = setTimeout(() => {
+      this.minDurationTimeout = window.setTimeout(() => {
         this.isMinDurationTimeoutDone = true;
         this.cancelLoadingStateIfPromiseAndMinDurationDone(btnEl);
       }, this.cfg.minDuration);
@@ -210,7 +210,7 @@ export class PromiseBtnDirective implements OnDestroy, AfterContentInit {
 
     // Click triggers @Input update
     // We need to use timeout to wait for @Input to update
-    setTimeout(() => {
+    window.setTimeout(() => {
       // return if something else than a promise is passed
       if (!this.promise) {
         return;
