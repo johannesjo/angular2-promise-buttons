@@ -109,5 +109,11 @@ this.passedToDirective = observable;
 
 ```
 
+## Using booleans
+Is now also possible.
+```html
+<button (click)="someAction()" 
+   [promiseBtn]="isShowBoolean">Click!</button>
+```
 ## Contributing
 Contribution guidelines: [CONTRIBUTING.md](https://github.com/johannesjo/angular2-promise-buttons/blob/master/CONTRIBUTING.md)

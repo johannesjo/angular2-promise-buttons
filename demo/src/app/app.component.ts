@@ -78,6 +78,7 @@ export class AppComponent {
   submitPromise: Promise<any>;
   chainedPromises: any;
   promiseIndex: number;
+  myBool = true;
 
   successObservable: Subscription;
   errorObservable: Subscription;

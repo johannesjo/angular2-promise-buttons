@@ -79,3 +79,14 @@
           [promiseBtn]="chainedObservable">Observable chain {{ chainedObservableValue }}
   </button>
 </div>
+
+<div>
+  <h2>Simple Boolean</h2>
+  <button class="btn btn-raised"
+          (click)="myBool=!myBool">Toggle loading ({{myBool}})
+  </button>
+
+  <button class="btn btn-raised"
+          [promiseBtn]="myBool">My Boolean Btn {{myBool}}
+  </button>
+</div>
