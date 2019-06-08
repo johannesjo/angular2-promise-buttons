@@ -1,3 +1,18 @@
+<a name="4.0.0"></a>
+# [4.0.0](https://github.com/johannesjo/angular2-promise-buttons/compare/v3.0.0...v4.0.0) (2019-06-08)
+
+
+### Bug Fixes
+
+* typing error ([a26ebec](https://github.com/johannesjo/angular2-promise-buttons/commit/a26ebec))
+
+
+### Features
+
+* support regular booleans ([be350c1](https://github.com/johannesjo/angular2-promise-buttons/commit/be350c1))
+
+
+
 <a name="3.0.1"></a>
 ## [3.0.1](https://github.com/johannesjo/angular2-promise-buttons/compare/v3.0.0...v3.0.1) (2019-01-20)
 

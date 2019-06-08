@@ -3,5 +3,5 @@ export interface PromiseBtnConfig {
     disableBtn?: boolean;
     btnLoadingClass?: boolean | string;
     handleCurrentBtnOnly?: boolean;
-    minDuration?: boolean | number;
+    minDuration?: number | null;
 }

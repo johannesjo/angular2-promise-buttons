@@ -5,6 +5,6 @@ exports.DEFAULT_CFG = {
     disableBtn: true,
     btnLoadingClass: 'is-loading',
     handleCurrentBtnOnly: false,
-    minDuration: false,
+    minDuration: null,
 };
 //# sourceMappingURL=default-promise-btn-config.js.map
