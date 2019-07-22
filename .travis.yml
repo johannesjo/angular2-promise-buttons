@@ -1,20 +1,23 @@
 language: node_js
 node_js:
-  - "10"
+  - "12"
+
+cache:
+  yarn: true
 
 before_install:
-- npm install -g npm@latest
+  - npm install -g npm@latest
 
 script:
-- npm install
-- npm run test-coverage
+  - npm install
+  - npm run test-coverage
 
 addons:
   apt:
     sources:
-    - ubuntu-toolchain-r-test
+      - ubuntu-toolchain-r-test
     # required by node-gyp to build some packages
     packages:
-    - g++-4.8
+      - g++-4.8
 
 after_success: 'npm run coveralls'
