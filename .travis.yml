@@ -5,12 +5,10 @@ node_js:
 cache:
   yarn: true
 
-before_install:
-  - npm install -g npm@latest
 
 script:
-  - npm install
-  - npm run test-coverage
+  - yarn
+  - yarn test-coverage
 
 addons:
   apt:
