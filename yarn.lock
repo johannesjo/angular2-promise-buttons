@@ -268,9 +268,12 @@
   version "2.5.38"
   resolved "https://registry.yarnpkg.com/@types/jasmine/-/jasmine-2.5.38.tgz#a4379124c4921d4e21de54ec74669c9e9b356717"
 
-"@types/jquery@^3.2.8":
-  version "3.3.2"
-  resolved "https://registry.yarnpkg.com/@types/jquery/-/jquery-3.3.2.tgz#8700226bdde24b6f98e3a60126dbaab3b2a3ab41"
+"@types/jquery@^3.3.6":
+  version "3.3.30"
+  resolved "https://registry.yarnpkg.com/@types/jquery/-/jquery-3.3.30.tgz#af4ad612d86d954d74664b2b0ec337a251fddb5b"
+  integrity sha512-chB+QbLulamShZAFcTJtl8opZwHFBpDOP6nRLrPGkhC6N1aKWrDXg2Nc71tEg6ny6E8SQpRwbWSi9GdstH5VJA==
+  dependencies:
+    "@types/sizzle" "*"
 
 "@types/minimatch@*":
   version "3.0.3"
@@ -293,6 +296,11 @@
 "@types/selenium-webdriver@^2.53.35", "@types/selenium-webdriver@~2.53.39":
   version "2.53.43"
   resolved "https://registry.yarnpkg.com/@types/selenium-webdriver/-/selenium-webdriver-2.53.43.tgz#2de3d718819bc20165754c4a59afb7e9833f6707"
+
+"@types/sizzle@*":
+  version "2.3.2"
+  resolved "https://registry.yarnpkg.com/@types/sizzle/-/sizzle-2.3.2.tgz#a811b8c18e2babab7d542b3365887ae2e4d9de47"
+  integrity sha512-7EJYyKTL7tFR8+gDbB6Wwz/arpGa0Mywk1TJbNzKzHtzbwVmY4HR9WqS5VV7dsBUKQmPNr192jHr/VpBluj/hg==
 
 "@types/source-list-map@*":
   version "0.1.2"
