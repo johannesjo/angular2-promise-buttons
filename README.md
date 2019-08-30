@@ -1,9 +1,9 @@
-[![npm version](https://badge.fury.io/js/angular2-promise-buttons.svg)](https://badge.fury.io/js/angular2-promise-buttons)
-[![Build Status](https://travis-ci.org/johannesjo/angular2-promise-buttons.svg)](https://travis-ci.org/johannesjo/angular2-promise-buttons?branch=master)
-[![Coverage Status](https://coveralls.io/repos/github/johannesjo/angular2-promise-buttons/badge.svg?branch=master)](https://coveralls.io/github/johannesjo/angular2-promise-buttons?branch=master)
-
-angular2-promise-buttons
-===========
+<p align="center"><img src="logo.png"></p>
+<p align="center>
+          
+<p align="center"><a href="https://badge.fury.io/js/angular2-promise-buttons" rel="nofollow"><img src="https://camo.githubusercontent.com/5e39de25cca817826da9e93cdce01f16bc499695/68747470733a2f2f62616467652e667572792e696f2f6a732f616e67756c6172322d70726f6d6973652d627574746f6e732e737667" alt="npm version" data-canonical-src="https://badge.fury.io/js/angular2-promise-buttons.svg" style="max-width:100%;"></a>
+<a href="https://travis-ci.org/johannesjo/angular2-promise-buttons?branch=master" rel="nofollow"><img src="https://camo.githubusercontent.com/849a28d2647af8a0fe2a8d47b860d638f5421948/68747470733a2f2f7472617669732d63692e6f72672f6a6f68616e6e65736a6f2f616e67756c6172322d70726f6d6973652d627574746f6e732e737667" alt="Build Status" data-canonical-src="https://travis-ci.org/johannesjo/angular2-promise-buttons.svg" style="max-width:100%;"></a>
+<a href="https://coveralls.io/github/johannesjo/angular2-promise-buttons?branch=master" rel="nofollow"><img src="https://camo.githubusercontent.com/80cb53bf16882ebc70866dffd299edfa741b26e9/68747470733a2f2f636f766572616c6c732e696f2f7265706f732f6769746875622f6a6f68616e6e65736a6f2f616e67756c6172322d70726f6d6973652d627574746f6e732f62616467652e7376673f6272616e63683d6d6173746572" alt="Coverage Status" data-canonical-src="https://coveralls.io/repos/github/johannesjo/angular2-promise-buttons/badge.svg?branch=master" style="max-width:100%;"></a></p>
 
 *Chilled Buttons for Angular2*
 
