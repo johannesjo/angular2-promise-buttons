@@ -33,7 +33,6 @@
     "ng": "ng"
   },
   "main": "dist/index.js",
-  "module": "dist/index.js",
   "typings": "dist/index.d.ts",
   "files": [
     "dist/**/*",
