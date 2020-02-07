@@ -1,3 +1,8 @@
+<a name="4.0.1"></a>
+## [4.0.1](https://github.com/johannesjo/angular2-promise-buttons/compare/v4.0.0...v4.0.1) (2019-11-18)
+
+
+
 <a name="4.0.0"></a>
 # [4.0.0](https://github.com/johannesjo/angular2-promise-buttons/compare/v3.0.0...v4.0.0) (2019-06-08)
 

@@ -12,7 +12,8 @@
   },
   "files": [
     "../../scripts/test.ts",
-    "polyfills.ts"
+    "polyfills.ts",
+    "../../src/promise-btn.directive.spec.ts"
   ],
   "include": [
     "../../src/**/*.spec.ts",

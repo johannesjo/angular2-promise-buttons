@@ -1,13 +1,21 @@
-[![npm version](https://badge.fury.io/js/angular2-promise-buttons.svg)](https://badge.fury.io/js/angular2-promise-buttons)
-[![Build Status](https://travis-ci.org/johannesjo/angular2-promise-buttons.svg)](https://travis-ci.org/johannesjo/angular2-promise-buttons?branch=master)
-[![Coverage Status](https://coveralls.io/repos/github/johannesjo/angular2-promise-buttons/badge.svg?branch=master)](https://coveralls.io/github/johannesjo/angular2-promise-buttons?branch=master)
+<p align="center"><img src="logo.png"></p>
+          
+<p align="center">
+    <a href="https://badge.fury.io/js/angular2-promise-buttons">
+        <img src="https://camo.githubusercontent.com/5e39de25cca817826da9e93cdce01f16bc499695/68747470733a2f2f62616467652e667572792e696f2f6a732f616e67756c6172322d70726f6d6973652d627574746f6e732e737667"
+             alt="npm version"></a>
+    <a href="https://travis-ci.org/johannesjo/angular2-promise-buttons?branch=master">
+        <img src="https://camo.githubusercontent.com/849a28d2647af8a0fe2a8d47b860d638f5421948/68747470733a2f2f7472617669732d63692e6f72672f6a6f68616e6e65736a6f2f616e67756c6172322d70726f6d6973652d627574746f6e732e737667"
+             alt="Build Status"></a>
+    <a href="https://coveralls.io/github/johannesjo/angular2-promise-buttons?branch=master">
+        <img src="https://camo.githubusercontent.com/80cb53bf16882ebc70866dffd299edfa741b26e9/68747470733a2f2f636f766572616c6c732e696f2f7265706f732f6769746875622f6a6f68616e6e65736a6f2f616e67756c6172322d70726f6d6973652d627574746f6e732f62616467652e7376673f6272616e63683d6d6173746572"
+             alt="Coverage Status"></a>
+    <a href="https://lbesson.mit-license.org">
+        <img alt="MIT license"
+             src="https://camo.githubusercontent.com/311762166ef25238116d3cadd22fcb6091edab98/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4c6963656e73652d4d49542d626c75652e737667">
+    </a>
+</p>
 
-angular2-promise-buttons
-===========
-
-*Chilled Buttons for Angular2*
-
-For angular 1.x version [go here](https://github.com/johannesjo/angular-promise-buttons).
 
 *angular2-promise-buttons* is a simple module that let's you add a loading indicator to a button of your choice.  Check out the [demo](http://johannesjo.github.io/angular2-promise-buttons/#demo)!
 
