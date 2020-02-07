@@ -15,7 +15,7 @@ import {userCfg} from './user-cfg';
 })
 export class Angular2PromiseButtonModule {
   // add forRoot to make it configurable
-  static forRoot(config?: PromiseBtnConfig): ModuleWithProviders {
+  static forRoot(config?: PromiseBtnConfig): ModuleWithProviders<Angular2PromiseButtonModule> {
     // NOTE: this is never allowed to contain any conditional logic
     return {
       ngModule: Angular2PromiseButtonModule,

@@ -1,7 +1,6 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "module": "es6",
     "outDir": "../tmp/out-tsc",
     "sourceMap": true
   },
