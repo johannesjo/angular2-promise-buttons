@@ -2,10 +2,6 @@
   "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
   "dest": "../../dist/angular2-promise-buttons",
   "lib": {
-    "entryFile": "src/public-api.ts"
-  },
-  "whitelistedNonPeerDependencies": [
-    "tinycolor2",
-    "@ctrl/tinycolor"
-  ]
+    "entryFile": "src/index.ts"
+  }
 }

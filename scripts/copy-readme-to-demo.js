@@ -1,7 +1,7 @@
 const marked = require('marked');
 const fs = require('fs');
 
-const demoIndexPagePath = __dirname + '/../dist/angular2-promise-buttons-demo/index.html';
+const demoIndexPagePath = __dirname + '/../dist/demo/index.html';
 const readmePath = __dirname + '/../README.md';
 const readmeNeedle = '___README_MD_NEEDLE___';
 const readme = fs.readFileSync(readmePath);
