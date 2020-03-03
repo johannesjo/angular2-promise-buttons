@@ -10,7 +10,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "test": "ng test",
+    "test": "ng test --browsers ChromeHeadless",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "demo": "run-s demo.build demo.copy-readme demo.gh-pages",
@@ -26,7 +26,7 @@
     "patch": "npm version patch && cd ./projects/angular2-promise-buttons && npm version patch && cd .. && cd .. && git add . && git commit -am\"chore: update lib version\"",
     "patch-release_": "run-s lib demo patch pub",
     "patch-release": "npm run patch-release_",
-    "test-coverage": "ng test --code-coverage",
+    "test-coverage": "ng test --browsers ChromeHeadless --code-coverage",
     "coveralls": "YOURPACKAGE_COVERAGE=1 cat ./coverage/lcov.info | ./node_modules/.bin/coveralls"
   },
   "peerDependencies": {},
