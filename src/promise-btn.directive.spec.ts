@@ -1,9 +1,6 @@
 import 'core-js/fn/object/entries';
-import {ElementRef} from '@angular/core';
-import {Component} from '@angular/core';
-import {DebugElement} from '@angular/core';
-import {async, TestBed} from '@angular/core/testing';
-import {ComponentFixture} from '@angular/core/testing';
+import {Component, DebugElement, ElementRef} from '@angular/core';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {PromiseBtnDirective} from './promise-btn.directive';
 import {userCfg} from './user-cfg';
 import {By} from '@angular/platform-browser';
@@ -66,7 +63,7 @@ describe('PromiseBtnDirective', () => {
       fixture.detectChanges();
 
       buttonDebugElement = fixture.debugElement.query(By.css('button'));
-      buttonElement = <HTMLButtonElement> buttonDebugElement.nativeElement;
+      buttonElement = (buttonDebugElement.nativeElement as HTMLButtonElement);
       promiseBtnDirective = buttonDebugElement.injector.get<PromiseBtnDirective>(PromiseBtnDirective);
     });
 
@@ -113,7 +110,7 @@ describe('PromiseBtnDirective', () => {
           };
 
           // Iterate over possible values
-          for (const [description, getPromise] of (<any>Object).entries(possibleValues)) {
+          for (const [description, getPromise] of (Object as any).entries(possibleValues)) {
             describe(`testing ${description}`, () => {
               beforeEach(() => {
                 fixture.componentInstance.testPromise = getPromise();
@@ -279,13 +276,13 @@ describe('PromiseBtnDirective', () => {
 
       describe('should do nothing when anything else than a promise is passed', () => {
         const possibleValues = {
-          'undefined': undefined,
-          'null': null,
-          'boolean': false,
-          'number': 1,
-          'NaN': NaN,
-          'array': [],
-          'object': {},
+          undefined,
+          null: null,
+          boolean: false,
+          number: 1,
+          NaN,
+          array: [],
+          object: {},
           'object, "then" is not a function': {then: true},
           'object, "then" is invalid function': {
             then: () => {
@@ -294,7 +291,7 @@ describe('PromiseBtnDirective', () => {
         };
 
         // Iterate over possible values
-        for (const [description, promise] of (<any>Object).entries(possibleValues)) {
+        for (const [description, promise] of (Object as any).entries(possibleValues)) {
           describe(`testing ${description}`, () => {
             beforeEach(() => {
               fixture.componentInstance.testPromise = promise;
@@ -373,7 +370,7 @@ describe('PromiseBtnDirective', () => {
             resolve();
             setTimeout(() => {
               done();
-            }, (<number>promiseBtnDirective.cfg.minDuration + 5));
+            }, ((promiseBtnDirective.cfg.minDuration as number) + 5));
           }, 10);
         });
 
@@ -454,8 +451,8 @@ describe('PromiseBtnDirective', () => {
       fixture.detectChanges();
       buttonDebugElement = fixture.debugElement.query(By.css('button'));
       divDebugElement = fixture.debugElement.query(By.css('div'));
-      buttonElement = <HTMLButtonElement> buttonDebugElement.nativeElement;
-      divElement = <HTMLDivElement> divDebugElement.nativeElement;
+      buttonElement = (buttonDebugElement.nativeElement as HTMLButtonElement);
+      divElement = (divDebugElement.nativeElement as HTMLDivElement);
       promiseBtnDirective1 = buttonDebugElement.injector.get<PromiseBtnDirective>(PromiseBtnDirective);
       promiseBtnDirective2 = divDebugElement.injector.get<PromiseBtnDirective>(PromiseBtnDirective);
       fixture.detectChanges();
@@ -544,7 +541,7 @@ describe('PromiseBtnDirective', () => {
         }).createComponent(TestComponent);
         fixture.detectChanges();
         buttonDebugElement = fixture.debugElement.query(By.css('button'));
-        buttonElement = <HTMLButtonElement> buttonDebugElement.nativeElement;
+        buttonElement = (buttonDebugElement.nativeElement as HTMLButtonElement);
         promiseBtnDirective = buttonDebugElement.injector.get<PromiseBtnDirective>(PromiseBtnDirective);
         fixture.detectChanges();
 

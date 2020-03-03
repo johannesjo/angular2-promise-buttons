@@ -4,7 +4,7 @@ import {Subscription} from 'rxjs';
 
 const STANDARD_DELAY = 1000;
 const FAKE_FACT = {
-  success: function () {
+  success () {
     return new Promise((fulfill) => {
       setTimeout(() => {
         fulfill({

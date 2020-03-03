@@ -1,4 +1,4 @@
-import {NgModule, ModuleWithProviders} from '@angular/core';
+import {ModuleWithProviders, NgModule} from '@angular/core';
 import {PromiseBtnDirective} from './promise-btn.directive';
 import {PromiseBtnConfig} from './promise-btn-config';
 import {userCfg} from './user-cfg';

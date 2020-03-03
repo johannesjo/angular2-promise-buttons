@@ -25,9 +25,9 @@ export class PromiseBtnDirective implements OnDestroy, AfterContentInit {
   private _fakePromiseResolve: () => void;
 
   constructor(el: ElementRef,
-              @Inject(userCfg) userCfg: PromiseBtnConfig) {
+              @Inject(userCfg) cfg: PromiseBtnConfig) {
     // provide configuration
-    this.cfg = Object.assign({}, DEFAULT_CFG, userCfg);
+    this.cfg = Object.assign({}, DEFAULT_CFG, cfg);
 
     // save element
     this.btnEl = el.nativeElement;
@@ -88,7 +88,6 @@ export class PromiseBtnDirective implements OnDestroy, AfterContentInit {
 
   /**
    * Initializes all html and event handlers
-   * @param {Object}btnEl
    */
   prepareBtnEl(btnEl: HTMLElement) {
     // handle promises passed via promiseBtn attribute
@@ -97,7 +96,6 @@ export class PromiseBtnDirective implements OnDestroy, AfterContentInit {
 
   /**
    * Checks if all required parameters are there and inits the promise handler
-   * @param {Object}btnEl
    */
   checkAndInitPromiseHandler(btnEl: HTMLElement) {
     // check if element and promise is set
@@ -108,7 +106,6 @@ export class PromiseBtnDirective implements OnDestroy, AfterContentInit {
 
   /**
    * Helper FN to add class
-   * @param {Object}el
    */
   addLoadingClass(el: any) {
     if (typeof this.cfg.btnLoadingClass === 'string') {
@@ -118,7 +115,6 @@ export class PromiseBtnDirective implements OnDestroy, AfterContentInit {
 
   /**
    * Helper FN to remove classes
-   * @param {Object}el
    */
   removeLoadingClass(el: any) {
     if (typeof this.cfg.btnLoadingClass === 'string') {
@@ -129,7 +125,6 @@ export class PromiseBtnDirective implements OnDestroy, AfterContentInit {
   /**
    * Handles everything to be triggered when the button is set
    * to loading state.
-   * @param {Object}btnEl
    */
   initLoadingState(btnEl: HTMLElement) {
     this.addLoadingClass(btnEl);
@@ -138,7 +133,6 @@ export class PromiseBtnDirective implements OnDestroy, AfterContentInit {
 
   /**
    * Handles everything to be triggered when loading is finished
-   * @param {Object}btnEl
    */
   cancelLoadingStateIfPromiseAndMinDurationDone(btnEl: HTMLElement) {
     if ((!this.cfg.minDuration || this.isMinDurationTimeoutDone) && this.isPromiseDone) {
@@ -147,18 +141,12 @@ export class PromiseBtnDirective implements OnDestroy, AfterContentInit {
     }
   }
 
-  /**
-   * @param {Object}btnEl
-   */
   disableBtn(btnEl: HTMLElement) {
     if (this.cfg.disableBtn) {
       btnEl.setAttribute('disabled', 'disabled');
     }
   }
 
-  /**
-   * @param {Object}btnEl
-   */
   enableBtn(btnEl: HTMLElement) {
     if (this.cfg.disableBtn) {
       btnEl.removeAttribute('disabled');
@@ -168,7 +156,6 @@ export class PromiseBtnDirective implements OnDestroy, AfterContentInit {
   /**
    * Initializes a watcher for the promise. Also takes
    * this.cfg.minDuration into account if given.
-   * @param {Object}btnEl
    */
 
   initPromiseHandler(btnEl: HTMLElement) {
@@ -208,11 +195,10 @@ export class PromiseBtnDirective implements OnDestroy, AfterContentInit {
 
   /**
    * $compile and append the spinner template to the button.
-   * @param {Object}btnEl
    */
   appendSpinnerTpl(btnEl: HTMLElement) {
     // TODO add some kind of compilation later on
-    btnEl.insertAdjacentHTML('beforeend', <string>this.cfg.spinnerTpl);
+    btnEl.insertAdjacentHTML('beforeend', this.cfg.spinnerTpl as string);
   }
 
   /**
