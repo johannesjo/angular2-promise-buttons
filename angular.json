@@ -3,35 +3,41 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "angular2-promise-buttons": {
-      "root": "",
-      "sourceRoot": "./",
+    "angular2-promise-buttons-demo": {
       "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "",
+      "sourceRoot": "src",
+      "prefix": "app",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "outputPath": "dist/angular2-promise-buttons-demo",
+            "index": "src/index.html",
+            "main": "src/main.ts",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "src/tsconfig.app.json",
             "aot": true,
-            "preserveSymlinks": true,
-            "outputPath": "demo/dist",
-            "index": "demo/src/index.html",
-            "main": "demo/src/main.ts",
-            "tsConfig": "demo/src/tsconfig.app.json",
             "assets": [
-              "demo/src/assets",
-              "demo/src/favicon.ico"
+              "src/favicon.ico",
+              "src/assets"
             ],
             "styles": [
-              "demo/src/styles.css"
+              "src/styles.scss"
             ],
             "scripts": []
           },
           "configurations": {
             "production": {
-              "budgets": [
+              "fileReplacements": [
                 {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "6kb"
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
                 }
               ],
               "optimization": true,
@@ -39,14 +45,18 @@
               "sourceMap": false,
               "extractCss": true,
               "namedChunks": false,
-              "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
-              "fileReplacements": [
+              "budgets": [
                 {
-                  "replace": "demo/src/environments/environment.ts",
-                  "with": "demo/src/environments/environment.prod.ts"
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
                 }
               ]
             }
@@ -55,80 +65,106 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "angular2-promise-buttons:build"
+            "browserTarget": "angular2-promise-buttons-demo:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "angular2-promise-buttons:build:production"
+              "browserTarget": "angular2-promise-buttons-demo:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "angular2-promise-buttons:build"
+            "browserTarget": "angular2-promise-buttons-demo:build"
           }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "scripts/test.ts",
-            "karmaConfig": "./karma.conf.js",
-            "tsConfig": "demo/src/tsconfig.spec.json",
-            "scripts": [],
-            "styles": [
-              "demo/src/styles.css"
-            ],
+            "main": "src/test.ts",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "src/tsconfig.spec.json",
+            "karmaConfig": "karma.conf.js",
             "assets": [
-              "demo/src/assets",
-              "demo/src/favicon.ico"
-            ]
+              "src/favicon.ico",
+              "src/assets"
+            ],
+            "styles": [
+              "src/styles.scss"
+            ],
+            "scripts": []
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "demo/src/tsconfig.app.json",
-              "demo/src/tsconfig.spec.json"
+              "src/tsconfig.app.json",
+              "src/tsconfig.spec.json",
+              "e2e/tsconfig.json"
             ],
-            "exclude": []
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "e2e/protractor.conf.js",
+            "devServerTarget": "angular2-promise-buttons-demo:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "angular2-promise-buttons-demo:serve:production"
+            }
           }
         }
       }
     },
-    "angular2-promise-buttons-e2e": {
-      "root": "",
-      "sourceRoot": "",
-      "projectType": "application",
+    "angular2-promise-buttons": {
+      "projectType": "library",
+      "root": "projects/angular2-promise-buttons",
+      "sourceRoot": "projects/angular2-promise-buttons/src",
+      "prefix": "lib",
       "architect": {
-        "e2e": {
-          "builder": "@angular-devkit/build-angular:protractor",
+        "build": {
+          "builder": "@linnenschmidt/build-ng-packagr:build",
           "options": {
-            "protractorConfig": "./protractor.conf.js",
-            "devServerTarget": "angular2-promise-buttons:serve"
+            "tsConfig": "projects/angular2-promise-buttons/tsconfig.lib.json",
+            "project": "projects/angular2-promise-buttons/ng-package.json",
+            "assets": [
+              {
+                "glob": "**/*.scss",
+                "input": "./src/lib",
+                "output": "./"
+              }
+            ]
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/angular2-promise-buttons/src/test.ts",
+            "tsConfig": "projects/angular2-promise-buttons/tsconfig.spec.json",
+            "karmaConfig": "projects/angular2-promise-buttons/karma.conf.js"
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "e2e/tsconfig.e2e.json"
+              "projects/angular2-promise-buttons/tsconfig.lib.json",
+              "projects/angular2-promise-buttons/tsconfig.spec.json"
             ],
-            "exclude": []
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         }
       }
     }
   },
-  "defaultProject": "angular2-promise-buttons",
-  "schematics": {
-    "@schematics/angular:component": {
-      "prefix": "",
-      "styleext": "css"
-    },
-    "@schematics/angular:directive": {
-      "prefix": ""
-    }
-  }
+  "defaultProject": "angular2-promise-buttons"
 }

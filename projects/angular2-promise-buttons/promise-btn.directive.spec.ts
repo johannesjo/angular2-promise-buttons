@@ -1,4 +1,4 @@
-import 'core-js/fn/object/entries';
+// import 'core-js/fn/object/entries';
 import {Component, DebugElement, ElementRef} from '@angular/core';
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {PromiseBtnDirective} from './promise-btn.directive';

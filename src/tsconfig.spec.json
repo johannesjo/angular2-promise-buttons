@@ -1,5 +1,5 @@
 {
-  "extends": "../../tsconfig.json",
+  "extends": "../tsconfig.json",
   "compilerOptions": {
     "outDir": "../out-tsc/spec",
     "baseUrl": "./",
@@ -10,9 +10,9 @@
     ]
   },
   "files": [
-    "../../scripts/test.ts",
+    "../scripts/test.ts",
     "polyfills.ts",
-    "../../src/promise-btn.directive.spec.ts"
+    "../../projects/angular2-promise-buttons/promise-btn.directive.spec.ts"
   ],
   "include": [
     "../../src/**/*.spec.ts",

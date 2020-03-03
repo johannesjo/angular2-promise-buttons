@@ -1,0 +1,25 @@
+{
+  "name": "angular2-promise-buttons",
+  "version": "4.0.1",
+  "description": "Chilled loading buttons for angular",
+  "author": "johannesjo <contact@super-productivity.com> (http://super-productivity.com)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/johannesjo/angular2-promise-buttons.git"
+  },
+  "keywords": [
+    "angular",
+    "javascript",
+    "typescript",
+    "material",
+    "css",
+    "css variables",
+    "angular-material"
+  ],
+  "peerDependencies": {
+    "@angular/common": "^9.0.4",
+    "@angular/core": "^9.0.4",
+    "@angular/material": "^9.0.4"
+  }
+}

@@ -1,5 +1,5 @@
 {
-  "extends": "../../tsconfig.json",
+  "extends": "../tsconfig.json",
   "compilerOptions": {
     "outDir": "../tmp/out-tsc",
     "sourceMap": true
@@ -7,15 +7,15 @@
   "exclude": [
     "**/*.spec.ts",
     "../../src/**/*.spec.ts",
-    "../../scripts/test.ts"
+    "../scripts/test.ts"
   ],
   "include": [
     "../../src/**/*.*",
     "./**/*.*"
   ],
   "files": [
-    "../../scripts/typings.d.ts",
-    "../../src/index.ts",
+    "../scripts/typings.d.ts",
+    "../../projects/angular2-promise-buttons/index.ts",
     "./main.ts"
   ]
 }
