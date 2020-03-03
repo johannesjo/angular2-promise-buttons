@@ -22,7 +22,7 @@
     "copy": "run-s copy.licence copy.readme",
     "copy.licence": "copyfiles ./LICENSE ./dist/angular2-promise-buttons",
     "copy.readme": "copyfiles ./README.md ./dist/angular2-promise-buttons",
-    "pub": "run-s lib && cd ./dist/lib/ && npm publish && cd .. && cd ..",
+    "pub": "run-s lib && cd ./dist/angular2-promise-buttons/ && npm publish && cd .. && cd ..",
     "patch": "npm version patch && cd ./projects/angular2-promise-buttons && npm version patch && cd .. && cd .. && git add . && git commit -am\"chore: update lib version\"",
     "patch-release_": "run-s lib demo patch pub",
     "patch-release": "npm run patch-release_",
