@@ -28,13 +28,6 @@
     "test-coverage": "ng test --code-coverage",
     "coveralls": "YOURPACKAGE_COVERAGE=1 cat ./coverage/lcov.info | ./node_modules/.bin/coveralls"
   },
-  "main": "dist/index.js",
-  "typings": "dist/index.d.ts",
-  "files": [
-    "dist/**/*",
-    "LICENCE",
-    "*.md"
-  ],
   "peerDependencies": {},
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.900.1",
@@ -73,6 +66,7 @@
     "karma-cli": "~2.0.0",
     "karma-coverage-istanbul-reporter": "^2.1.1",
     "karma-jasmine": "~3.1.0",
+    "karma-jasmine-html-reporter": "^1.5.2",
     "karma-phantomjs-launcher": "^1.0.4",
     "marked": "^0.8.0",
     "npm-run-all": "^4.1.5",
@@ -81,8 +75,8 @@
     "rxjs": "^6.5.4",
     "rxjs-compat": "^6.5.4",
     "ts-node": "~8.6.2",
-    "tslint": "^6.0.0",
     "tslib": "^1.10.0",
+    "tslint": "^6.0.0",
     "typescript": "~3.7.5",
     "wallaby-webpack": "3.9.15",
     "web-animations-js": "^2.3.2",

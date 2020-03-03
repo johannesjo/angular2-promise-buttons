@@ -12,10 +12,9 @@
     "angular",
     "javascript",
     "typescript",
-    "material",
-    "css",
-    "css variables",
-    "angular-material"
+    "button",
+    "promise",
+    "spinner"
   ],
   "peerDependencies": {
     "@angular/common": "^9.0.4",
