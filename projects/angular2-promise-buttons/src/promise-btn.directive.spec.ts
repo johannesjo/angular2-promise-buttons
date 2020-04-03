@@ -5,6 +5,7 @@ import {PromiseBtnDirective} from './promise-btn.directive';
 import {userCfg} from './user-cfg';
 import {By} from '@angular/platform-browser';
 import {Observable} from 'rxjs';
+import {delay} from 'rxjs/operators';
 import * as BlueBird from 'bluebird';
 import * as jQuery from 'jquery';
 
@@ -98,7 +99,7 @@ describe('PromiseBtnDirective', () => {
                 subscriber.complete();
               });
 
-              return observable.subscribe(
+              return observable.pipe(delay(0)).subscribe(
                 () => {
                 },
                 () => {
@@ -129,7 +130,7 @@ describe('PromiseBtnDirective', () => {
           const observable = new Observable((subscriber) => {
             subscriber.complete();
           });
-          fixture.componentInstance.testPromise = observable.subscribe(
+          fixture.componentInstance.testPromise = observable.pipe(delay(0)).subscribe(
             () => {
             },
             () => {
@@ -149,6 +150,26 @@ describe('PromiseBtnDirective', () => {
           expect(() => {
             fixture.detectChanges();
           }).toThrowError('promiseBtn must be an instance of Subscription, instance of Observable given');
+        });
+        it('should do nothing with a closed subscription',  () => {
+          spyOn(promiseBtnDirective, 'initLoadingState');
+
+          const observable = new Observable((subscriber) => {
+            subscriber.complete();
+          });
+          // subscription will immediately complete and close
+          fixture.componentInstance.testPromise = observable.subscribe(
+            () => {
+            },
+            () => {
+            },
+            () => {
+            },
+          );
+          fixture.detectChanges();
+
+          expect(promiseBtnDirective.promise).toBe(undefined);
+          expect(promiseBtnDirective.initLoadingState).not.toHaveBeenCalled();
         });
       });
 

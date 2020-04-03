@@ -48,9 +48,12 @@ export class PromiseBtnDirective implements OnDestroy, AfterContentInit {
     if (isObservable) {
       throw new TypeError('promiseBtn must be an instance of Subscription, instance of Observable given');
     } else if (isSubscription) {
-      this.promise = new Promise((resolve) => {
-        (passedValue as Subscription).add(resolve);
-      });
+      const sub: Subscription = passedValue;
+      if (!sub.closed) {
+        this.promise = new Promise((resolve) => {
+          sub.add(resolve);
+        });
+      }
     } else if (isPromise) {
       this.promise = passedValue;
     } else if (isBoolean) {
