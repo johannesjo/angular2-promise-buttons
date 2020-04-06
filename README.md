@@ -29,7 +29,7 @@ npm install angular2-promise-buttons -S
 
 And add it as a dependency to your main module
 ```typescript
-import {Angular2PromiseButtonModule} from 'angular2-promise-buttons/dist';
+import {Angular2PromiseButtonModule} from 'angular2-promise-buttons';
 
 @NgModule({
   imports: [
