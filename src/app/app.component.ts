@@ -189,7 +189,4 @@ export class AppComponent {
       });
   }
 
-  initBooleanFor5Seconds() {
-
-  }
 }
