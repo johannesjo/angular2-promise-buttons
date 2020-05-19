@@ -74,16 +74,17 @@ export class PromiseBtnDirective implements OnDestroy, AfterContentInit, OnChang
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.hasOwnProperty("disabledValueOfButton")) {
-      if (this.cfg.disableBtn && typeof this.cfg.btnLoadingClass === 'string') {
+      if (this.cfg.disableBtn) {
         // When the disableBtn config is on, the disabled state/attribute is set when the loadingindicator is shown
-        // When the loading indicator is removed, the disabled state must react on the disabled value of the button
-        if (this.btnEl.classList.contains(this.cfg.btnLoadingClass)) {
-          // it is loading, so do not change the loading state
-        } else if (this.disabledValueOfButton) {
-          this.btnEl.setAttribute('disabled', 'disabled');
-        } else {
-          this.btnEl.removeAttribute('disabled');
-        }
+        // When the loading indicator is removed (the isPromiseDone = true), the disabled state must react on the disabled value of the button
+        if (this.isPromiseDone) {
+          if (this.disabledValueOfButton) {
+            this.btnEl.setAttribute('disabled', 'disabled');
+          } else {
+            this.btnEl.removeAttribute('disabled');
+          }
+
+        } // else the button is loading, so do not change the disabled loading state.
       }
     }
   }
