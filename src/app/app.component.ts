@@ -86,6 +86,8 @@ export class AppComponent {
   endlessObservable: Subscription;
   chainedObservableValue: any;
   chainedObservable: Subscription;
+  customDisabled = true;
+  myBoolWithCustomDisabled = false;
 
   constructor() {
     this.endlessInitial();
@@ -186,4 +188,5 @@ export class AppComponent {
         this.promiseIndex++;
       });
   }
+
 }
