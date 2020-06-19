@@ -1,10 +1,9 @@
 import {Component} from '@angular/core';
-import {Observable} from 'rxjs';
-import {Subscription} from 'rxjs';
+import {Observable, Subscription} from 'rxjs';
 
 const STANDARD_DELAY = 1000;
 const FAKE_FACT = {
-  success () {
+  success() {
     return new Promise((fulfill) => {
       setTimeout(() => {
         fulfill({
@@ -28,7 +27,8 @@ const FAKE_FACT = {
     });
   },
   endlessObservable: (): Observable<any> => {
-    return new Observable(() => {});
+    return new Observable(() => {
+    });
   },
   initSuccessObservable: (): Observable<any> => {
     return new Observable(observer => {
@@ -88,6 +88,7 @@ export class AppComponent {
   chainedObservable: Subscription;
   customDisabled = true;
   myBoolWithCustomDisabled = false;
+  isOutsideDisabled = true;
 
   constructor() {
     this.endlessInitial();
@@ -118,20 +119,25 @@ export class AppComponent {
   initSuccessObservable() {
     const observable = FAKE_FACT.initSuccessObservable();
     this.successObservable = observable.subscribe(
-      () => {},
-      () => {},
-      () => {}
+      () => {
+      },
+      () => {
+      },
+      () => {
+      }
     );
   }
 
   initErrorObservable() {
     const observable = FAKE_FACT.initErrorObservable();
     this.errorObservable = observable.subscribe(
-      () => {},
+      () => {
+      },
       (msg) => {
         console.log(msg);
       },
-      () => {},
+      () => {
+      },
     );
   }
 
@@ -142,7 +148,8 @@ export class AppComponent {
       (value: number) => {
         this.chainedObservableValue = value;
       },
-      () => {},
+      () => {
+      },
       () => {
         this.chainedObservableValue = 'COMPLETED';
       }
@@ -152,18 +159,24 @@ export class AppComponent {
   initEndlessObservable() {
     const observable = FAKE_FACT.endlessObservable();
     this.endlessObservable = observable.subscribe(
-      () => {},
-      () => {},
-      () => {},
+      () => {
+      },
+      () => {
+      },
+      () => {
+      },
     );
   }
 
   initEndlessInitialObservable() {
     const observable = FAKE_FACT.endlessObservable();
     this.endlessInitialObservable = observable.subscribe(
-      () => {},
-      () => {},
-      () => {},
+      () => {
+      },
+      () => {
+      },
+      () => {
+      },
     );
   }
 

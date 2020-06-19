@@ -23,6 +23,7 @@ class MockElementRef extends ElementRef {
 class TestComponent {
   testPromise: any;
   setPromise: any;
+  isDisabled: any;
 }
 
 
@@ -151,7 +152,7 @@ describe('PromiseBtnDirective', () => {
             fixture.detectChanges();
           }).toThrowError('promiseBtn must be an instance of Subscription, instance of Observable given');
         });
-        it('should do nothing with a closed subscription',  () => {
+        it('should do nothing with a closed subscription', () => {
           spyOn(promiseBtnDirective, 'initLoadingState');
 
           const observable = new Observable((subscriber) => {
@@ -570,6 +571,25 @@ describe('PromiseBtnDirective', () => {
         const spinnerEl = buttonElement.querySelector('div');
         expect(spinnerEl && spinnerEl.outerHTML).toBe('<div class="test">loading</div>');
       });
+    });
+  });
+
+
+  describe('simple boolean', () => {
+    let fixture: ComponentFixture<TestComponent>;
+
+    it('should not remove', () => {
+      fixture = TestBed.overrideComponent(TestComponent, {
+        set: {
+          template: '<button [promiseBtn]="testPromise" [disabled]="isDisabled">BUTTON_TEXT</button>'
+        }
+      }).createComponent(TestComponent);
+      const buttonDebugElement = fixture.debugElement.query(By.css('button'));
+      const buttonElement = (buttonDebugElement.nativeElement as HTMLButtonElement);
+      fixture.componentInstance.isDisabled = true;
+
+      fixture.detectChanges();
+      expect(buttonElement.hasAttribute('disabled')).toBe(true);
     });
   });
 });

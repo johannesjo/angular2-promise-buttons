@@ -100,6 +100,23 @@
 
   <button class="btn btn-raised"
           [disabled]="customDisabled"
-          [promiseBtn]="myBoolWithCustomDisabled">Work with a boolean flag, but with custom disabled flag set to true after clicking, the button should remain disabled
+          [promiseBtn]="myBoolWithCustomDisabled">Work with a boolean flag, but with custom disabled flag set to true
+    after clicking, the button should remain disabled
   </button>
+</div>
+
+<div>
+  <h2>Dynamic [disabled] setting </h2>
+
+  <button class="btn btn-raised"
+          (click)="isOutsideDisabled=!isOutsideDisabled">Toggle disabled via [disabled]={{isOutsideDisabled}}
+  </button>
+
+  <button class="btn btn-raised"
+          (click)="myBoolWithCustomDisabled=!myBoolWithCustomDisabled">Toggle promise button
+  </button>
+
+  <button class="btn btn-raised"
+          [disabled]="isOutsideDisabled"
+          [promiseBtn]="myBoolWithCustomDisabled">This is the button</button>
 </div>
