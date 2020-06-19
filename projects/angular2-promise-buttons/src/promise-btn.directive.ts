@@ -1,4 +1,4 @@
-import {AfterContentInit, Directive, ElementRef, HostListener, Inject, Input, OnDestroy, OnChanges, SimpleChanges} from '@angular/core';
+import {AfterContentInit, Directive, ElementRef, HostListener, Inject, Input, OnDestroy} from '@angular/core';
 import {Observable, Subscription} from 'rxjs';
 import {DEFAULT_CFG} from './default-promise-btn-config';
 import {PromiseBtnConfig} from './promise-btn-config';
@@ -8,7 +8,7 @@ import {userCfg} from './user-cfg';
   selector: '[promiseBtn]'
 })
 
-export class PromiseBtnDirective implements OnDestroy, AfterContentInit, OnChanges {
+export class PromiseBtnDirective implements OnDestroy, AfterContentInit {
   cfg: PromiseBtnConfig;
   // the timeout used for min duration display
   minDurationTimeout: number;
@@ -22,8 +22,21 @@ export class PromiseBtnDirective implements OnDestroy, AfterContentInit, OnChang
   // NOTE: we need the type any here as we might deal with custom promises like bluebird
   promise: any;
 
-  @Input("disabled")
-  disabledValueOfButton: boolean; // this is added to fix the overriding of the disabled state by the loading indicator button. https://github.com/johannesjo/angular2-promise-buttons/issues/34
+  // this is added to fix the overriding of the disabled state by the loading indicator button.
+  // https://github.com/johannesjo/angular2-promise-buttons/issues/34
+  @Input('disabled')
+  set isDisabledFromTheOutsideSetter(v: boolean) {
+    this.isDisabledFromTheOutside = v;
+    if (v) {
+      // disabled means always disabled
+      this.btnEl.setAttribute('disabled', 'disabled');
+    } else if (this.isPromiseDone || this.isPromiseDone === undefined) {
+      this.btnEl.removeAttribute('disabled');
+    }
+    // else the button is loading, so do not change the disabled loading state.
+  }
+
+  isDisabledFromTheOutside: boolean;
 
   private _fakePromiseResolve: () => void;
 
@@ -70,23 +83,6 @@ export class PromiseBtnDirective implements OnDestroy, AfterContentInit, OnChang
     this.prepareBtnEl(this.btnEl);
     // trigger changes once to handle initial promises
     this.checkAndInitPromiseHandler(this.btnEl);
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes.hasOwnProperty("disabledValueOfButton")) {
-      if (this.cfg.disableBtn) {
-        // When the disableBtn config is on, the disabled state/attribute is set when the loadingindicator is shown
-        // When the loading indicator is removed (the isPromiseDone = true), the disabled state must react on the disabled value of the button
-        if (this.isPromiseDone) {
-          if (this.disabledValueOfButton) {
-            this.btnEl.setAttribute('disabled', 'disabled');
-          } else {
-            this.btnEl.removeAttribute('disabled');
-          }
-
-        } // else the button is loading, so do not change the disabled loading state.
-      }
-    }
   }
 
   ngOnDestroy() {
@@ -172,8 +168,8 @@ export class PromiseBtnDirective implements OnDestroy, AfterContentInit, OnChang
 
   enableBtn(btnEl: HTMLElement) {
     if (this.cfg.disableBtn) {
-      if (this.disabledValueOfButton) {
-        btnEl.setAttribute('disabled', String(this.disabledValueOfButton));
+      if (this.isDisabledFromTheOutside) {
+        btnEl.setAttribute('disabled', 'disabled');
       } else {
         btnEl.removeAttribute('disabled');
       }
