@@ -17,7 +17,7 @@
     ]
   },
   "include": [
-    "src/**/*"
+    "projects/angular2-promise-buttons-demo/src/**/*"
   ],
   "exclude": [
     "node_modules",
@@ -25,7 +25,7 @@
   ],
   "files": [
     "./scripts/typings.d.ts",
-    "./src/index.ts"
+    "./projects/angular2-promise-buttons-demo/src/index.ts"
   ],
   "angularCompilerOptions": {
     "skipTemplateCodegen": true
