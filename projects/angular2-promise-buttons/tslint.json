@@ -1,5 +1,5 @@
 {
-  "extends": "../../tslint.json",
+  "extends": "../angular2-promise-buttons-demo/tslint.json",
   "rules": {
     "directive-selector": [
       false,
