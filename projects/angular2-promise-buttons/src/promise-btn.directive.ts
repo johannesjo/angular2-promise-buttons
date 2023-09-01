@@ -38,7 +38,7 @@ export class PromiseBtnDirective implements OnDestroy, AfterContentInit {
 
   isDisabledFromTheOutside: boolean;
 
-  private _fakePromiseResolve: () => void;
+  private _fakePromiseResolve: (value: void) => void;
 
   constructor(el: ElementRef,
               @Inject(userCfg) cfg: PromiseBtnConfig) {

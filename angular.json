@@ -22,7 +22,6 @@
             "main": "projects/angular2-promise-buttons-demo/src/main.ts",
             "polyfills": "projects/angular2-promise-buttons-demo/src/polyfills.ts",
             "tsConfig": "projects/angular2-promise-buttons-demo/tsconfig.app.json",
-            "aot": true,
             "assets": [
               "projects/angular2-promise-buttons-demo/src/favicon.ico",
               "projects/angular2-promise-buttons-demo/src/assets"
@@ -30,7 +29,13 @@
             "styles": [
               "projects/angular2-promise-buttons-demo/src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true
           },
           "configurations": {
             "production": {
@@ -59,7 +64,8 @@
                 }
               ]
             }
-          }
+          },
+          "defaultConfiguration": ""
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
@@ -111,17 +117,15 @@
       "prefix": "lib",
       "architect": {
         "build": {
-          "builder": "@linnenschmidt/build-ng-packagr:build",
+          "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
             "tsConfig": "projects/angular2-promise-buttons/tsconfig.lib.json",
-            "project": "projects/angular2-promise-buttons/ng-package.json",
-            "assets": [
-              {
-                "glob": "**/*.scss",
-                "input": "./src/lib",
-                "output": "./"
-              }
-            ]
+            "project": "projects/angular2-promise-buttons/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/angular2-promise-buttons/tsconfig.lib.prod.json"
+            }
           }
         },
         "test": {
