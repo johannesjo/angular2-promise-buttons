@@ -26,6 +26,9 @@
     "patch": "npm version patch && cd ./projects/angular2-promise-buttons && npm version patch && cd .. && cd .. && git add . && git commit -am\"chore: update lib version\"",
     "patch-release_": "run-s lib demo patch pub",
     "patch-release": "npm run patch-release_",
+    "major": "npm version major && cd ./projects/angular2-promise-buttons && npm version major && cd .. && cd .. && git add . && git commit -am\"chore: update lib version\"",
+    "major-release_": "run-s lib demo major pub",
+    "major-release": "npm run major-release_",
     "test-coverage": "ng test --browsers ChromeHeadless --code-coverage --watch=false",
     "coveralls": "YOURPACKAGE_COVERAGE=1 cat ./coverage/lcov.info | ./node_modules/.bin/coveralls"
   },
